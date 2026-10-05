@@ -1,12 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// The site is served from rolandcorreia.com/projects/diluted-stories/, so every
-// URL has to sit under that base path. Internal links go through href() in
-// src/lib/paths.ts so they never hard-code it.
+// The site is served from the root of dilutedstories.com. `site` is used for
+// canonical and Open Graph URLs; keep it in step with src/lib/paths.ts.
 export default defineConfig({
-  site: 'https://rolandcorreia.com',
-  base: '/projects/diluted-stories',
+  site: 'https://dilutedstories.com',
   trailingSlash: 'always',
   build: {
     // One small stylesheet per page: inline it so there is no render-blocking request.
