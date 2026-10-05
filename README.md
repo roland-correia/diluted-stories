@@ -1,7 +1,7 @@
 # Diluted Stories
 
 Short videos and one-page stories on tech and money research. Built with [Astro](https://astro.build),
-served at `rolandcorreia.com/projects/diluted-stories/`.
+served at `dilutedstories.com`.
 
 ## Run it on your computer
 
@@ -9,7 +9,7 @@ You need Node 22.12 or newer (`brew install node`). Then, from this folder:
 
 ```bash
 npm install     # once, to download the dependencies
-npm run dev     # live preview at http://localhost:4321/projects/diluted-stories/
+npm run dev     # live preview at http://localhost:4321/
 ```
 
 Stop it with `Ctrl+C`. `npm run dev` also shows **draft** stories.
@@ -66,10 +66,17 @@ Choices worth knowing about:
   browser only. A tiny script in `Base.astro` applies them before the page paints.
 - **No third-party requests.** Fonts are served from this site, and the video poster links out
   instead of embedding a player, so nothing from TikTok, Instagram or Google loads on the page.
-- **Links use `href()`** from `src/lib/paths.ts`, so nothing hard-codes the `/projects/diluted-stories` base path.
+- **Links use `href()`** from `src/lib/paths.ts`, so nothing hard-codes a base path.
 
 ## How it deploys
 
-`.github/workflows/deploy.yml` (in the repo root) runs on every pull request, to catch problems,
-and on every merge to `main`, to publish. It builds this app, copies the portfolio's plain HTML
-files next to it, and uploads the result to GitHub Pages.
+`.github/workflows/deploy.yml` runs on every pull request, to catch problems, and on every merge to
+`main`, to publish. It installs, type-checks and builds the site, then uploads `dist/` to GitHub Pages.
+
+The custom domain is set in the repository's **Settings > Pages** (not in a `CNAME` file, which
+Actions-based deploys ignore). `dilutedstories.com` needs these DNS records at the registrar:
+
+- Four `A` records on the apex (`@`): `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+- A `CNAME` record for `www` pointing to `roland-correia.github.io`
+
+Then tick **Enforce HTTPS** once GitHub has issued the certificate.
