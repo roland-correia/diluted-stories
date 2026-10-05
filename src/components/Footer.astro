@@ -20,6 +20,18 @@ const year = new Date().getFullYear();
     <a href={href('/topics/')}>Topics</a>
   </nav>
   <p class="footer-fine">
-    © {year} Diluted Stories. <a href="mailto:info@dilutedstories.com">info@dilutedstories.com</a>
+    © {year} Diluted Stories. <a href="#" data-email data-user="info" data-domain="dilutedstories.com">info [at] dilutedstories [dot] com</a>
   </p>
 </footer>
+
+<script>
+  // The address is put together here instead of being written as
+  // mailto:user@domain in the HTML, which keeps it away from bots that scan
+  // raw HTML for "@". Without JavaScript the readable "[at]" form stays on
+  // the page. This stops mass harvesting, not a determined reader.
+  document.querySelectorAll<HTMLAnchorElement>('[data-email]').forEach((link) => {
+    const address = `${link.dataset.user}@${link.dataset.domain}`;
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+  });
+</script>
