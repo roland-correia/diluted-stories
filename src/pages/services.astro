@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactCta from '../components/ContactCta.astro';
+import { services } from '../data/services';
+---
+
+<Base
+  title="Services"
+  description="Marketing campaigns, social media ads and website development for growing businesses."
+  path="/services/"
+>
+  <section class="hero">
+    <p class="kicker">Services</p>
+    <h1>How we can help your business</h1>
+    <p class="lead">Three services. Use one on its own, or combine them.</p>
+  </section>
+
+  {
+    services.map((service) => (
+      <section class="section service" id={service.id} aria-labelledby={`${service.id}-title`}>
+        <h2 id={`${service.id}-title`}>{service.name}</h2>
+        <p class="lead">{service.blurb}</p>
+        <h3>What is included</h3>
+        <ul class="ticklist">
+          {service.included.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    ))
+  }
+
+  <ContactCta heading="Not sure what you need?" text="Tell us about your business and we will suggest where to start." />
+</Base>

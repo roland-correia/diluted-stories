@@ -1,0 +1,24 @@
+---
+// The closing call to action used at the bottom of the main pages.
+import EmailLink from './EmailLink.astro';
+import { contact } from '../lib/site';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+
+const {
+  heading = 'Ready to talk?',
+  text = 'Tell us about your business and what you would like to achieve.',
+} = Astro.props;
+---
+
+<section class="cta" aria-labelledby="cta-title">
+  <h2 id="cta-title">{heading}</h2>
+  <p>{text}</p>
+  <p class="cta-lines">
+    <span><b>Email</b> <EmailLink /></span>
+    <span><b>Phone</b> <a href={contact.phoneHref}>{contact.phoneDisplay}</a></span>
+  </p>
+</section>

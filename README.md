@@ -1,7 +1,9 @@
 # Diluted Stories
 
-Short videos and one-page stories on tech and money research. Built with [Astro](https://astro.build),
-served at `dilutedstories.com`.
+The website for Diluted Stories, a business consultancy that runs marketing campaigns and social
+media ads and builds websites. Built with [Astro](https://astro.build), served at `dilutedstories.com`.
+
+Pages: Home, Services, Blog, Team and Contact.
 
 ## Run it on your computer
 
@@ -12,61 +14,54 @@ npm install     # once, to download the dependencies
 npm run dev     # live preview at http://localhost:4321/
 ```
 
-Stop it with `Ctrl+C`. `npm run dev` also shows **draft** stories.
+Stop it with `Ctrl+C`. `npm run dev` also shows **draft** blog posts.
 
 | Command | What it does |
 | --- | --- |
-| `npm run dev` | Live preview while you write. Drafts are visible. |
+| `npm run dev` | Live preview while you work. Drafts are visible. |
 | `npm run check` | Type-checks the code. Run it before you commit. |
 | `npm run build` | Builds the real site into `dist/`. Drafts are left out. |
 | `npm run preview` | Serves what `build` produced. |
 
-## Publish a story
+## Where to change things
 
-1. Copy `src/content/articles/right-to-repair.md` and rename it. The file name becomes the URL
-   (`my-story.md` is `/articles/my-story/`).
-2. Fill in the front matter (the block between the `---` lines) and write the story under it.
-3. Run `npm run dev` and read it the way a visitor will: card by card.
-4. Check every claim and figure against its source. Then change `draft: true` to `draft: false`.
-5. Remove the story's line from `src/data/upcoming.ts` if it was listed there.
+| To change | Edit |
+| --- | --- |
+| Email address and phone number | `src/lib/site.ts` (`contact`) |
+| Menu links | `src/lib/site.ts` (`nav`) |
+| The three services and the "how we work" steps | `src/data/services.ts` |
+| The team | `src/data/team.ts` |
+| Wording on the home, contact and other pages | the file in `src/pages/` |
+| Colours, type and layout | `src/styles/global.css` |
+
+The email address is split in two (`emailUser` and `emailDomain`) and put together in the browser,
+so it never appears whole in the page source. That keeps it away from bots that scan for "@". The
+phone number is written out normally.
+
+### The team page
+
+Each person in `src/data/team.ts` is a card. Entries marked `placeholder: true` show a
+"Placeholder" label. Replace the name, role and bio, then delete the `placeholder` line.
+
+## Write a blog post
+
+1. Copy a file in `src/content/blog/` and rename it. The file name becomes the address
+   (`my-post.md` is `/blog/my-post/`).
+2. Fill in the front matter (the block between the `---` lines): `title`, `description` (40 to 160
+   characters, used for search results and link previews), `publishedAt`, and leave `draft: true`
+   while you write.
+3. Write the post under it in Markdown. `##` makes a subheading.
+4. Run `npm run dev` and read it the way a visitor will.
+5. When it is ready, change `draft: true` to `draft: false`.
 6. Commit on a new branch, open a pull request, and merge it. The site rebuilds and deploys itself.
 
-Every story needs these fields, and the build **fails with a clear message** if one is missing:
+Reading time is worked out from the words in the post. To preview drafts in a production build, run
+`PUBLIC_SHOW_DRAFTS=true npm run build`.
 
-| Field | What it is |
-| --- | --- |
-| `title`, `pillar` | The headline, and `tech`, `money` or `style`. |
-| `finding` | Card 1. One sentence, 20 to 180 characters. |
-| `posterCaption` | The big words on the video poster. |
-| `paperMinutes` | Optional. About how long the source takes to read. Only add it once you have checked; without it the minutes bar is left out. The page's own reading time is worked out for you. |
-| `storyHeading` | The heading above card 2. The story itself is the text below the front matter. |
-| `caveat` | Card 3. A `headline` and a `detail`: what the research does not show. |
-| `sources` | Card 4. At least one, with title, authors, publisher, year, url and `access`. |
-| `video` | Optional. `url` and `duration` (`0:58`). Adds the "Watch" link on the poster. |
-| `notice` | Optional. A line at the top of the story, such as a correction or "sample story". |
-| `publishedAt`, `draft` | The date, and whether it is still a draft. |
+## Reading settings
 
-## How it is put together
-
-```
-src/content.config.ts   the rules every story must follow (the schema)
-src/content/articles/   the stories, one Markdown file each
-src/pages/              the pages: home, topics, one topic, one story
-src/layouts/Base.astro  the page shell, share tags and reading settings
-src/components/         the wordmark, video poster, minutes bar, settings dialog
-src/scripts/            settings.ts (the Aa dialog) and article-cards.ts (one card at a time)
-src/styles/global.css   colours, type and layout, all in one place
-design/og-default.html  the source for the default share image
-```
-
-Choices worth knowing about:
-
-- **One card at a time is progressive enhancement.** Without JavaScript the whole story is on the page.
-- **Reading settings** (size, spacing, background, one card or whole page) are saved in the visitor's
-  browser only. A tiny script in `Base.astro` applies them before the page paints.
-- **No third-party requests.** Fonts are served from this site, and the video poster links out
-  instead of embedding a player, so nothing from TikTok, Instagram or Google loads on the page.
-- **Links use `href()`** from `src/lib/paths.ts`, so nothing hard-codes a base path.
+The **Aa** button opens a small panel for text size, spacing and background. The choices are saved
+in the visitor's browser only. A tiny script in `Base.astro` applies them before the page paints.
 
 ## How it deploys
 
@@ -79,4 +74,8 @@ Actions-based deploys ignore). `dilutedstories.com` needs these DNS records at t
 - Four `A` records on the apex (`@`): `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
 - A `CNAME` record for `www` pointing to `roland-correia.github.io`
 
-Then tick **Enforce HTTPS** once GitHub has issued the certificate.
+## Other files
+
+- `public/` holds the tab icons and `og-default.png`, the image shown in link previews. Its source
+  is `design/og-default.html`; the comment at the top of that file explains how to regenerate it.
+- `design/ds-logo.png` is the original logo artwork the tab icons were made from.

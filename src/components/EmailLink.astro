@@ -1,0 +1,19 @@
+---
+// The address is put together in the browser from two separate pieces, so it
+// never appears whole in the page source. That keeps it away from bots that scan
+// raw HTML for "@". Without JavaScript the readable "[at]" form stays on the
+// page. This stops mass harvesting, not a determined reader.
+import { contact } from '../lib/site';
+---
+
+<a href="#" data-email data-user={contact.emailUser} data-domain={contact.emailDomain}>
+  {contact.emailUser} [at] {contact.emailDomain.replace('.', ' [dot] ')}
+</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-email]').forEach((link) => {
+    const address = `${link.dataset.user}@${link.dataset.domain}`;
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+  });
+</script>

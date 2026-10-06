@@ -1,7 +1,7 @@
 // Builds a URL under the site's base path. The site is served from the root of
 // its domain, so the base is empty, but links still go through href() so a
 // change to `base` in astro.config.mjs needs no edits elsewhere.
-// Pass paths that end in a slash for pages, e.g. href('/topics/tech/').
+// Pass paths that end in a slash for pages, e.g. href('/services/').
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export function href(path = '/'): string {

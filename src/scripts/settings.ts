@@ -1,4 +1,4 @@
-// Reading settings: text size, spacing, background, and one-card-at-a-time.
+// Reading settings: text size, spacing and background.
 // Saved in this browser's localStorage. The tiny inline script in Base.astro
 // applies them before first paint; this file wires up the dialog and saves changes.
 
@@ -8,7 +8,6 @@ const allowed = {
   size: ['sm', 'md', 'lg'],
   space: ['normal', 'roomy'],
   bg: ['auto', 'soft', 'cream', 'dark'],
-  flow: ['cards', 'page'],
 } as const;
 
 type SettingName = keyof typeof allowed;

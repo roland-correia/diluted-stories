@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, readMinutes, formatDate } from '../../lib/posts';
+import { href } from '../../lib/paths';
+
+const posts = await getPosts();
+---
+
+<Base
+  title="Blog"
+  description="Practical notes on marketing, search and the technology businesses use."
+  path="/blog/"
+>
+  <section class="hero">
+    <p class="kicker">Blog</p>
+    <h1>Practical notes on marketing and technology</h1>
+    <p class="lead">Search, social media, websites and the tools businesses use, explained plainly.</p>
+  </section>
+
+  {
+    posts.length > 0 ? (
+      <div class="grid two">
+        {posts.map((post) => (
+          <a class="card link" href={href(`/blog/${post.id}/`)}>
+            <h2>{post.data.title}</h2>
+            <p class="meta">
+              {formatDate(post.data.publishedAt)} · {readMinutes(post)} min read
+            </p>
+            <p>{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="card">Posts are on the way. In the meantime, get in touch if there is something you would like us to cover.</p>
+    )
+  }
+</Base>
