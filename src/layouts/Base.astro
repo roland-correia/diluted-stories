@@ -33,7 +33,9 @@ const canonical = absolute(path);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
+    <link rel="icon" href={href('/favicon.ico')} sizes="48x48" />
+    <link rel="icon" type="image/png" href={href('/icon-192.png')} sizes="192x192" />
+    <link rel="apple-touch-icon" href={href('/apple-touch-icon.png')} />
 
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content={type} />
