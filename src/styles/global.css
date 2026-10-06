@@ -301,7 +301,9 @@ article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
   display: inline-flex; align-items: center; min-height: 2.75rem;
   font-weight: 600; text-decoration: underline; text-underline-offset: 4px;
 }
-.footer-contact a { text-underline-offset: 4px; }
+/* Email, phone and social icons share one row, and wrap on a narrow screen. */
+.footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.75rem; }
+.footer-contact > a { display: inline-flex; align-items: center; min-height: 2.75rem; text-underline-offset: 4px; }
 .footer-fine { color: var(--muted); font-size: 0.8rem; }
 
 .socials { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
