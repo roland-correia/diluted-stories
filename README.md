@@ -77,6 +77,8 @@ Actions-based deploys ignore). `dilutedstories.com` needs these DNS records at t
 
 ## Other files
 
-- `public/` holds the tab icons and `og-default.png`, the image shown in link previews. Its source
-  is `design/og-default.html`; the comment at the top of that file explains how to regenerate it.
+- `public/` holds the tab icons and `og-share.png`, the image shown in link previews. Its source
+  is `design/og-share.html`; the comment at the top of that file explains how to regenerate it.
+  Keep all the text in the middle of that image: Instagram crops link previews to a centred square,
+  so anything near the left or right edge gets cut off there.
 - `design/ds-logo.png` is the original logo artwork the tab icons were made from.

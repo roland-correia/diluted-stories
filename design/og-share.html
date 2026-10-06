@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Diluted Stories share image</title>
+<!--
+  Source for public/og-share.png (1200x630, the size link previews use).
+  Run `npm install` first (the fonts come from node_modules), then from the repo root:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \
+      --window-size=1200,630 --screenshot=public/og-share.png "file://$PWD/design/og-share.html"
+
+  Everything sits in the centre 630px square on purpose. Instagram shows link
+  previews as a centred square crop, so anything outside that square (the left
+  and right 285px) is cut off there. Keep all text inside .safe.
+-->
+<style>
+  @font-face {
+    font-family: 'Newsreader Variable';
+    src: url('../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2');
+    font-weight: 200 800;
+  }
+  @font-face {
+    font-family: 'Lexend Variable';
+    src: url('../node_modules/@fontsource-variable/lexend/files/lexend-latin-wght-normal.woff2') format('woff2');
+    font-weight: 100 900;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; }
+  .card {
+    width: 1200px; height: 630px;
+    display: flex; align-items: center; justify-content: center;
+    background: #7a2331; color: #fbf2e7; text-align: center;
+  }
+  .safe { width: 520px; display: flex; flex-direction: column; align-items: center; gap: 34px; }
+  .wm { font-family: 'Newsreader Variable', Georgia, serif; font-size: 150px; line-height: 1; letter-spacing: -0.005em; }
+  .wm span { font-weight: var(--w); }
+  .tag { font-family: 'Newsreader Variable', Georgia, serif; font-size: 40px; font-weight: 600; line-height: 1.2; }
+  .sub { font-family: 'Lexend Variable', system-ui, sans-serif; font-size: 24px; line-height: 1.4; opacity: 0.9; }
+</style>
+
+<div class="card">
+  <div class="safe">
+    <div class="wm" aria-hidden="true">
+      <span style="--w: 800">D</span><span style="--w: 710">i</span><span style="--w: 620">l</span><span style="--w: 530">u</span><span style="--w: 440">t</span><span style="--w: 350">e</span><span style="--w: 260">d</span>
+    </div>
+    <p class="tag">Marketing, social media ads and websites for growing businesses.</p>
+    <p class="sub">dilutedstories.com</p>
+  </div>
+</div>
