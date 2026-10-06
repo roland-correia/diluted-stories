@@ -14,7 +14,7 @@ export const team: Person[] = [
   {
     name: 'Roland',
     role: 'Front-End Developer',
-    bio: 'Roland has more than five years of front-end development experience. He began freelancing at 17, motivated by the same goal he works towards today: helping local small businesses grow their digital presence. At Diluted Stories he builds the websites we deliver for clients.',
+    bio: 'Roland has more than five years of front-end development experience and a background in Computer Science. He began freelancing at 17, teaching himself Figma, WordPress and SEO, and now builds websites with a focus on accessibility and responsive design. He has done front-end consulting for Giftease Solutions, UX and prototyping work experience with Rufus Leonard, and a marketing internship at the University of Kent. That mix of design, code, search and marketing is what he brings to our websites and campaigns, with the same goal he started with: helping local small businesses grow their digital presence.',
     photo: {
       src: '/images/team/roland.jpg',
       alt: 'Roland in a white linen shirt, standing in front of a red wall',
