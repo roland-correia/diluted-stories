@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ContactCta from '../components/ContactCta.astro';
 import { team } from '../data/team';
+import { href } from '../lib/paths';
 ---
 
 <Base title="Team" description="The people who run Diluted Stories." path="/team/">
@@ -14,7 +15,11 @@ import { team } from '../data/team';
     {
       team.map((person) => (
         <article class="card person">
-          <span class="avatar" aria-hidden="true">{person.placeholder ? '?' : person.name.charAt(0)}</span>
+          {person.photo ? (
+            <img class="avatar" src={href(person.photo.src)} alt={person.photo.alt} width="800" height="1067" loading="lazy" decoding="async" />
+          ) : (
+            <span class="avatar" aria-hidden="true">{person.placeholder ? '?' : person.name.charAt(0)}</span>
+          )}
           {person.placeholder && <span class="chip">Placeholder</span>}
           <h2>{person.name}</h2>
           <p class="kicker">{person.role}</p>
