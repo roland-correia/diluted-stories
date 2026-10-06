@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import EmailLink from '../components/EmailLink.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { contact } from '../lib/site';
 ---
 
@@ -24,6 +25,11 @@ import { contact } from '../lib/site';
       <p class="kicker">Phone</p>
       <p class="big"><a href={contact.phoneHref}>{contact.phoneDisplay}</a></p>
     </div>
+  </section>
+
+  <section class="section" aria-labelledby="follow-title">
+    <h2 id="follow-title">Follow us</h2>
+    <SocialLinks labels />
   </section>
 
   <section class="section measure" aria-labelledby="include-title">

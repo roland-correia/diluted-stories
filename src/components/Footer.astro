@@ -2,6 +2,7 @@
 // Rendered once, by Base.astro, at the end of every page.
 import Wordmark from './Wordmark.astro';
 import EmailLink from './EmailLink.astro';
+import SocialLinks from './SocialLinks.astro';
 import { contact, nav } from '../lib/site';
 import { href } from '../lib/paths';
 
@@ -21,5 +22,6 @@ const year = new Date().getFullYear();
     <EmailLink /><br />
     <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
   </p>
-  <p class="footer-fine">© {year} Diluted Stories</p>
+  <SocialLinks />
+  <p class="footer-fine">© {year} Diluted Stories. All rights reserved.</p>
 </footer>

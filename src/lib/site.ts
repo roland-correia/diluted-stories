@@ -18,3 +18,10 @@ export const nav = [
   { label: 'Team', path: '/team/' },
   { label: 'Contact', path: '/contact/' },
 ] as const;
+
+// Social profiles, shown as icon links in the footer and on /contact/.
+// `icon` picks the drawing in SocialLinks.astro.
+export const socials = [
+  { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/diluted-stories' },
+  { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/dilutedstories/' },
+] as const;
