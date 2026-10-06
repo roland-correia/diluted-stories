@@ -18,10 +18,10 @@ const year = new Date().getFullYear();
     <a href={href('/')}>Home</a>
     {nav.map((item) => <a href={href(item.path)}>{item.label}</a>)}
   </nav>
-  <p class="footer-contact">
-    <EmailLink /><br />
+  <div class="footer-contact">
+    <EmailLink />
     <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
-  </p>
-  <SocialLinks />
+    <SocialLinks />
+  </div>
   <p class="footer-fine">© {year} Diluted Stories. All rights reserved.</p>
 </footer>
