@@ -14,7 +14,7 @@ export const team: Person[] = [
   {
     name: 'Roland',
     role: 'Front-End Developer',
-    bio: 'Roland has more than five years of front-end development experience, with a background in Computer Science and a marketing internship at the University of Kent. He began freelancing at 17 and now builds websites and runs social media and ads, helping local small businesses grow their digital presence.',
+    bio: 'Roland has more than five years of front-end development experience, with a background in Computer Science. He began freelancing at 17 and now builds websites and runs social media and ads for Diluted Stories. With the same passion to help local small businesses grow their digital presence.',
     photo: {
       src: '/images/team/roland.jpg',
       alt: 'Roland in a white linen shirt, standing in front of a red wall',
