@@ -36,10 +36,13 @@ const canonical = absolute(path);
 
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content={type} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={path === '/' ? SITE_NAME : pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={absolute('/og-default.png')} />
+    <meta property="og:image" content={absolute('/og-share.png')} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Diluted Stories: marketing, social media ads and websites for growing businesses." />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Runs before the page paints, so saved reading settings never flash the default look. -->
