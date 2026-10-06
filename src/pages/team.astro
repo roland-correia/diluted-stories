@@ -11,7 +11,7 @@ import { href } from '../lib/paths';
     <h1>The people behind Diluted Stories</h1>
   </section>
 
-  <section class="grid three" aria-label="Team members">
+  <section class="grid three top" aria-label="Team members">
     {
       team.map((person) => (
         <article class="card person">
@@ -23,7 +23,7 @@ import { href } from '../lib/paths';
           {person.placeholder && <span class="chip">Placeholder</span>}
           <h2>{person.name}</h2>
           <p class="kicker">{person.role}</p>
-          <p>{person.bio}</p>
+          {person.bio.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
         </article>
       ))
     }
