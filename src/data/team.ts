@@ -13,11 +13,11 @@ type Person = {
 export const team: Person[] = [
   {
     name: 'Roland',
-    role: 'Front-End Developer',
+    role: 'Digital Consultant',
     bio: 'Roland has over five years of front-end software development experience. He started his freelance career at 17 with the same passion he has today: helping local small businesses grow their digital presence.',
     photo: {
       src: '/images/team/roland.jpg',
-      alt: 'Roland in a beige quarter-zip jumper, standing in front of a brick wall and dark green railings',
+      alt: 'Roland in a beige quarter-zip jumper and jeans, standing in a street in front of a brick building',
     },
   },
   {
