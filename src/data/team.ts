@@ -30,9 +30,12 @@ export const team: Person[] = [
     },
   },
   {
-    name: 'Team member name',
-    role: 'Role',
-    bio: 'A short line about this person: their background and what they do at Diluted Stories.',
-    placeholder: true,
+    name: 'William',
+    role: 'Independent Business Strategist',
+    bio: 'William is an independent business strategist who has been part of the company since its founding days. He raises key structural issues and helps set the direction of the company, based on its key operating values.',
+    photo: {
+      src: '/images/team/william.jpg',
+      alt: 'William smiling and looking to one side, in a white shirt, standing in front of a red wall',
+    },
   },
 ];
