@@ -24,4 +24,5 @@ export const nav = [
 export const socials = [
   { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/diluted-stories' },
   { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/dilutedstories/' },
+  { name: 'GitHub', icon: 'github', url: 'https://github.com/Diluted-Stories' },
 ] as const;
