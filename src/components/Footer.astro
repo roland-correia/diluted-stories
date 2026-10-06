@@ -1,8 +1,8 @@
 ---
-// Rendered once, by Base.astro, at the end of every page. Gives the site a
-// consistent way back to its own home and topics, instead of each page
-// improvising its own ad-hoc "More in Tech"-style link.
+// Rendered once, by Base.astro, at the end of every page.
 import Wordmark from './Wordmark.astro';
+import EmailLink from './EmailLink.astro';
+import { contact, nav } from '../lib/site';
 import { href } from '../lib/paths';
 
 const year = new Date().getFullYear();
@@ -12,26 +12,14 @@ const year = new Date().getFullYear();
   <a class="wm-link" href={href('/')} aria-label="Diluted Stories home">
     <Wordmark />
   </a>
-  <p class="footer-lead">
-    Good research shouldn't sit behind a paywall. We take well-researched work and explain it plainly, with every source linked so you can check it yourself.
-  </p>
-  <nav class="footer-nav" aria-label="Diluted Stories">
+  <p class="footer-lead">Marketing, social media ads and websites for growing businesses.</p>
+  <nav class="footer-nav" aria-label="Footer">
     <a href={href('/')}>Home</a>
-    <a href={href('/topics/')}>Topics</a>
+    {nav.map((item) => <a href={href(item.path)}>{item.label}</a>)}
   </nav>
-  <p class="footer-fine">
-    © {year} Diluted Stories. <a href="#" data-email data-user="info" data-domain="dilutedstories.com">info [at] dilutedstories [dot] com</a>
+  <p class="footer-contact">
+    <EmailLink /><br />
+    <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
   </p>
+  <p class="footer-fine">© {year} Diluted Stories</p>
 </footer>
-
-<script>
-  // The address is put together here instead of being written as
-  // mailto:user@domain in the HTML, which keeps it away from bots that scan
-  // raw HTML for "@". Without JavaScript the readable "[at]" form stays on
-  // the page. This stops mass harvesting, not a determined reader.
-  document.querySelectorAll<HTMLAnchorElement>('[data-email]').forEach((link) => {
-    const address = `${link.dataset.user}@${link.dataset.domain}`;
-    link.href = `mailto:${address}`;
-    link.textContent = address;
-  });
-</script>

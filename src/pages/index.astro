@@ -1,36 +1,76 @@
 ---
 import Base from '../layouts/Base.astro';
-import Poster from '../components/Poster.astro';
-import { getArticles, readMinutes } from '../lib/articles';
+import ContactCta from '../components/ContactCta.astro';
+import { services, steps } from '../data/services';
+import { getPosts, readMinutes, formatDate } from '../lib/posts';
 import { href } from '../lib/paths';
 
-// Home is one story and one button. Everything else is a tap away.
-const [latest] = await getArticles();
+const latest = (await getPosts()).slice(0, 3);
 ---
 
 <Base title="Diluted Stories" path="/">
-  <h1>Research,<br /><span>diluted.</span></h1>
+  <section class="hero">
+    <p class="kicker">Business consultancy</p>
+    <h1>Marketing, social media ads and websites for growing businesses.</h1>
+    <p class="lead">We run your campaigns and ads, and build the website they send people to. Plain advice, no jargon.</p>
+    <div class="actions">
+      <a class="btn" href={href('/contact/')}>Get in touch</a>
+      <a class="btn ghost" href={href('/services/')}>Our services</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="services-title">
+    <p class="kicker">What we do</p>
+    <h2 id="services-title">Three ways we can help</h2>
+    <div class="grid three">
+      {
+        services.map((service) => (
+          <a class="card link" href={href(`/services/#${service.id}`)}>
+            <h3>{service.name}</h3>
+            <p>{service.blurb}</p>
+            <span class="more">Find out more</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-title">
+    <p class="kicker">How we work</p>
+    <h2 id="how-title">Simple from the first call</h2>
+    <ol class="grid three steps">
+      {
+        steps.map((step, i) => (
+          <li class="card">
+            <span class="kicker">Step {i + 1}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
 
   {
-    latest ? (
-      <article class="card">
-        <Poster
-          caption={latest.data.posterCaption}
-          chip={latest.data.video ? `Watch, ${latest.data.video.duration}` : undefined}
-          image={latest.data.heroImage && href(latest.data.heroImage.src)}
-          imageAlt={latest.data.heroImage?.alt}
-        />
-        <h2>{latest.data.title}</h2>
-        <p class="meta">{readMinutes(latest)} min read</p>
-        <a class="btn block" href={href(`/articles/${latest.id}/`)}>Open story</a>
-      </article>
-    ) : (
-      <div class="card empty">
-        <h2>The first stories are on the way</h2>
-        <p class="meta">Tech and money, diluted into one card at a time.</p>
-      </div>
+    latest.length > 0 && (
+      <section class="section" aria-labelledby="blog-title">
+        <p class="kicker">Blog</p>
+        <h2 id="blog-title">From the blog</h2>
+        <div class="grid three">
+          {latest.map((post) => (
+            <a class="card link" href={href(`/blog/${post.id}/`)}>
+              <h3>{post.data.title}</h3>
+              <p class="meta">
+                {formatDate(post.data.publishedAt)} · {readMinutes(post)} min read
+              </p>
+              <p>{post.data.description}</p>
+            </a>
+          ))}
+        </div>
+        <a class="textbtn" href={href('/blog/')}>All posts</a>
+      </section>
     )
   }
 
-  <a class="textbtn" href={href('/topics/')}>Explore topics</a>
+  <ContactCta />
 </Base>

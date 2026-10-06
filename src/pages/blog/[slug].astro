@@ -1,0 +1,30 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import { getPosts, readMinutes, formatDate, type Post } from '../../lib/posts';
+import { href } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+---
+
+<Base title={post.data.title} description={post.data.description} path={`/blog/${post.id}/`} type="article">
+  <article class="measure">
+    {post.data.draft && <p class="notice">Draft. This post is not published yet.</p>}
+    <a class="textbtn" href={href('/blog/')}>All posts</a>
+    <header class="post-head">
+      <p class="kicker">Blog</p>
+      <h1>{post.data.title}</h1>
+      <p class="meta">{formatDate(post.data.publishedAt)} · {readMinutes(post)} min read</p>
+    </header>
+    <div class="prose"><Content /></div>
+  </article>
+
+  <ContactCta />
+</Base>

@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactCta from '../components/ContactCta.astro';
+import { team } from '../data/team';
+---
+
+<Base title="Team" description="The people who run Diluted Stories." path="/team/">
+  <section class="hero">
+    <p class="kicker">Team</p>
+    <h1>The people behind Diluted Stories</h1>
+  </section>
+
+  <section class="grid three" aria-label="Team members">
+    {
+      team.map((person) => (
+        <article class="card person">
+          <span class="avatar" aria-hidden="true">{person.placeholder ? '?' : person.name.charAt(0)}</span>
+          {person.placeholder && <span class="chip">Placeholder</span>}
+          <h2>{person.name}</h2>
+          <p class="kicker">{person.role}</p>
+          <p>{person.bio}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <ContactCta />
+</Base>

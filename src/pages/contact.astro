@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import EmailLink from '../components/EmailLink.astro';
+import { contact } from '../lib/site';
+---
+
+<Base
+  title="Contact"
+  description="Get in touch with Diluted Stories by email or phone to talk about marketing, social media ads or your website."
+  path="/contact/"
+>
+  <section class="hero">
+    <p class="kicker">Contact</p>
+    <h1>Let's talk about your business</h1>
+    <p class="lead">Email or call. Tell us what you would like to achieve and we will take it from there.</p>
+  </section>
+
+  <section class="grid two" aria-label="Contact details">
+    <div class="card">
+      <p class="kicker">Email</p>
+      <p class="big"><EmailLink /></p>
+    </div>
+    <div class="card">
+      <p class="kicker">Phone</p>
+      <p class="big"><a href={contact.phoneHref}>{contact.phoneDisplay}</a></p>
+    </div>
+  </section>
+
+  <section class="section measure" aria-labelledby="include-title">
+    <h2 id="include-title">What to tell us</h2>
+    <ul class="ticklist">
+      <li>What your business does and who your customers are</li>
+      <li>Your website, if you have one</li>
+      <li>What you would like to achieve, for example more enquiries or more sales</li>
+      <li>Roughly what you would like to spend, if you have a budget in mind</li>
+    </ul>
+  </section>
+</Base>

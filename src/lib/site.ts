@@ -1,13 +1,20 @@
 export const SITE_NAME = 'Diluted Stories';
-export const TAGLINE = 'Research, diluted.';
 export const DESCRIPTION =
-  'Short videos and one-page stories on tech and money research. Every story shows the finding, the catch and the source.';
+  'Diluted Stories is a business consultancy. We run marketing campaigns and social media ads, and build websites, for growing businesses.';
 
-// The topics ("pillars"). `live: false` shows as "coming later" and has no page yet.
-export const pillars = {
-  tech: { name: 'Tech', blurb: 'Devices, software and the rules around them', live: true },
-  money: { name: 'Money', blurb: 'Spending, saving and risk', live: true },
-  style: { name: 'Style', blurb: 'Coming later', live: false },
-} as const;
+// The email address is split in two so it never appears whole in the page
+// source (see EmailLink.astro). The phone number is meant to be found, so it
+// is written out normally.
+export const contact = {
+  emailUser: 'info',
+  emailDomain: 'dilutedstories.com',
+  phoneDisplay: '+44 7466 769491',
+  phoneHref: 'tel:+447466769491',
+};
 
-export type Pillar = keyof typeof pillars;
+export const nav = [
+  { label: 'Services', path: '/services/' },
+  { label: 'Blog', path: '/blog/' },
+  { label: 'Team', path: '/team/' },
+  { label: 'Contact', path: '/contact/' },
+] as const;

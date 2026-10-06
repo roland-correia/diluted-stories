@@ -2,31 +2,28 @@
 import '@fontsource-variable/lexend';
 import '@fontsource-variable/newsreader';
 import '@fontsource-variable/newsreader/wght-italic.css';
-import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
 import SettingsDialog from '../components/SettingsDialog.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_NAME, DESCRIPTION } from '../lib/site';
+import { SITE_NAME, DESCRIPTION, nav } from '../lib/site';
 import { href, absolute } from '../lib/paths';
 
 interface Props {
   title: string;
   description?: string;
-  /** The page's own path, e.g. '/topics/', used for the canonical and share URLs. */
+  /** The page's own path, e.g. '/services/', used for the canonical and share URLs and the current nav link. */
   path: string;
-  /** Optional Back button, shown to the left of the wordmark (which is always present and always links home). */
-  back?: { href: string; label: string };
   type?: 'website' | 'article';
 }
 
-const { title, description = DESCRIPTION, path, back, type = 'website' } = Astro.props;
-const pageTitle = path === '/' ? `${SITE_NAME}: research, diluted` : `${title} | ${SITE_NAME}`;
+const { title, description = DESCRIPTION, path, type = 'website' } = Astro.props;
+const pageTitle = path === '/' ? `${SITE_NAME}: marketing, social media ads and websites` : `${title} | ${SITE_NAME}`;
 const canonical = absolute(path);
 ---
 
 <!doctype html>
-<html lang="en-GB" data-size="md" data-space="normal" data-bg="auto" data-flow="cards">
+<html lang="en-GB" data-size="md" data-space="normal" data-bg="auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,7 +50,6 @@ const canonical = absolute(path);
           size: ['sm', 'md', 'lg'],
           space: ['normal', 'roomy'],
           bg: ['auto', 'soft', 'cream', 'dark'],
-          flow: ['cards', 'page'],
         };
         for (var key in allowed) {
           if (allowed[key].indexOf(saved[key]) > -1) {
@@ -67,13 +63,21 @@ const canonical = absolute(path);
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="shell">
       <header class="bar">
-        <span class="bar-start">{back && <a class="iconbtn" href={back.href}>{back.label}</a>}</span>
         <a class="wm-link" href={href('/')} aria-label="Diluted Stories home">
           <Wordmark />
         </a>
-        <span class="bar-end">
+        <nav class="nav" aria-label="Main">
+          {
+            nav.map((item) => (
+              <a href={href(item.path)} aria-current={path.startsWith(item.path) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="bar-tools">
           <button type="button" class="iconbtn" data-open-settings aria-haspopup="dialog" aria-label="Reading settings">Aa</button>
-        </span>
+        </div>
       </header>
       <main id="main">
         <slot />
