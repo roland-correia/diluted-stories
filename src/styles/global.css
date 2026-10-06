@@ -304,6 +304,10 @@ article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
 .footer-contact a { text-underline-offset: 4px; }
 .footer-fine { color: var(--muted); font-size: 0.8rem; }
 
+.socials { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.socials .iconbtn { gap: 0.55rem; }
+.socials svg { width: 1.35rem; height: 1.35rem; flex: none; }
+
 /* ==========================================================================
    READING SETTINGS (the Aa dialog)
    ========================================================================== */
