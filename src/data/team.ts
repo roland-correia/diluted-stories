@@ -17,7 +17,7 @@ export const team: Person[] = [
     bio: 'Roland has more than five years of front-end development experience. He began freelancing at 17, motivated by the same goal he works towards today: helping local small businesses grow their digital presence. At Diluted Stories he builds the websites we deliver for clients.',
     photo: {
       src: '/images/team/roland.jpg',
-      alt: 'Roland in a beige quarter-zip jumper and jeans, standing in a street in front of a brick building',
+      alt: 'Roland in a white linen shirt, standing in front of a red wall',
     },
   },
   {
