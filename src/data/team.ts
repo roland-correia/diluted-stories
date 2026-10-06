@@ -32,7 +32,7 @@ export const team: Person[] = [
   {
     name: 'William',
     role: 'Independent Business Strategist',
-    bio: 'William is an independent business strategist who has been part of the company since its founding days. He raises key structural issues and helps set the direction of the company, based on its key operating values.',
+    bio: 'William is an independent business strategist who has been part of the company since its founding days. He raises key structural issues and helps set the direction of the company, based on its key operating values. William also runs his own language coaching business.',
     photo: {
       src: '/images/team/william.jpg',
       alt: 'William smiling and looking to one side, in a white shirt, standing in front of a red wall',
