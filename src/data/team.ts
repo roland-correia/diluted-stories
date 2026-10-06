@@ -13,8 +13,8 @@ type Person = {
 export const team: Person[] = [
   {
     name: 'Roland',
-    role: 'Digital Consultant',
-    bio: 'Roland has over five years of front-end software development experience. He started his freelance career at 17 with the same passion he has today: helping local small businesses grow their digital presence.',
+    role: 'Front-End Developer',
+    bio: 'Roland has more than five years of front-end development experience. He began freelancing at 17, motivated by the same goal he works towards today: helping local small businesses grow their digital presence. At Diluted Stories he builds the websites we deliver for clients.',
     photo: {
       src: '/images/team/roland.jpg',
       alt: 'Roland in a beige quarter-zip jumper and jeans, standing in a street in front of a brick building',
@@ -23,7 +23,7 @@ export const team: Person[] = [
   {
     name: 'David',
     role: 'Digital and Communications Officer',
-    bio: "David holds a bachelor's and a master's degree in English Literature. He is the bridge between potential clients and the services we offer. He also writes our blog posts on AI, on how businesses can optimise what they do today, and on how we adapt current market technology to improve our services.",
+    bio: "David connects potential clients with the services we offer. He also writes our blog, covering AI, practical ways businesses can improve how they work, and how we use new technology to improve our own services. He holds a bachelor's and a master's degree in English Literature.",
     photo: {
       src: '/images/team/david.jpg',
       alt: 'David smiling, in a white polo shirt, standing in front of a red wall',
@@ -32,7 +32,7 @@ export const team: Person[] = [
   {
     name: 'William',
     role: 'Independent Business Strategist',
-    bio: 'William is an independent business strategist who has been part of the company since its founding days. He raises key structural issues and helps set the direction of the company, based on its key operating values. William also runs his own language coaching business.',
+    bio: "William is an independent business strategist who has been involved since the company's earliest days. He flags structural issues and helps guide the company's direction, in line with the values it operates by. He also runs his own language coaching business.",
     photo: {
       src: '/images/team/william.jpg',
       alt: 'William smiling and looking to one side, in a white shirt, standing in front of a red wall',
