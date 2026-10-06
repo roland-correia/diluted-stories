@@ -23,7 +23,7 @@ import { href } from '../lib/paths';
           {person.placeholder && <span class="chip">Placeholder</span>}
           <h2>{person.name}</h2>
           <p class="kicker">{person.role}</p>
-          <p>{person.bio}</p>
+          {person.bio.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
         </article>
       ))
     }
