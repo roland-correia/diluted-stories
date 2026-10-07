@@ -1,9 +1,10 @@
 // The three services, shown as cards on the home page and in full on /services/.
+// The names are also the three lines of the home page headline, so keep them short.
 // Edit the wording here and both pages update.
 export const services = [
   {
     id: 'marketing-campaigns',
-    name: 'Marketing campaigns',
+    name: 'Marketing Campaigns',
     blurb:
       'We plan and run campaigns across search, email and social, tied to a goal you can measure, like enquiries or sales.',
     included: [
@@ -15,7 +16,7 @@ export const services = [
   },
   {
     id: 'social-media-ads',
-    name: 'Social media ads',
+    name: 'Social Media Ads',
     blurb:
       'Paid ads on the platforms your customers use. We set up the targeting and the creative, then test and adjust.',
     included: [
@@ -27,7 +28,7 @@ export const services = [
   },
   {
     id: 'website-development',
-    name: 'Website development',
+    name: 'Web Development',
     blurb:
       'Clear, fast websites that work on phones and are easy to find on search, built to turn visitors into enquiries.',
     included: [
