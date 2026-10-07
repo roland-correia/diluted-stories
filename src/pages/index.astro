@@ -14,7 +14,7 @@ const latest = (await getPosts()).slice(0, 3);
     <h1 class="focus">
       {services.map((service) => <span>{service.name}</span>)}
     </h1>
-    <p class="lead">We run your campaigns and ads, and build the website they send people to. Plain advice, no jargon.</p>
+    <p class="lead">We run your campaigns and ads, and build the website they send people to.</p>
     <div class="actions">
       <a class="btn" href={href('/contact/')}>Get in touch</a>
       <a class="btn ghost" href={href('/services/')}>Our services</a>
