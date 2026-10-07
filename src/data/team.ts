@@ -22,7 +22,7 @@ export const team: Person[] = [
   },
   {
     name: 'David',
-    role: 'Digital and Communications Officer',
+    role: 'Media & Communications Officer',
     bio: "David connects potential clients with the services we offer. He also writes our blog, covering AI, practical ways businesses can improve how they work, and how we use new technology to improve our own services. He holds a bachelor's and a master's degree in English Literature.",
     photo: {
       src: '/images/team/david.jpg',
