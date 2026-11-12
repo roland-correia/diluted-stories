@@ -27,10 +27,28 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            apps/*/package-lock.json
 
       - run: npm ci
       - run: npm run check
       - run: npm run build
+
+      # Each folder in apps/ is its own Astro project (our products under
+      # development). Each is built the same way and served from
+      # dilutedstories.com/projects/<its name>/.
+      - name: Install, type-check and build each app
+        run: |
+          for app in good-call 5-minute-mandarin; do
+            echo "::group::$app"
+            npm --prefix "apps/$app" ci
+            npm --prefix "apps/$app" run check
+            npm --prefix "apps/$app" run build
+            mkdir -p "dist/projects/$app"
+            cp -R "apps/$app/dist/." "dist/projects/$app/"
+            echo "::endgroup::"
+          done
 
       - uses: actions/upload-pages-artifact@v3
         with:
