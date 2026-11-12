@@ -14,11 +14,11 @@ const {
 } = Astro.props;
 ---
 
-<section class="cta" aria-labelledby="cta-title">
+<section class="cta panel" aria-labelledby="cta-title">
   <h2 id="cta-title">{heading}</h2>
   <p>{text}</p>
   <p class="cta-lines">
-    <span><b>Email</b> <EmailLink /></span>
-    <span><b>Phone</b> <a href={contact.phoneHref}>{contact.phoneDisplay}</a></span>
+    <EmailLink />
+    <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
   </p>
 </section>

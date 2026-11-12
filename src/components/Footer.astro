@@ -10,18 +10,22 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <a class="wm-link" href={href('/')} aria-label="Diluted Stories home">
-    <Wordmark />
-  </a>
-  <p class="footer-lead">Marketing, social media ads and websites for growing businesses.</p>
+  <div class="footer-brand">
+    <a class="wm-link" href={href('/')} aria-label="Diluted Stories home">
+      <Wordmark />
+    </a>
+    <p class="footer-lead">Marketing, social media ads and websites for growing businesses.</p>
+  </div>
   <nav class="footer-nav" aria-label="Footer">
     <a href={href('/')}>Home</a>
     {nav.map((item) => <a href={href(item.path)}>{item.label}</a>)}
   </nav>
-  <div class="footer-contact">
-    <EmailLink />
-    <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
-    <SocialLinks />
+  <div class="footer-base">
+    <div class="footer-contact">
+      <EmailLink />
+      <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
+      <SocialLinks />
+    </div>
+    <p class="footer-fine">© {year} Diluted Stories. All rights reserved.</p>
   </div>
-  <p class="footer-fine">© {year} Diluted Stories. All rights reserved.</p>
 </footer>
