@@ -10,6 +10,8 @@ export const contact = {
   emailDomain: 'dilutedstories.com',
   phoneDisplay: '+44 7466 769491',
   phoneHref: 'tel:+447466769491',
+  // Same number as the phone; wa.me opens a WhatsApp chat with it.
+  whatsappHref: 'https://wa.me/447466769491',
 };
 
 export const nav = [
