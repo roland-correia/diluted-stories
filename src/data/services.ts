@@ -1,11 +1,13 @@
 // The three services, shown as cards on the home page and in full on /services/.
 // The names are also the three lines of the home page headline, so keep them short.
 // The order here is the order everywhere, shortest name first so the headline steps out to the right.
+// `short` is the one-line description on the home cards; `blurb` is the fuller one on /services/.
 // Edit the wording here and both pages update.
 export const services = [
   {
     id: 'social-media-ads',
     name: 'Social Media Ads',
+    short: 'Paid ads on the platforms your customers use.',
     blurb:
       'Paid ads on the platforms your customers use. We set up the targeting and the creative, then test and adjust.',
     included: [
@@ -18,6 +20,7 @@ export const services = [
   {
     id: 'website-development',
     name: 'Web Development',
+    short: 'Clear, fast websites that turn visitors into enquiries.',
     blurb:
       'Clear, fast websites that work on phones and are easy to find on search, built to turn visitors into enquiries.',
     included: [
@@ -30,6 +33,7 @@ export const services = [
   {
     id: 'marketing-campaigns',
     name: 'Marketing Campaigns',
+    short: 'Campaigns across search, email and social, tied to a goal.',
     blurb:
       'We plan and run campaigns across search, email and social, tied to a goal you can measure, like enquiries or sales.',
     included: [
@@ -42,7 +46,7 @@ export const services = [
 ] as const;
 
 export const steps = [
-  { title: 'We listen', text: 'We start with a conversation about your business, your customers and what you want to achieve.' },
-  { title: 'We agree a plan', text: 'You get a clear plan: what we will do, what it costs and how we will know it is working.' },
-  { title: 'We do the work', text: 'We run the campaigns and ads or build the site, and keep you updated as it goes.' },
+  { title: 'We listen', text: 'Your business, your customers, your goals.' },
+  { title: 'We agree a plan', text: 'What we will do, what it costs and how we will measure it.' },
+  { title: 'We do the work', text: 'We deliver, and keep you updated as we go.' },
 ] as const;
