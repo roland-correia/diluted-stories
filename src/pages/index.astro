@@ -3,34 +3,43 @@ import Base from '../layouts/Base.astro';
 import ContactCta from '../components/ContactCta.astro';
 import { services, steps } from '../data/services';
 import { products } from '../data/products';
+import { team } from '../data/team';
 import { getPosts, readMinutes, formatDate } from '../lib/posts';
 import { href } from '../lib/paths';
 
 const latest = (await getPosts()).slice(0, 3);
+const people = team.filter((person) => person.photo);
+const number = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
 <Base title="Diluted Stories" path="/">
-  <section class="hero">
+  <section class="panel hero-panel">
     <p class="kicker">Business consultancy</p>
     <h1 class="focus">
       {services.map((service) => <span>{service.name}</span>)}
     </h1>
     <p class="lead">We run your campaigns and ads, and build the website they send people to.</p>
     <div class="actions">
-      <a class="btn" href={href('/contact/')}>Get in touch</a>
-      <a class="btn ghost" href={href('/services/')}>Our services</a>
+      <a class="btn light" href={href('/contact/')}>Get in touch</a>
+      <a class="btn outline-light" href={href('/services/')}>Our services</a>
     </div>
   </section>
 
   <section class="section" aria-labelledby="services-title">
-    <h2 id="services-title">What we do</h2>
+    <div class="section-head">
+      <h2 id="services-title">What we do</h2>
+      <a class="textbtn" href={href('/services/')}>All services</a>
+    </div>
     <div class="grid three">
       {
-        services.map((service) => (
-          <a class="card link" href={href(`/services/#${service.id}`)}>
-            <h3>{service.name}</h3>
+        services.map((service, i) => (
+          <a class="tile" href={href(`/services/#${service.id}`)}>
+            <div class="art">
+              <span class="num" aria-hidden="true">{number(i)}</span>
+              <h3>{service.name}</h3>
+              <span class="go" aria-hidden="true">→</span>
+            </div>
             <p>{service.short}</p>
-            <span class="more" aria-hidden="true">→</span>
           </a>
         ))
       }
@@ -41,8 +50,9 @@ const latest = (await getPosts()).slice(0, 3);
     <h2 id="how-title">How we work</h2>
     <ol class="grid three steps">
       {
-        steps.map((step) => (
-          <li class="card">
+        steps.map((step, i) => (
+          <li>
+            <span class="n" aria-hidden="true">{number(i)}</span>
             <h3>{step.title}</h3>
             <p>{step.text}</p>
           </li>
@@ -51,16 +61,42 @@ const latest = (await getPosts()).slice(0, 3);
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="dev-title">
-    <p class="kicker">Under development</p>
-    <h2 id="dev-title">Our products</h2>
+  {
+    people.length > 0 && (
+      <section class="section" aria-labelledby="people-title">
+        <div class="section-head">
+          <h2 id="people-title">The people</h2>
+          <a class="textbtn" href={href('/team/')}>Meet the team</a>
+        </div>
+        <ul class="grid three people">
+          {people.map((person) => (
+            <li>
+              <a href={href('/team/')}>
+                <img src={href(person.photo!.src)} alt={person.photo!.alt} width="800" height="1067" loading="lazy" decoding="async" />
+                <div>
+                  <b>{person.name}</b>
+                  <span>{person.role}</span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="panel sand" aria-labelledby="dev-title">
+    <div class="panel-head">
+      <p class="kicker">Under development</p>
+      <h2 id="dev-title">Our products</h2>
+    </div>
     <div class="grid two">
       {
         products.map((product) => (
-          <a class="card link" href={href(product.path)}>
+          <a class="product" href={href(product.path)}>
             <h3>{product.name}</h3>
             <p>{product.blurb}</p>
-            <span class="more" aria-hidden="true">→</span>
+            <span class="go" aria-hidden="true">→</span>
           </a>
         ))
       }
@@ -70,7 +106,10 @@ const latest = (await getPosts()).slice(0, 3);
   {
     latest.length > 0 && (
       <section class="section" aria-labelledby="blog-title">
-        <h2 id="blog-title">From the blog</h2>
+        <div class="section-head">
+          <h2 id="blog-title">From the blog</h2>
+          <a class="textbtn" href={href('/blog/')}>All posts</a>
+        </div>
         <div class="grid three">
           {latest.map((post) => (
             <a class="card link" href={href(`/blog/${post.id}/`)}>
@@ -82,10 +121,9 @@ const latest = (await getPosts()).slice(0, 3);
             </a>
           ))}
         </div>
-        <a class="textbtn" href={href('/blog/')}>All posts</a>
       </section>
     )
   }
 
-  <ContactCta />
+  <ContactCta heading="Ready to talk?" text="Tell us about your business and what you would like to achieve." />
 </Base>
