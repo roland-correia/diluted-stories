@@ -23,15 +23,14 @@ const latest = (await getPosts()).slice(0, 3);
   </section>
 
   <section class="section" aria-labelledby="services-title">
-    <p class="kicker">What we do</p>
-    <h2 id="services-title">Three ways we can help</h2>
+    <h2 id="services-title">What we do</h2>
     <div class="grid three">
       {
         services.map((service) => (
           <a class="card link" href={href(`/services/#${service.id}`)}>
             <h3>{service.name}</h3>
-            <p>{service.blurb}</p>
-            <span class="more">Find out more</span>
+            <p>{service.short}</p>
+            <span class="more" aria-hidden="true">→</span>
           </a>
         ))
       }
@@ -39,13 +38,11 @@ const latest = (await getPosts()).slice(0, 3);
   </section>
 
   <section class="section" aria-labelledby="how-title">
-    <p class="kicker">How we work</p>
-    <h2 id="how-title">Simple from the first call</h2>
+    <h2 id="how-title">How we work</h2>
     <ol class="grid three steps">
       {
-        steps.map((step, i) => (
+        steps.map((step) => (
           <li class="card">
-            <span class="kicker">Step {i + 1}</span>
             <h3>{step.title}</h3>
             <p>{step.text}</p>
           </li>
@@ -56,15 +53,14 @@ const latest = (await getPosts()).slice(0, 3);
 
   <section class="section" aria-labelledby="dev-title">
     <p class="kicker">Under development</p>
-    <h2 id="dev-title">Products we are building</h2>
-    <p class="lead">Alongside client work, we design and build our own products. Both are early versions you can try now.</p>
+    <h2 id="dev-title">Our products</h2>
     <div class="grid two">
       {
         products.map((product) => (
           <a class="card link" href={href(product.path)}>
             <h3>{product.name}</h3>
             <p>{product.blurb}</p>
-            <span class="more">Try {product.name}</span>
+            <span class="more" aria-hidden="true">→</span>
           </a>
         ))
       }
@@ -74,7 +70,6 @@ const latest = (await getPosts()).slice(0, 3);
   {
     latest.length > 0 && (
       <section class="section" aria-labelledby="blog-title">
-        <p class="kicker">Blog</p>
         <h2 id="blog-title">From the blog</h2>
         <div class="grid three">
           {latest.map((post) => (
