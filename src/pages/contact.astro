@@ -7,16 +7,16 @@ import { contact } from '../lib/site';
 
 <Base
   title="Contact"
-  description="Get in touch with Diluted Stories by email or phone to talk about marketing, social media ads or your website."
+  description="Get in touch with Diluted Stories by email, phone or WhatsApp to talk about marketing, social media ads or your website."
   path="/contact/"
 >
   <section class="hero">
     <p class="kicker">Contact</p>
     <h1>Let's talk about your business</h1>
-    <p class="lead">Email or call. Tell us what you would like to achieve and we will take it from there.</p>
+    <p class="lead">Email, call or message us any time. Tell us what you would like to achieve and we will take it from there.</p>
   </section>
 
-  <section class="grid two" aria-label="Contact details">
+  <section class="grid three" aria-label="Contact details">
     <div class="card">
       <p class="kicker">Email</p>
       <p class="big"><EmailLink /></p>
@@ -24,6 +24,10 @@ import { contact } from '../lib/site';
     <div class="card">
       <p class="kicker">Phone</p>
       <p class="big"><a href={contact.phoneHref}>{contact.phoneDisplay}</a></p>
+    </div>
+    <div class="card">
+      <p class="kicker">WhatsApp</p>
+      <p class="big"><a href={contact.whatsappHref} target="_blank" rel="noopener noreferrer">Message us<span class="visually-hidden"> on WhatsApp (opens in a new tab)</span></a></p>
     </div>
   </section>
 
