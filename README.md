@@ -32,6 +32,7 @@ Stop it with `Ctrl+C`. `npm run dev` also shows **draft** blog posts.
 | Social media links | `src/lib/site.ts` (`socials`) |
 | The three services and the "how we work" steps | `src/data/services.ts` |
 | The team | `src/data/team.ts` |
+| The "Under development" products on the home page | `src/data/products.ts` |
 | Wording on the home, contact and other pages | the file in `src/pages/` |
 | Colours, type and layout | `src/styles/global.css` |
 
