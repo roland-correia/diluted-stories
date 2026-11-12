@@ -76,6 +76,14 @@ Actions-based deploys ignore). `dilutedstories.com` needs these DNS records at t
 - Four `A` records on the apex (`@`): `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
 - A `CNAME` record for `www` pointing to `roland-correia.github.io`
 
+## Products under development
+
+Good Call and 5 Minute Mandarin live in `apps/`. Each is its own Astro project, with its own
+`README.md`, `package.json` and commands (run them from that app's folder). The deploy builds each
+one into `dist/projects/<app name>/`, so they are served at `dilutedstories.com/projects/good-call/`
+and `dilutedstories.com/projects/5-minute-mandarin/`. The home page cards for them come from
+`src/data/products.ts`.
+
 ## Other files
 
 - `public/` holds the tab icons and `og-share.png`, the image shown in link previews. Its source

@@ -61,7 +61,7 @@ const latest = (await getPosts()).slice(0, 3);
     <div class="grid two">
       {
         products.map((product) => (
-          <a class="card link" href={product.url}>
+          <a class="card link" href={href(product.path)}>
             <h3>{product.name}</h3>
             <p>{product.blurb}</p>
             <span class="more">Try {product.name}</span>
