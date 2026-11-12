@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ContactCta from '../components/ContactCta.astro';
 import { services, steps } from '../data/services';
+import { products } from '../data/products';
 import { getPosts, readMinutes, formatDate } from '../lib/posts';
 import { href } from '../lib/paths';
 
@@ -51,6 +52,23 @@ const latest = (await getPosts()).slice(0, 3);
         ))
       }
     </ol>
+  </section>
+
+  <section class="section" aria-labelledby="dev-title">
+    <p class="kicker">Under development</p>
+    <h2 id="dev-title">Products we are building</h2>
+    <p class="lead">Alongside client work, we design and build our own products. Both are early versions you can try now.</p>
+    <div class="grid two">
+      {
+        products.map((product) => (
+          <a class="card link" href={product.url}>
+            <h3>{product.name}</h3>
+            <p>{product.blurb}</p>
+            <span class="more">Try {product.name}</span>
+          </a>
+        ))
+      }
+    </div>
   </section>
 
   {
