@@ -410,6 +410,24 @@ a.card:hover { border-color: var(--dye); }
 .cta-lines a:hover { background: var(--cream); color: var(--wine); border-color: var(--cream); }
 
 /* ==========================================================================
+   POLICY PAGES
+   ========================================================================== */
+.policy { display: flex; flex-direction: column; gap: 2rem; padding-top: 2rem; }
+.policy section { display: flex; flex-direction: column; gap: 0.9rem; }
+.policy h2 { font-size: 1.6rem; }
+.policy p a { color: var(--dye); text-underline-offset: 4px; }
+.storage { display: grid; gap: 0.9rem; margin: 0.5rem 0 0; }
+.storage > div {
+  display: grid; gap: 0.35rem; padding: 1.1rem 1.25rem; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.storage dt { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-weight: 600; font-size: 0.95rem; color: var(--dye); overflow-wrap: anywhere; }
+.storage dd { margin: 0; }
+.storage .where { display: block; margin-top: 0.15rem; color: var(--muted); font-size: 0.88rem; }
+.clear-row { display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+.clear-status { color: var(--muted); font-weight: 600; }
+
+/* ==========================================================================
    BLOG POSTS
    ========================================================================== */
 article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -448,6 +466,8 @@ article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
 .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.75rem; }
 .footer-contact > a { display: inline-flex; align-items: center; min-height: 2.75rem; text-underline-offset: 4px; }
 .footer-fine { color: rgb(251 242 231 / 0.7); font-size: 0.8rem; }
+.footer-fine { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.75rem; }
+.footer-fine a { display: inline-flex; align-items: center; min-height: 2.75rem; padding-inline: 0.25rem; text-underline-offset: 3px; }
 .footer-base {
   display: flex; flex-direction: column; gap: 1rem; padding-top: 1.75rem;
   border-top: 1px solid rgb(251 242 231 / 0.22);

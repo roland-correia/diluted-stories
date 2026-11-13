@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import EmailLink from '../components/EmailLink.astro';
+import { storage, STORAGE_UPDATED } from '../data/storage';
+---
+
+<Base
+  title="Cookies policy"
+  description="Diluted Stories does not use cookies. This page lists the few things saved in your browser, why, and how to clear them."
+  path="/cookies/"
+>
+  <article class="measure policy">
+    <header class="post-head">
+      <p class="kicker">Cookies policy</p>
+      <h1>We do not use cookies</h1>
+      <p class="lead">
+        No analytics, no advertising and no trackers. Nothing on our pages loads from another company's servers.
+      </p>
+    </header>
+
+    <section aria-labelledby="saved-title">
+      <h2 id="saved-title">What is saved in your browser</h2>
+      <p>
+        A few things are kept in your browser's local storage. It is similar to a cookie, but it stays on your
+        device and is never sent to us. Each one is saved only when you use a feature that needs to remember
+        something, and stays until you clear it.
+      </p>
+      <dl class="storage">
+        {
+          storage.map((item) => (
+            <div>
+              <dt>{item.key}</dt>
+              <dd>
+                {item.what}
+                <span class="where">{item.where}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section aria-labelledby="banner-title">
+      <h2 id="banner-title">Why there is no cookie banner</h2>
+      <p>
+        Cookie banners are for things like analytics, advertising and tracking, which need your permission. We use
+        none of them. What we save only remembers choices you made, stays on your device and is not shared with
+        anyone, so there is nothing to agree to.
+      </p>
+    </section>
+
+    <section aria-labelledby="others-title">
+      <h2 id="others-title">Other companies</h2>
+      <p>
+        Fonts, images and code all come from dilutedstories.com. The site is hosted on GitHub Pages. As with any
+        host, GitHub may log technical details such as your IP address when a page is served, and explains this in
+        its <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">privacy statement<span class="visually-hidden"> (opens in a new tab)</span></a>.
+      </p>
+      <p>
+        Links to LinkedIn, Instagram, GitHub, WhatsApp and the support organisations listed in Good Call open
+        their own sites, which have their own policies.
+      </p>
+    </section>
+
+    <section aria-labelledby="clear-title">
+      <h2 id="clear-title">Clear what is saved</h2>
+      <p>
+        This removes everything listed above for dilutedstories.com, including your Good Call answers and 5 Minute
+        Mandarin progress. You can also clear it in your browser's site settings.
+      </p>
+      <div class="clear-row">
+        <button type="button" class="btn ghost" data-clear-storage>Clear what this site has saved</button>
+        <p class="clear-status" role="status" aria-live="polite" data-clear-status></p>
+      </div>
+    </section>
+
+    <section aria-labelledby="change-title">
+      <h2 id="change-title">If this changes</h2>
+      <p>
+        If we ever add analytics or anything else that uses cookies, we will ask for your permission first and
+        update this page. Questions? Email <EmailLink />.
+      </p>
+      <p class="fine">Last updated {STORAGE_UPDATED}.</p>
+    </section>
+  </article>
+
+  <script>
+    import { storage } from '../data/storage';
+
+    const button = document.querySelector<HTMLButtonElement>('[data-clear-storage]');
+    const status = document.querySelector<HTMLElement>('[data-clear-status]');
+    const defaults = { size: 'md', space: 'normal', bg: 'auto' } as const;
+
+    button?.addEventListener('click', () => {
+      let failed = false;
+      for (const item of storage) {
+        try {
+          localStorage.removeItem(item.key);
+        } catch {
+          failed = true;
+        }
+      }
+      // Put the reading settings back to the defaults straight away, including the Aa panel's ticks.
+      for (const [name, value] of Object.entries(defaults)) {
+        document.documentElement.dataset[name] = value;
+        const input = document.querySelector<HTMLInputElement>(`#settings input[name="${name}"][value="${value}"]`);
+        if (input) input.checked = true;
+      }
+      if (status) {
+        status.textContent = failed
+          ? 'Your browser would not let us clear this. You can clear it in your browser settings.'
+          : 'Cleared. Your reading settings are back to the defaults.';
+      }
+    });
+  </script>
+</Base>
