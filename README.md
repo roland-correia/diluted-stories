@@ -32,6 +32,7 @@ Stop it with `Ctrl+C`. `npm run dev` also shows **draft** blog posts.
 | Social media links | `src/lib/site.ts` (`socials`) |
 | The three services and the "how we work" steps | `src/data/services.ts` |
 | The team | `src/data/team.ts` |
+| What the site saves in browsers (Cookies policy page) | `src/data/storage.ts` |
 | The "Under development" products on the home page | `src/data/products.ts` |
 | Wording on the home, contact and other pages | the file in `src/pages/` |
 | Colours, type and layout | `src/styles/global.css` |
@@ -91,3 +92,16 @@ and `dilutedstories.com/projects/5-minute-mandarin/`. The home page cards for th
   Keep all the text in the middle of that image: Instagram crops link previews to a centred square,
   so anything near the left or right edge gets cut off there.
 - `design/ds-logo.png` is the original logo artwork the tab icons were made from.
+
+## Cookies policy
+
+`dilutedstories.com/cookies/` explains what the site saves in visitors' browsers. Today that is **no
+cookies**, and a handful of `localStorage` entries for reading settings and progress (the site, Good
+Call and 5 Minute Mandarin share the domain, so one page covers all three). There are no analytics,
+ads or third-party requests, so there is no cookie banner.
+
+The list on that page comes from `src/data/storage.ts`, which also drives the "Clear what this site has
+saved" button. **If you add anything that saves data in the browser, add it there and update the date.**
+If you add analytics, ads, embedded video or anything else that sets cookies or loads from another
+company, it needs the visitor's permission first: that means a consent banner, not just a line in the
+policy. Ask for help before shipping it.
