@@ -1,0 +1,154 @@
+---
+// A course's book page: the cover, progress, what the course covers, its topics
+// with a photograph each, the character item it unlocks, and the charities
+// connected to it. The button at the bottom opens the reader on the first
+// unanswered question. src/scripts/book.ts fills in everything that depends on
+// this visitor.
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import BookCover from '../../../components/BookCover.astro';
+import Support from '../../../components/Support.astro';
+import { getLiveSets, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
+import { sets, type SetId } from '../../../lib/site';
+import { courses, categories, accessories } from '../../../lib/courses';
+import { photoOf, imageOf } from '../../../lib/photos';
+import { href } from '../../../lib/paths';
+
+export async function getStaticPaths() {
+  const liveSets = await getLiveSets();
+  return liveSets.map(({ id, scenarios }) => ({ params: { set: id }, props: { id, scenarios } }));
+}
+
+const { id, scenarios } = Astro.props as { id: SetId; scenarios: Scenario[] };
+const set = sets[id] as Extract<(typeof sets)[SetId], { live: true }>;
+const course = courses[id];
+const sectioned = sectionsOf(id, scenarios);
+const topics: Section[] = sectioned.length > 0 ? sectioned : [{ id, name: set.name, blurb: set.blurb, scenarios }];
+const order = topics.flatMap((topic) => topic.scenarios);
+const minutes = Math.max(5, Math.round((scenarios.length * 1.5) / 5) * 5);
+const reader = href(`/practice/${id}/`);
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+const isWork = set.group === 'work';
+---
+
+<Base title={set.name} description={`${course.tagline}. ${set.intro}`} path={`/courses/${id}/`} chrome="bare">
+  <div class="book-page" data-book-page={id} style={`--c1: ${course.cover.from}`}>
+    <div class="book-hero">
+      <div class="book-nav">
+        <a class="iconbtn round" href={href('/')} aria-label="Back to home">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+        </a>
+        <span style="display:flex;gap:0.45rem">
+          <button type="button" class="iconbtn round" data-save aria-pressed="false" aria-label="Save this course to your profile" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h11v16l-5.5-4-5.5 4z"></path></svg>
+          </button>
+          <button type="button" class="iconbtn round" data-open-settings aria-haspopup="dialog" aria-label="Reading settings">Aa</button>
+        </span>
+      </div>
+
+      <div class="cover-wrap">
+        <BookCover id={id} large />
+      </div>
+      <span class="progress-pill" data-book-progress style="--p: 0">
+        <i aria-hidden="true"></i>
+        <span data-book-percent>{plural(scenarios.length, 'question')}</span>
+      </span>
+      <h1>{set.name}</h1>
+      <p class="book-by">{course.tagline}</p>
+      <p class="meta">
+        <b>Good Call</b> · {plural(topics.length, 'topic')} · about {minutes} min
+      </p>
+      <a class="badge" href={href(`/explore/?category=${course.category}`)}>{categories[course.category].name}</a>
+    </div>
+
+    <section class="group" aria-labelledby="about-title">
+      <h2 id="about-title">About this course</h2>
+      <p>{set.intro}</p>
+      <p class="notice">{set.note}</p>
+    </section>
+
+    <section class="group" aria-labelledby="topics-title">
+      <h2 id="topics-title">Topics</h2>
+      <ul class="topic-cards">
+        {
+          topics.map((topic) => {
+            const photo = photoOf(id, topic.id);
+            return (
+              <li>
+                <a class="topic-card" href={`${reader}#card=${order.indexOf(topic.scenarios[0]) + 1}`} data-topic-card data-ids={topic.scenarios.map((s) => s.id).join(',')}>
+                  {photo && <Image src={imageOf(photo)} alt="" widths={[336, 504]} sizes="168px" loading="lazy" />}
+                  <span>
+                    <b>{topic.name}</b>
+                    <small data-topic-status>{plural(topic.scenarios.length, 'question')}</small>
+                  </span>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    {
+      course.unlock && (
+        <section class="card" aria-labelledby="unlock-title">
+          <h2 id="unlock-title">Finish it to unlock</h2>
+          <div style="display:flex;gap:1rem;align-items:center">
+            <span class="avatar-slot" style="width:4.5rem;height:4.5rem;flex:none" data-unlock-preview={course.unlock} aria-hidden="true" />
+            <p>
+              <b>{accessories[course.unlock].name}</b> for your character, plus 50 bonus points.{' '}
+              <span data-unlock-state>Answer every question to earn them.</span>
+            </p>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="card" id="charities" aria-labelledby="charities-title">
+      <h2 id="charities-title">Charities connected to this course</h2>
+      <p>
+        You collect points as you learn. We are working on turning points into real donations to charities like these.
+        That is not switched on yet, so for now your points simply add up.
+      </p>
+      <ul class="charities">
+        {
+          course.charities.map((charity) => (
+            <li class="charity">
+              <span>
+                <b>{charity.name}</b>
+                <small>{charity.why}</small>
+                <a href={charity.url} target="_blank" rel="noopener">
+                  Visit {charity.name}
+                  <span class="visually-hidden"> (opens in a new tab)</span>
+                </a>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="fine">These charities are not partners of Good Call and do not endorse it.</p>
+    </section>
+
+    <details class="support">
+      <summary>{isWork ? 'What employers look for' : 'Key principles'}</summary>
+      <ul class="ticks" style="padding: 0 1rem 1rem">
+        {set.rules.map((rule) => <li>{rule}</li>)}
+      </ul>
+    </details>
+
+    <Support set={id} />
+
+    <p class="fine">
+      For education only. It is not legal or professional advice, and it cannot be used to excuse or defend anyone's
+      behaviour. <a href={href('/about/#disclaimer')}>Read the full disclaimer</a>
+    </p>
+  </div>
+
+  <div class="cta-bar">
+    <a class="btn" href={reader} data-start>Start reading</a>
+  </div>
+
+  <script>
+    import '../../../scripts/book.ts';
+  </script>
+</Base>

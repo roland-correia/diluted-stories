@@ -1,0 +1,92 @@
+---
+// Explore: every course, searchable, and grouped into categories.
+// The search looks through each course's name, description, topics and question
+// titles, so "hug" finds the consent course and "tantrum" the toddler course.
+// It runs in the browser (src/scripts/explore.ts); nothing is sent anywhere.
+// Without JavaScript every course is listed, and the category buttons are left out.
+import Base from '../layouts/Base.astro';
+import Book from '../components/Book.astro';
+import { getLiveSets, sectionsOf } from '../lib/scenarios';
+import { sets, type SetId } from '../lib/site';
+import { courses, categories, type CategoryId } from '../lib/courses';
+
+const liveSets = await getLiveSets();
+const all = Object.keys(sets) as SetId[];
+
+// Every word a visitor might search for, per course.
+const keywordsOf = (id: SetId) => {
+  const set = sets[id];
+  const course = courses[id];
+  const live = liveSets.find((entry) => entry.id === id);
+  const words = [set.name, set.blurb, course.tagline, categories[course.category].name, course.cover.sub ?? ''];
+  if (live) {
+    words.push(...sectionsOf(id, live.scenarios).map((section) => `${section.name} ${section.blurb}`));
+    words.push(...live.scenarios.map((entry) => `${entry.data.title} ${entry.data.topic}`));
+  }
+  return words.join(' ').toLowerCase();
+};
+
+const categoryIds = Object.keys(categories) as CategoryId[];
+---
+
+<Base
+  title="Explore courses"
+  description="Search every Good Call course: consent and relationships, race and respect, parenting by age, and judgement at work."
+  path="/explore/"
+  tab="explore"
+>
+  <h1>Explore</h1>
+
+  <form class="search" role="search" action="" method="get" data-search-form>
+    <label for="search-input" class="visually-hidden">Search courses</label>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.2"></circle><path d="M15.6 15.6L20 20"></path></svg>
+    <input
+      id="search-input"
+      type="search"
+      name="q"
+      placeholder="Search courses, topics or questions"
+      autocomplete="off"
+      enterkeyhint="search"
+      data-search
+    />
+  </form>
+
+  <section class="group" aria-labelledby="topics-title" data-categories hidden>
+    <h2 id="topics-title">Browse by topic</h2>
+    <ul class="topics">
+      {
+        categoryIds.map((id) => (
+          <li>
+            <button type="button" class="topic" style={`--c: ${categories[id].colour}`} data-category-filter={id} aria-pressed="false">
+              <b>{categories[id].name}</b>
+              <small>{categories[id].blurb}</small>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="group" aria-labelledby="results-title">
+    <h2 id="results-title" data-results-title>All courses</h2>
+    <p class="meta" data-results-count aria-live="polite"></p>
+    <ul class="book-grid" data-results>
+      {
+        all.map((id) => (
+          <li data-result>
+            <Book id={id} keywords={keywordsOf(id)} />
+          </li>
+        ))
+      }
+    </ul>
+    <div class="no-results" data-no-results hidden>
+      <p>No courses match that yet.</p>
+      <button type="button" class="textbtn" style="align-self:center" data-clear-search>Show every course</button>
+    </div>
+  </section>
+
+  <script>
+    import '../scripts/books.ts';
+    import '../scripts/explore.ts';
+  </script>
+</Base>

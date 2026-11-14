@@ -1,0 +1,134 @@
+---
+// Profile: the visitor's character, their time and streak, points,
+// saved courses and achievements. All of it is read from this browser's own
+// storage by src/scripts/profile.ts; there is no account and nothing is sent anywhere.
+import Base from '../../layouts/Base.astro';
+import Book from '../../components/Book.astro';
+import { getLiveSets } from '../../lib/scenarios';
+import { achievements, POINTS } from '../../lib/game';
+import { badgeIcons } from '../../lib/icons';
+import { href } from '../../lib/paths';
+
+const liveSets = await getLiveSets();
+---
+
+<Base
+  title="Your profile"
+  description="Your Good Call character, time spent learning, streak, points, saved courses and achievements. Kept in your browser only."
+  path="/profile/"
+  tab="profile"
+>
+  <section class="me" aria-labelledby="me-title">
+    <span class="avatar-slot" data-avatar aria-hidden="true"></span>
+    <h1 id="me-title" data-profile-name>Your profile</h1>
+    <a class="btn ghost" href={href('/profile/character/')} data-character-link>Create your character</a>
+  </section>
+
+  <section class="group" id="stats" aria-labelledby="stats-title">
+    <h2 id="stats-title">Your learning</h2>
+    <ul class="stats">
+      <li class="stat time wide">
+        <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+        <b data-stat="time">Under a minute</b>
+        <small>Total time spent learning</small>
+      </li>
+      <li class="stat streak">
+        <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.6 2.3 2.8C10.8 8.6 11.4 5.6 12 3z"></path></svg>
+        <b data-stat="streak">0 days</b>
+        <small data-stat="best">Day streak</small>
+      </li>
+      <li class="stat points" id="points">
+        <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M9.5 10.2c0-1.2 1.1-2 2.5-2s2.5.8 2.5 1.9c0 2.6-5 1.5-5 4 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-2"></path></svg>
+        <b data-stat="points">0</b>
+        <small>Points collected</small>
+      </li>
+      <li class="stat">
+        <b data-stat="good">0</b>
+        <small>Good calls made</small>
+      </li>
+      <li class="stat">
+        <b data-stat="finished">0</b>
+        <small>Courses finished</small>
+      </li>
+    </ul>
+    <p class="fine">
+      Time counts while Good Call is on screen and you are using it. A day joins your streak when you spend a minute
+      learning or answer a question.
+    </p>
+  </section>
+
+  <section class="group" id="saved" aria-labelledby="saved-title">
+    <h2 id="saved-title">Saved courses</h2>
+    <ul class="book-grid" data-saved-list>
+      {
+        liveSets.map(({ id }) => (
+          <li data-saved={id} hidden>
+            <Book id={id} />
+          </li>
+        ))
+      }
+    </ul>
+    <p class="meta" data-saved-empty>
+      Nothing saved yet. Tap the bookmark on any course to keep it here.
+    </p>
+  </section>
+
+  <section class="group" aria-labelledby="reading-title" data-reading-section hidden>
+    <h2 id="reading-title">In progress</h2>
+    <ul class="book-grid">
+      {
+        liveSets.map(({ id }) => (
+          <li data-reading={id} hidden>
+            <Book id={id} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="group" id="achievements" aria-labelledby="achievements-title">
+    <h2 id="achievements-title">Achievements</h2>
+    <p class="meta" data-achievement-count>{achievements.length} to collect</p>
+    <ul class="badges">
+      {
+        achievements.map((a) => (
+          <li class="badge-card locked" data-achievement={a.id}>
+            <span class="badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" set:html={badgeIcons[a.icon]} />
+            </span>
+            <b>{a.name}</b>
+            <small data-goal={a.goal} data-praise={a.praise}>{a.goal}</small>
+            <span class="visually-hidden" data-achievement-state>Locked.</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="card" aria-labelledby="points-title">
+    <h2 id="points-title">About points</h2>
+    <p>
+      You collect points as you learn: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,
+      {POINTS.risky} for trying, and {POINTS.courseComplete} for finishing a course.
+    </p>
+    <p>
+      Coming later: turning points into real donations to charities connected to each course. It is not switched on yet,
+      so for now your points simply add up.
+    </p>
+  </section>
+
+  <section class="card" aria-labelledby="data-title">
+    <h2 id="data-title">Your data</h2>
+    <p>
+      Your character, answers, time and points are saved in this browser only. Nothing is sent to Good Call or anyone
+      else, and there is no account. Clearing your browser's site data removes them.
+    </p>
+    <button type="button" class="btn ghost" data-open-settings aria-haspopup="dialog">Reading settings</button>
+    <button type="button" class="textbtn" data-wipe>Delete all my Good Call data from this browser</button>
+  </section>
+
+  <script>
+    import '../../scripts/books.ts';
+    import '../../scripts/profile.ts';
+  </script>
+</Base>

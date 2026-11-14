@@ -21,7 +21,7 @@ export const sets = {
     group: 'everyday',
     blurb: 'Consent, sexuality and respect, in person, online and on screen',
     intro:
-      'Consent is the foundation of every healthy relationship, from a hug to sex. This module covers bodily autonomy, sexual consent, digital boundaries, alcohol and power, and takes a frank, non-judgemental look at pornography: how it shapes expectations and relationships, and how to protect children from it. Throughout, it looks from both sides: respecting other people\'s boundaries, and holding your own.',
+      'Consent is the foundation of every healthy relationship, from a hug to sex. This course covers bodily autonomy, sexual consent, digital boundaries, alcohol and power, and takes a frank, non-judgemental look at pornography: how it shapes expectations and relationships, and how to protect children from it. Throughout, it looks from both sides: respecting other people\'s boundaries, and holding your own.',
     note: 'Covers dating, sex, alcohol and pornography, including children coming across it. Nothing is described in detail. Written for adults.',
     rules: [
       'Consent is a free choice. A yes given under pressure, fear or obligation is not one.',
@@ -40,7 +40,7 @@ export const sets = {
     group: 'everyday',
     blurb: 'Recognising racism and colourism, and responding with confidence',
     intro:
-      'Racism ranges from open abuse to the quiet assumptions that shape who is trusted, hired and believed. This module builds the confidence to recognise it, respond to it and take responsibility when you get it wrong, as a bystander, as the person who caused harm, and as the person it happens to.',
+      'Racism ranges from open abuse to the quiet assumptions that shape who is trusted, hired and believed. This course builds the confidence to recognise it, respond to it and take responsibility when you get it wrong, as a bystander, as the person who caused harm, and as the person it happens to.',
     note: 'Describes racist remarks and behaviour, online and in person. No slurs are repeated. Written for adults.',
     rules: [
       'Impact matters more than intent. "I didn\'t mean it" does not undo how it landed.',
@@ -57,7 +57,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Safety, bonding and recovery in the first months',
     intro:
-      'The first weeks are the steepest learning curve most parents ever face, on the least sleep. This module covers what keeps a newborn safe, how bonding really happens, and why a parent\'s own wellbeing matters from day one.',
+      'The first weeks are the steepest learning curve most parents ever face, on the least sleep. This course covers what keeps a newborn safe, how bonding really happens, and why a parent\'s own wellbeing matters from day one.',
     note: "General guidance, not medical advice. If you are worried about your child's health, call NHS 111. In an emergency, call 999.",
     rules: [
       'Crying is normal, and it can be overwhelming. It is always OK to put your baby down safely and step away for a few minutes.',
@@ -74,7 +74,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Safety, connection and development as your baby grows',
     intro:
-      'In the first year babies begin to move, eat and explore. This module covers preventing the accidents that are most common at this age, building a secure attachment, and supporting development without comparing your baby to others.',
+      'In the first year babies begin to move, eat and explore. This course covers preventing the accidents that are most common at this age, building a secure attachment, and supporting development without comparing your baby to others.',
     note: "General guidance, not medical advice. If you are worried about your child's health, call NHS 111. In an emergency, call 999.",
     rules: [
       'Cut small round foods, such as grapes and cherry tomatoes, into quarters. Never leave a baby alone while eating.',
@@ -90,7 +90,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Big emotions, boundaries and early independence',
     intro:
-      'Toddlers feel everything intensely, with very little ability to manage it yet. This module is about staying calm, setting boundaries with warmth, keeping a newly mobile child safe, and supporting the first steps towards independence.',
+      'Toddlers feel everything intensely, with very little ability to manage it yet. This course is about staying calm, setting boundaries with warmth, keeping a newly mobile child safe, and supporting the first steps towards independence.',
     note: "General guidance, not medical advice. If you are worried about your child's health, call NHS 111. In an emergency, call 999.",
     rules: [
       'A tantrum is a feeling too big to handle, not a plan. Stay calm, keep them safe, and wait it out.',
@@ -106,7 +106,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Curiosity, honesty, body safety and the first big changes',
     intro:
-      'Pre-school children are curious about everything, and they ask out loud. This module covers answering honestly, teaching body safety and road sense, guiding behaviour, and helping children through change and loss.',
+      'Pre-school children are curious about everything, and they ask out loud. This course covers answering honestly, teaching body safety and road sense, guiding behaviour, and helping children through change and loss.',
     note: 'General guidance, not professional advice. If you are worried about your child, talk to your GP or health visitor.',
     rules: [
       'Answer questions simply and truthfully, at their level. "I don\'t know, let\'s find out" is a good answer.',
@@ -122,7 +122,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Friendships, learning, independence and character',
     intro:
-      'In the primary years, more of a child\'s life happens out of your sight. This module covers friendships and bullying, learning differences, online safety, growing independence, and building character through responsibility and the right kind of praise.',
+      'In the primary years, more of a child\'s life happens out of your sight. This course covers friendships and bullying, learning differences, online safety, growing independence, and building character through responsibility and the right kind of praise.',
     note: 'General guidance, not professional advice. If you are worried about your child\'s safety or development, talk to their school or your GP.',
     rules: [
       'Listen to the whole story before you react. A calm reaction is what makes them tell you next time.',
@@ -138,7 +138,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Independence, identity, wellbeing and the road to adulthood',
     intro:
-      'Adolescents need more independence and more support at the same time. This module covers risk and safety, mental health and identity, setbacks and choices about the future, and keeping a relationship strong enough to carry the hard conversations.',
+      'Adolescents need more independence and more support at the same time. This course covers risk and safety, mental health and identity, setbacks and choices about the future, and keeping a relationship strong enough to carry the hard conversations.',
     note: 'General guidance, not professional advice. If your teenager is at risk of harm, call 999. For worries about their mental health, talk to your GP.',
     rules: [
       'Stay the person they can call. "Ring me, any time, and I will come. No lecture tonight."',
@@ -170,7 +170,7 @@ export const sets = {
     group: 'parenting',
     blurb: 'Support, repair and co-parenting, at any age',
     intro:
-      'Children do best when the adults caring for them are coping. This module is about the parent: accepting support, repairing after difficult moments, managing conflict and co-parenting, and letting go of comparison.',
+      'Children do best when the adults caring for them are coping. This course is about the parent: accepting support, repairing after difficult moments, managing conflict and co-parenting, and letting go of comparison.',
     note: 'General guidance, not professional advice. If you are struggling to cope, talk to your GP, or call Samaritans on 116 123 at any time.',
     rules: [
       'Accepting help is part of parenting well, not a sign that you are failing.',
@@ -186,7 +186,7 @@ export const sets = {
     group: 'work',
     blurb: 'What common questions are really asking, and how to answer well',
     intro:
-      'Interview questions often mean more than they say. This module takes the questions asked in almost every interview, compares ways of answering them, and explains what the interviewer is listening for, for any role.',
+      'Interview questions often mean more than they say. This course takes the questions asked in almost every interview, compares ways of answering them, and explains what the interviewer is listening for, for any role.',
     note: 'Practice only. Interviewers differ, so use the reasons as a guide and put the answers in your own words, with your own examples.',
     rules: [
       'Most questions are asking one thing: can we rely on you to do this job alongside other people?',
@@ -203,7 +203,7 @@ export const sets = {
     group: 'work',
     blurb: 'Confidentiality, prioritising, professionalism and self-advocacy',
     intro:
-      'Preparation for the situational judgement tests used in office and administrative recruitment. This module covers confidentiality, prioritising, professional relationships and asking for support, and explains what employers are looking for, which real tests rarely do.',
+      'Preparation for the situational judgement tests used in office and administrative recruitment. This course covers confidentiality, prioritising, professional relationships and asking for support, and explains what employers are looking for, which real tests rarely do.',
     note: 'Practice only. Every employer scores these tests in its own way, so use the reasons here as a guide, not a mark scheme.',
     rules: [
       'Tell people early. A problem shared at 10am is easier to fix than one found at 5pm.',
@@ -220,7 +220,7 @@ export const sets = {
     group: 'work',
     blurb: 'Handling complaints, policies and pressure professionally',
     intro:
-      'Preparation for the situational judgement tests used in retail, call centre and front-of-house recruitment. This module covers complaints, policies, pressure and honesty with customers, with the reasoning an employer would give.',
+      'Preparation for the situational judgement tests used in retail, call centre and front-of-house recruitment. This course covers complaints, policies, pressure and honesty with customers, with the reasoning an employer would give.',
     note: 'Practice only. Every employer has its own policies, so use the reasons here as a guide, not a mark scheme.',
     rules: [
       'Listen before you fix. An upset customer who feels heard is halfway to calm.',

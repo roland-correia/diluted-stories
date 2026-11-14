@@ -1,11 +1,12 @@
 ---
 // A single scenario on a page of its own, for links that point straight to it.
-// The usual way through is its module's deck of cards.
+// The usual way through is its course's reader, one card at a time.
 import Base from '../../../layouts/Base.astro';
 import Support from '../../../components/Support.astro';
 import QuizCard from '../../../components/QuizCard.astro';
 import { getLiveSets, pathOf, slugOf, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets } from '../../../lib/site';
+import { photoOf } from '../../../lib/photos';
 import { href } from '../../../lib/paths';
 
 export async function getStaticPaths() {
@@ -43,19 +44,35 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
   title={scenario.title}
   description={`${set.name} scenario: ${scenario.topic}. Choose what you would do and see why.`}
   path={pathOf(entry)}
-  back={{ href: quizPath, label: 'Back' }}
+  chrome="bare"
 >
+  <div class="reader">
+  <header class="reader-top">
+    <div class="reader-bar">
+      <a class="iconbtn round" href={quizPath} aria-label={`Close, and go to this card in ${set.name}`}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </a>
+      <p style="flex:1;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{set.name}</p>
+      <button type="button" class="iconbtn round" data-open-settings aria-haspopup="dialog" aria-label="Reading settings">Aa</button>
+    </div>
+  </header>
   {scenario.draft && <p class="notice">Draft. This scenario is not published yet.</p>}
 
-  <QuizCard entry={entry} label={label} as="page">
+  <div class="deck-card" style="margin-top:0.6rem">
+  <QuizCard entry={entry} label={label} as="page" photo={chapter ? photoOf(scenario.set, chapter.id) : undefined}>
     <nav class="stepper" aria-label="Module" slot="after">
       <a class="btn block" href={quizPath}>Continue {set.name}</a>
     </nav>
   </QuizCard>
+  </div>
 
-  <Support set={scenario.set} />
+  <div style="padding: 1.25rem 0 3rem; display: flex; flex-direction: column; gap: 1rem">
+    <Support set={scenario.set} />
+  </div>
+  </div>
 
   <script>
     import '../../../scripts/scenario.ts';
+    import '../../../scripts/cast.ts';
   </script>
 </Base>

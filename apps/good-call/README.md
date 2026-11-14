@@ -1,7 +1,9 @@
 # Good Call
 
-Practice for judgement: short scenarios on consent and on situations at work. You choose what you
-would do, then see why each choice helps or harms. Built with [Astro](https://astro.build), served at
+Practice for judgement: short scenarios on consent, race, parenting and situations at work. You
+choose what you would do, then see why each choice helps or harms. It works like a reading app:
+each course is a book with its own cover, read one card at a time, with a character, streaks,
+achievements and points. Built with [Astro](https://astro.build), served at
 `dilutedstories.com/projects/good-call/`.
 
 ## Run it on your computer
@@ -49,39 +51,88 @@ Every scenario needs these fields, and the build **fails with a clear message** 
 `why` is the feedback, and every option must have one, including the best. Vary which position the
 best answer sits in.
 
-Each set (module) is split into topics, listed in `categories` in `src/lib/site.ts`, in the order
-shown. A module's page is the quiz itself: one continuous deck of flashcards through every topic
-in turn (`src/scripts/deck.ts`). It opens on the first unanswered card, with Next and Back at the
-bottom of the screen, swiping on touch screens and arrow keys. The bar at the top has one segment
-per topic, and each card is labelled with its topic's name. After the last card, a summary groups
-every answer by topic, repeats the key principles and leads on to the next module in the same group.
+Each set (a course) is split into topics, listed in `categories` in `src/lib/site.ts`, in the order
+shown. Every course has two pages:
+
+- **The book page**, `/courses/<set>/`: the cover, progress, what it covers, a card per topic with
+  its photograph, the character item it unlocks, the charities connected to it, and a Start
+  (or Continue) button.
+- **The reader**, `/practice/<set>/`: one continuous deck of cards through every topic in turn
+  (`src/scripts/deck.ts`). It opens on the first unanswered card, with round Back and Next buttons
+  and a Listen button (read aloud by the browser) at the bottom of the screen, swiping on touch
+  screens and arrow keys. The bar at the top has one segment per topic. After the last card, a
+  summary shows every answer by topic, the points earned and the item unlocked, then the next book.
+
 Each question also has a page of its own at `/practice/<set>/<scenario>/`, for direct links. The old
-topic pages at `/practice/<set>/topics/<topic>/` redirect to that topic's first card. To add a topic,
-add a line to `categories` and use its name in a scenario's `category`.
+topic pages at `/practice/<set>/topics/<topic>/` redirect to that topic's first card, and the old
+`/parenting/` and `/work/` pages to their shelves on the home page. To add a topic, add a line to
+`categories`, use its name in a scenario's `category`, and give it a photo (see below).
 
 ## Add a set, a role or a parenting module
 
 1. Add it to `sets` in `src/lib/site.ts` with a `group`, an `intro`, a `note`, its `rules` and
-   `live: true`. The group decides where it is listed: `everyday` on the home page, `parenting` on
-   `/parenting/`, `work` on `/work/`. Sets marked `live: false` show as "Coming later".
-2. Add its name to the `set` list in `src/content.config.ts`.
-3. Create `src/content/scenarios/<set>/` and add scenarios to it.
+   `live: true`. The group decides which shelf of the home page it sits on: `everyday`,
+   `parenting` or `work`. Sets marked `live: false` show as "Coming soon".
+2. Add it to `courses` in `src/lib/courses.ts`: its cover (title lines, colours and picture), the line
+   on its book page, its Explore category, its charities and the character item it unlocks.
+3. Add its name to the `set` list in `src/content.config.ts`.
+4. Create `src/content/scenarios/<set>/` and add scenarios to it.
+5. Add a photo for each of its topics (see below).
 
-The parenting modules (`parent-newborn` to `parent-teen`, then `parent-adoption` and `parent-you`)
-are listed on `/parenting/` in the order they are written in `site.ts`, and share one list of
-support links in `src/components/Support.astro`.
+The parenting courses (`parent-newborn` to `parent-teen`, then `parent-adoption` and `parent-you`)
+are on the home page's "Parenting, age by age" shelf in the order they are written in `site.ts`,
+and share one list of support links in `src/components/Support.astro`.
+
+## Photos
+
+Each topic has one photograph, shown on its course's book page and on every card in the topic. They
+are in `src/assets/photos/` and listed, with alt text and credits, in `src/lib/photos.ts`. Astro
+resizes them and serves WebP at the right size. Rules:
+
+- Only photos under the [Unsplash Licence](https://unsplash.com/license), downloaded from
+  `images.unsplash.com`. Never Unsplash+ photos, which need a paid licence.
+- Look at every photo before using it. On sensitive topics (sex, pornography, abuse, racism) prefer
+  hands, objects or places to identifiable faces, and never show a child next to a sensitive topic.
+- Write alt text that says what the photo shows, and credit the photographer. Credits appear on each
+  card and on the About page.
+
+## Character, points, streaks and achievements
+
+All of it lives in the visitor's browser, under `gc-profile` and `gc-stats` (`src/scripts/store.ts`),
+beside `gc-progress` (answers) and `gc-settings` (reading settings). The cookies page of the root
+site lists every key (`src/data/storage.ts` in the repository root); keep it in step.
+
+- **Points, streaks and achievements are worked out, not stored**, from the answers, the time spent
+  and the learning days (`src/lib/game.ts`), so they can never drift out of step.
+- **Time** counts only while a page is on screen and the visitor has done something in the last three
+  minutes (`src/scripts/activity.ts`). A day counts towards the streak after a minute of learning or
+  one answer.
+- **Points are collected, not spent, for now.** Turning them into real donations to each course's
+  charities is planned but not released, and the pages say so. Before it is switched on, it needs an
+  agreement with each charity (in the UK, the commercial participator rules apply).
+- **The character** is drawn as SVG (`src/scripts/avatar.ts`). Finishing a course unlocks the item
+  named in `courses`. The name a visitor gives it appears on each card ("Playing as Sam") and in the
+  question ("What is the best call, Sam?").
+- **Book covers** are drawn as animated SVG (`src/components/BookCover.astro`), so they need no image
+  licence. All movement stops for visitors who ask their device for reduced motion.
 
 ## How it is put together
 
 ```
 src/content.config.ts    the rules every scenario must follow (the schema)
 src/content/scenarios/   the scenarios, one YAML file each, in a folder per set
-src/lib/site.ts          the sets (consent and each work role), their categories and the three verdicts
-src/pages/               home, the parenting and work pages, a module's deck, one scenario, about
-src/layouts/Base.astro   the page shell, share tags, reading settings and the footer (summary, disclaimer, copyright)
-src/components/          the wordmark, quiz card, set tiles, progress bar, settings dialog and support links
-src/scripts/             scenario.ts (lock in an answer), deck.ts (the flashcards), progress.ts (saved answers), progress-bar.ts,
-                         set-progress.ts, settings.ts
+src/lib/site.ts          the sets, their categories (topics) and the three verdicts
+src/lib/courses.ts       each course as a book: cover, Explore category, charities and unlockable item
+src/lib/game.ts          character options, points, achievements, streak and time rules
+src/lib/photos.ts        the photo for each topic, with alt text and credit
+src/pages/               home (shelves), explore (search), profile and the character builder, a course's
+                         book page, its reader, one scenario, about (the brand page)
+src/layouts/Base.astro   the page shell: app bar with streak and points, tab bar, footer, or a bare page for reading
+src/components/          book covers, books, the tab bar, quiz card, settings dialog, support links
+src/scripts/             scenario.ts (lock in an answer), deck.ts (the reader), listen.ts (read aloud),
+                         cast.ts (the visitor's character in each card), progress.ts (saved answers),
+                         store.ts (profile and stats), activity.ts (time, streak, toasts), books.ts,
+                         book.ts, explore.ts, profile.ts, character.ts, avatar.ts, settings.ts
 src/styles/global.css    colours, type and layout, all in one place
 ```
 
@@ -93,10 +144,13 @@ Choices worth knowing about:
 - **Three verdicts, not right and wrong.** Each has a label and a mark, so it never depends on colour.
 - **The quiz is progressive enhancement.** Without JavaScript every reason is on the page, so each
   scenario reads as a worked example.
-- **Nothing leaves the browser.** Answers and reading settings are kept in `localStorage`. There is
-  no account, no analytics and no third-party request.
-- **Progress is saved and shown as a bar** on the home page, each set's page and each scenario.
-  "Clear my answers and start this set again" on a set's page is the only way to answer again.
+- **Nothing leaves the browser.** Answers, the character, time and reading settings are kept in
+  `localStorage`. There is no account, no analytics and no third-party request: photos and fonts
+  are served from this site.
+- **Progress is saved and shown** on every book and book page. "Clear my answers and start again" at
+  the end of a course is the only way to answer again, and "Delete all my Good Call data" on the
+  Profile tab removes everything.
+- **Uploads are not possible.** Courses are written here, reviewed and published by us.
 - **Links use `href()`** from `src/lib/paths.ts`, so nothing hard-codes the `/projects/good-call` base path.
 
 ## Before this is promoted
