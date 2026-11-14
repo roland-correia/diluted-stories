@@ -1,6 +1,6 @@
 ---
-// A course on a shelf or in a grid: its cover, its name and a thin progress bar,
-// which src/scripts/books.ts fills in from the answers saved in this browser.
+// A course on a shelf or in a grid: its cover and its name. Screen readers also hear
+// how far the visitor has got, which src/scripts/books.ts fills in.
 // Courses that are not live yet are shown greyed out, as "Coming soon", and do not link anywhere.
 import BookCover from './BookCover.astro';
 import { sets, type SetId } from '../lib/site';
@@ -26,9 +26,6 @@ const shortName = set.name.split(':')[0];
       <BookCover id={id} decorative />
       <b>{shortName}</b>
       {course.cover.sub && <small>{course.cover.sub}</small>}
-      <span class="mini-bar" aria-hidden="true">
-        <i data-book-fill />
-      </span>
       <small class="visually-hidden" data-book-status />
     </a>
   ) : (

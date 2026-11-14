@@ -1,186 +1,119 @@
 ---
-// About: the brand page, opened by the Good Call mark at the end of the tab bar.
-// What Good Call is and stands for, how it works, its colours, the photo
-// credits, and the disclaimer.
+// About: the brand page, opened by the floating Good Call mark at the end of the
+// tab bar. It reads like the opening pages of a book: no cards, a large initial
+// letter, and plain sections with space and a hairline between them. The
+// disclaimer and privacy notice have a page of their own (/disclaimer/).
 import Base from '../layouts/Base.astro';
 import { calls } from '../lib/site';
 import { POINTS } from '../lib/game';
 import { photos } from '../lib/photos';
+import { href } from '../lib/paths';
 
-const palette = [
-  { name: 'British Racing Green 4', hex: '#050602', role: 'The deepest shade, behind everything in dark mode. Steady and quiet.' },
-  { name: 'British Racing Green', hex: '#004225', role: 'Our heritage green, for covers and the glow behind each page.' },
-  { name: 'Alpine Green', hex: '#005C4C', role: 'Buttons, progress and the mark. Growth, and going the right way.' },
-  { name: 'Calm blue', hex: '#2F6690', role: 'Streaks and information. Chosen to slow the pulse, not raise it.' },
-  { name: 'Gold', hex: '#D9B44A', role: 'Points and achievements. Warmth, and effort worth celebrating.' },
-];
 // Every photographer, once, however many photos of theirs are used.
 const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, photo])).values()];
 ---
 
 <Base
   title="About"
-  description="What Good Call is and stands for, how it works, how answers are judged, its colours, photo credits and the disclaimer."
+  description="What Good Call is and stands for, how it works, how answers are judged, how points work, and photo credits."
   path="/about/"
   tab="about"
 >
   <!-- The logo is already in the bar above, so the page opens like the first page of a
-       book: a large initial letter, then the text. The heading is kept for screen readers. -->
+       book. The heading is kept for screen readers. -->
   <h1 class="visually-hidden">About Good Call</h1>
 
-  <div class="prose">
-    <p class="drop-cap">
-      Good Call is practice for judgement. Each scenario is a moment where the right thing to do is not obvious, or is
-      obvious and still hard. You choose, and then you see the reasoning.
-    </p>
-    <p>
-      It starts with consent, because that is where a bad call does the most harm, and because it is for everyone.
-      Anyone can misjudge a situation. Anyone can have their own boundary ignored.
-    </p>
-    <p>
-      The work scenarios are for people preparing for job applications and training, especially anyone who does not get
-      the extra time or support to prepare. That includes many neurodivergent applicants. Timed tests reward people who
-      already know the unwritten rules. Good Call writes the rules down.
+  <div class="longform">
+    <div class="prose">
+      <p class="drop-cap">
+        Good Call is practice for judgement. Each scenario is a moment where the right thing to do is not obvious, or
+        is obvious and still hard. You choose, and then you see the reasoning.
+      </p>
+      <p>
+        It starts with consent, because that is where a bad call does the most harm, and because it is for everyone.
+        Anyone can misjudge a situation. Anyone can have their own boundary ignored.
+      </p>
+      <p>
+        The work scenarios are for people preparing for job applications and training, especially anyone who does not
+        get the extra time or support to prepare. That includes many neurodivergent applicants. Timed tests reward
+        people who already know the unwritten rules. Good Call writes the rules down.
+      </p>
+    </div>
+
+    <section class="page-section" aria-labelledby="values-title">
+      <h2 id="values-title">What we stand for</h2>
+      <ul class="ticks">
+        <li><span><b>Respect.</b> Every scenario starts from everyone's right to be treated with dignity.</span></li>
+        <li><span><b>Honesty.</b> Real situations, plainly told, without shaming anyone for not knowing yet.</span></li>
+        <li><span><b>Calm.</b> No timers, no leaderboards and no pressure. Learning sticks when you feel safe.</span></li>
+        <li><span><b>Privacy.</b> No tracking, and nothing shared about you unless you join through your school, college or NGO.</span></li>
+        <li><span><b>Care.</b> Support is always one tap away, and every course points to charities doing the real work.</span></li>
+      </ul>
+    </section>
+
+    <section class="page-section" id="how" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <ul class="ticks">
+        <li>Every course is a book. Open one to see its topics, then start reading.</li>
+        <li>No timer. Take as long as you need.</li>
+        <li>Every answer comes with its reason, the good ones too.</li>
+        <li>One go at each scenario. Once you lock in an answer, it stays.</li>
+        <li>Your character plays the main part. Finish a course to unlock something new for them to wear.</li>
+        <li>
+          Collect points as you go: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,{' '}
+          {POINTS.risky} for trying and {POINTS.courseComplete} for finishing a course.
+        </li>
+        <li>No account needed. Your progress is saved on this device.</li>
+      </ul>
+    </section>
+
+    <section class="page-section" aria-labelledby="judged-title">
+      <h2 id="judged-title">How answers are judged</h2>
+      <p>Real situations are rarely just right or wrong, so there are three verdicts:</p>
+      <ul class="ticks">
+        <li><span><b>{calls.best.label}.</b> The choice that respects everyone involved and solves the problem.</span></li>
+        <li><span><b>{calls.okay.label}.</b> It avoids the worst outcome but leaves something undone.</span></li>
+        <li><span><b>{calls.risky.label}.</b> It is likely to hurt someone, or you.</span></li>
+      </ul>
+      <p>Every answer has its reason. The reason is the point, not the score.</p>
+    </section>
+
+    <section class="page-section" aria-labelledby="points-title">
+      <h2 id="points-title">About points</h2>
+      <p>
+        We are working on turning the points you collect into real donations to charities connected to each course.
+        That is not released yet, so for now points simply add up. Points cannot be bought or sold.
+      </p>
+      <p>
+        Each course links to charities working on what it teaches. They are not partners of Good Call and do not
+        endorse it.
+      </p>
+    </section>
+
+    {
+      credits.length > 0 && (
+        <section class="page-section" aria-labelledby="credits-title">
+          <h2 id="credits-title">Photo credits</h2>
+          <p>
+            Photos are from <a href="https://unsplash.com/">Unsplash</a>, used under the{' '}
+            <a href="https://unsplash.com/license">Unsplash Licence</a>. Thank you to:
+          </p>
+          <ul class="credits">
+            {credits.map((photo) => (
+              <li>
+                <a href={photo.page} target="_blank" rel="noopener">
+                  {photo.by}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="fine">Book covers and characters are drawn for Good Call.</p>
+        </section>
+      )
+    }
+
+    <p class="fine">
+      Please read the <a href={href('/disclaimer/')}>disclaimer and privacy notice</a> before you use Good Call.
     </p>
   </div>
-
-  <section class="card" aria-labelledby="values-title">
-    <h2 id="values-title">What we stand for</h2>
-    <ul class="ticks">
-      <li><span><b>Respect.</b> Every scenario starts from everyone's right to be treated with dignity.</span></li>
-      <li><span><b>Honesty.</b> Real situations, plainly told, without shaming anyone for not knowing yet.</span></li>
-      <li><span><b>Calm.</b> No timers, no leaderboards and no pressure. Learning sticks when you feel safe.</span></li>
-      <li><span><b>Privacy.</b> No account and no tracking. What you learn here stays with you.</span></li>
-      <li><span><b>Care.</b> Support is always one tap away, and every course points to charities doing the real work.</span></li>
-    </ul>
-  </section>
-
-  <section class="card" id="how" aria-labelledby="how-title">
-    <h2 id="how-title">How it works</h2>
-    <ul class="ticks">
-      <li>Every course is a book. Open one to see its topics, then start reading.</li>
-      <li>No timer. Take as long as you need.</li>
-      <li>Every answer comes with its reason, the good ones too.</li>
-      <li>One go at each scenario. Once you lock in an answer, it stays.</li>
-      <li>Your character plays the main part. Finish a course to unlock something new for them to wear.</li>
-      <li>
-        Collect points as you go: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,
-        {POINTS.risky} for trying and {POINTS.courseComplete} for finishing a course.
-      </li>
-      <li>No account. Your progress is saved in this browser.</li>
-    </ul>
-  </section>
-
-  <section class="card" aria-labelledby="points-title">
-    <h2 id="points-title">About points</h2>
-    <p>
-      We are working on turning the points you collect into real donations to charities connected to each course.
-      That is not released yet, so for now points simply add up. Points cannot be bought or sold.
-    </p>
-    <p>
-      Each course links to charities working on what it teaches. They are not partners of Good Call and do not endorse
-      it.
-    </p>
-  </section>
-
-  <section class="card" aria-labelledby="judged-title">
-    <h2 id="judged-title">How answers are judged</h2>
-    <p>Real situations are rarely just right or wrong, so there are three verdicts:</p>
-    <ul class="ticks">
-      <li><span><b>{calls.best.label}.</b> The choice that respects everyone involved and solves the problem.</span></li>
-      <li><span><b>{calls.okay.label}.</b> It avoids the worst outcome but leaves something undone.</span></li>
-      <li><span><b>{calls.risky.label}.</b> It is likely to hurt someone, or you.</span></li>
-    </ul>
-    <p>Every answer has its reason. The reason is the point, not the score.</p>
-  </section>
-
-  <section class="card" aria-labelledby="colours-title">
-    <h2 id="colours-title">Our colours</h2>
-    <ul class="palette">
-      {
-        palette.map((colour) => (
-          <li>
-            <span class="palette-swatch" style={`background: ${colour.hex}`} aria-hidden="true" />
-            <span>
-              <b>{colour.name}</b> <small>{colour.hex}</small>
-              <span class="fine">{colour.role}</span>
-            </span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <section class="card" aria-labelledby="limits-title">
-    <h2 id="limits-title">What this is not</h2>
-    <ul class="ticks">
-      <li>Not legal advice. Where a law is mentioned, it is the law in England and Wales unless it says otherwise.</li>
-      <li>Not a qualification. Finishing a course does not certify anything.</li>
-      <li>Not a mark scheme. Employers score their own tests in their own way.</li>
-      <li>
-        Not yet reviewed. These scenarios are first versions. They have not been checked by a consent educator, a
-        lawyer or a recruiter.
-      </li>
-    </ul>
-  </section>
-
-  <section class="card" id="disclaimer" aria-labelledby="disclaimer-title">
-    <h2 id="disclaimer-title">Disclaimer</h2>
-    <p>
-      Good Call is provided for general education only. The scenarios, answers and reasons are teaching material.
-      They are not legal, medical, psychological, safeguarding or employment advice, and they are no substitute for
-      advice from a qualified professional about your own situation.
-    </p>
-    <p>
-      Using this site, or completing any part of it, does not show that a person understands or follows what it
-      teaches. It is not evidence of good character, and it is not a defence. Nothing here may be relied on to
-      excuse, justify or defend antisocial, abusive, discriminatory or unlawful behaviour, by the person who used the
-      site or by anyone else.
-    </p>
-    <p>
-      Your answers are not used to build a profile of you. They are saved only in your own browser. They are never
-      sent to Good Call, its author, an employer or anyone else, so they cannot be used to assess you, rank you,
-      target you or discriminate against you.
-    </p>
-    <p>
-      Everyone remains fully responsible for their own choices and actions. Good Call and its author accept no
-      responsibility for how this material is used, or for any decision made or action taken because of it.
-    </p>
-    <p>
-      The scenarios are fictional. Any resemblance to real people or events is coincidental. If you are in danger, or
-      someone else is, call 999.
-    </p>
-  </section>
-
-  <section class="card" aria-labelledby="privacy-title">
-    <h2 id="privacy-title">Your answers</h2>
-    <p>
-      You get one go at each scenario. Once you lock in an answer it cannot be changed, so your result is your real
-      first judgement. Your answers and reading settings are saved in this browser only. Nothing is sent anywhere,
-      there is no account and no tracking. To remove your answers from one course, use "Clear my answers and start
-      again" at the end of it. To remove everything, use "Delete all my Good Call data" on your profile.
-    </p>
-  </section>
-
-  {
-    credits.length > 0 && (
-      <section class="card" aria-labelledby="credits-title">
-        <h2 id="credits-title">Photo credits</h2>
-        <p>
-          Photos are from <a href="https://unsplash.com/">Unsplash</a>, used under the{' '}
-          <a href="https://unsplash.com/license">Unsplash Licence</a>. Thank you to:
-        </p>
-        <ul class="credits">
-          {credits.map((photo) => (
-            <li>
-              <a href={photo.page} target="_blank" rel="noopener">
-                {photo.by}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p class="fine">Book covers and characters are drawn for Good Call.</p>
-      </section>
-    )
-  }
 </Base>

@@ -20,6 +20,7 @@ import {
   writeProfile,
   writeStats,
 } from './store';
+import { SPLASH_DONE } from './splash';
 import { achievements, dayKey } from '../lib/game';
 
 /** Send this on `document` to announce anything newly earned straight away. */
@@ -140,5 +141,10 @@ addEventListener('pageshow', (event) => {
 });
 
 renderCounters();
-// Give the page a moment to settle before celebrating anything earned on an earlier visit.
-setTimeout(celebrate, 600);
+// Give the page a moment to settle before celebrating anything earned on an earlier
+// visit, and wait for the opening screen to close first, so nothing is hidden behind it.
+if (document.documentElement.classList.contains('splash-on')) {
+  document.addEventListener(SPLASH_DONE, () => setTimeout(celebrate, 400), { once: true });
+} else {
+  setTimeout(celebrate, 600);
+}

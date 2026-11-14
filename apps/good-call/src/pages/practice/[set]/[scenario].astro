@@ -3,6 +3,7 @@
 // The usual way through is its course's reader, one card at a time.
 import Base from '../../../layouts/Base.astro';
 import Support from '../../../components/Support.astro';
+import Footer from '../../../components/Footer.astro';
 import QuizCard from '../../../components/QuizCard.astro';
 import { getLiveSets, pathOf, slugOf, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets } from '../../../lib/site';
@@ -68,6 +69,7 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
 
   <div style="padding: 1.25rem 0 3rem; display: flex; flex-direction: column; gap: 1rem">
     <Support set={scenario.set} />
+    <Footer />
   </div>
   </div>
 

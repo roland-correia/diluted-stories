@@ -1,0 +1,39 @@
+---
+// The opening screen: the Good Call mark draws itself (the speech bubble, then the
+// tick), and on a first visit it asks the visitor's name, so the app knows how to
+// address them. It shows when someone arrives from outside Good Call, and whenever
+// no name has been given yet (the inline script in Base.astro decides, before the
+// page paints). src/scripts/splash.ts runs it. Without JavaScript it never shows.
+---
+
+<div class="splash" data-splash role="dialog" aria-modal="true" aria-labelledby="splash-label">
+  <div class="splash-inner">
+    <svg class="splash-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <path
+        class="splash-bubble"
+        pathLength="100"
+        d="M18 10 H46 A10 10 0 0 1 56 20 V36 A10 10 0 0 1 46 46 H28 L18 55 V46 A10 10 0 0 1 8 36 V20 A10 10 0 0 1 18 10 Z"
+      ></path>
+      <path class="splash-tick" pathLength="100" d="M21 28.5 L28.5 36 L43 21"></path>
+    </svg>
+    <p class="splash-word" id="splash-label"><span>Good</span> <b>Call</b></p>
+
+    <form class="splash-form" data-splash-form hidden>
+      <h2 id="splash-question">What should we call you?</h2>
+      <p class="fine" id="splash-hint">Your first name or a nickname. It is how Good Call will talk to you, and it stays on this device.</p>
+      <label class="visually-hidden" for="splash-name">Your name</label>
+      <input
+        id="splash-name"
+        name="name"
+        type="text"
+        maxlength="20"
+        autocomplete="given-name"
+        autocapitalize="words"
+        enterkeyhint="go"
+        required
+        aria-describedby="splash-hint"
+      />
+      <button class="btn block" type="submit">Let's begin</button>
+    </form>
+  </div>
+</div>
