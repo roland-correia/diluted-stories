@@ -689,6 +689,27 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 [data-scenario], [data-quiz], [data-after] { display: flex; flex-direction: column; gap: 1.3rem; }
 .situation { font-size: 1.08rem; }
 
+/* Course content is justified, like a printed book: the scenario, the answers, the
+   reasons, the principle, and a course's description and key principles. Headings,
+   questions and buttons stay ranged left. Hyphenation (the pages are en-GB) keeps
+   the gaps between words even on a narrow phone. */
+.situation p,
+.opt label > span,
+.why p,
+.principle p,
+.done-rules li,
+.course-text p,
+.course-text li {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  /* Only break words of eight letters or more, leaving at least four on each line,
+     so short words like "woman" are never split. */
+  hyphenate-limit-chars: 8 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
+}
+
 [data-quiz] fieldset { display: flex; flex-direction: column; gap: 0.7rem; }
 [data-quiz] legend { font-size: 1.25rem; line-height: 1.25; }
 

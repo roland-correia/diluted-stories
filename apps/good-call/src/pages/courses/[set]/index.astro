@@ -61,7 +61,7 @@ const isWork = set.group === 'work';
       <a class="badge" href={href(`/explore/?category=${course.category}`)}>{categories[course.category].name}</a>
     </div>
 
-    <section class="group" aria-labelledby="about-title">
+    <section class="group course-text" aria-labelledby="about-title">
       <h2 id="about-title">About this course</h2>
       <p>{set.intro}</p>
       <p class="notice">{set.note}</p>
@@ -131,7 +131,7 @@ const isWork = set.group === 'work';
 
     <details class="support">
       <summary>{isWork ? 'What employers look for' : 'Key principles'}</summary>
-      <ul class="ticks" style="padding: 0 1rem 1rem">
+      <ul class="ticks course-text" style="padding: 0 1rem 1rem">
         {set.rules.map((rule) => <li>{rule}</li>)}
       </ul>
     </details>
