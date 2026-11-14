@@ -1,5 +1,5 @@
 // Fills in everything on a page that depends on what this visitor has done:
-// - each book's progress bar ([data-book] with [data-book-fill] inside),
+// - each book's progress, read out to screen readers ([data-book-status] inside [data-book]),
 // - the visitor's character wherever there is a [data-avatar] slot, and their name in [data-hello],
 // - the "Continue learning" card on the home page.
 // Used on Home, Explore and Profile. Redraws when an answer or the profile changes.
@@ -26,8 +26,6 @@ function render() {
   document.querySelectorAll<HTMLElement>('a[data-book]').forEach((book) => {
     const state = byId.get(book.dataset.book!);
     if (!state) return;
-    const fill = book.querySelector<HTMLElement>('[data-book-fill]');
-    if (fill) fill.style.width = `${percentOf(state)}%`;
     const status = book.querySelector<HTMLElement>('[data-book-status]');
     if (status) status.textContent = describe(state);
   });

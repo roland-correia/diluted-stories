@@ -10,6 +10,7 @@
 // Without JavaScript every card is shown in order, as a worked example.
 import Base from '../../../layouts/Base.astro';
 import Support from '../../../components/Support.astro';
+import Footer from '../../../components/Footer.astro';
 import QuizCard from '../../../components/QuizCard.astro';
 import { getLiveSets, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets, type SetId } from '../../../lib/site';
@@ -155,9 +156,7 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
     </div>
 
     <Support set={id} />
-    <p class="fine" style="padding-bottom: 7rem">
-      For education only. It is not legal or professional advice. <a href={href('/about/#disclaimer')}>Read the full disclaimer</a>
-    </p>
+    <Footer />
   </div>
 
   <script>

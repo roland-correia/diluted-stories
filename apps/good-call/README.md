@@ -96,6 +96,21 @@ resizes them and serves WebP at the right size. Rules:
 - Write alt text that says what the photo shows, and credit the photographer. Credits appear on each
   card and on the About page.
 
+## Opening screen and name
+
+Arriving from outside Good Call shows the opening screen: the mark draws itself, the speech
+bubble then the tick. Until a visitor has given a name, it also asks "What should we call you?",
+and that name is used throughout ("Hi, Sam", "Playing as Sam"). Moving between Good Call's own
+pages does not show it again. The decision is made by a small inline script in `Base.astro`
+before the page paints, so it never flashes. Without JavaScript it never appears.
+
+## Text and spacing
+
+Every font size comes from one scale, the `--t-*` tokens at the top of `src/styles/global.css`
+(xs, sm, base, md, lg, xl, 2xl). Use a token rather than a new size, so text that plays the same
+part looks the same everywhere. Long-form pages (About, Disclaimer) use `.longform` and
+`.page-section`: plain text, no cards, with space and a hairline between sections.
+
 ## Character, points, streaks and achievements
 
 All of it lives in the visitor's browser, under `gc-profile` and `gc-stats` (`src/scripts/store.ts`),
@@ -127,9 +142,10 @@ src/lib/game.ts          character options, points, achievements, streak and tim
 src/lib/photos.ts        the photo for each topic, with alt text and credit
 src/pages/               home (shelves), explore (search), profile and the character builder, a course's
                          book page, its reader, one scenario, about (the brand page)
-src/layouts/Base.astro   the page shell: app bar with streak and points, tab bar, footer, or a bare page for reading
+src/layouts/Base.astro   the page shell: app bar with streak and points, tab bar, footer, the opening screen,
+                         or a bare page for reading
 src/components/          book covers, books, the tab bar, quiz card, settings dialog, support links
-src/scripts/             scenario.ts (lock in an answer), deck.ts (the reader), listen.ts (read aloud),
+src/scripts/             splash.ts (the opening screen, which asks for a name), scenario.ts (lock in an answer), deck.ts (the reader), listen.ts (read aloud),
                          cast.ts (the visitor's character in each card), progress.ts (saved answers),
                          store.ts (profile and stats), activity.ts (time, streak, toasts), books.ts,
                          book.ts, explore.ts, profile.ts, character.ts, avatar.ts, settings.ts
@@ -155,7 +171,7 @@ Choices worth knowing about:
 
 ## Before this is promoted
 
-The scenarios are first versions. The About page says so. They have not been reviewed by a consent
+The scenarios are first versions. The Disclaimer page (`/disclaimer/`) says so. They have not been reviewed by a consent
 educator, a lawyer or a recruiter. The legal points (capacity to consent, sleep, agreed conditions,
 sending and sharing intimate images, reporting a data breach) describe the law in England and Wales
 and should be re-checked before each is relied on.

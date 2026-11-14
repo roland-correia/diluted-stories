@@ -46,6 +46,16 @@
   --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   --fs: 112.5%; /* 18px: a comfortable reading size, not the browser's 16px */
+
+  /* One type scale for the whole app. Every font size uses one of these, so text that
+     plays the same part looks the same everywhere. */
+  --t-xs: 0.75rem;   /* captions and small labels: under books, badges, credits */
+  --t-sm: 0.875rem;  /* secondary text: notes, hints, counts, chips, buttons in bars */
+  --t-base: 1rem;    /* reading text */
+  --t-md: 1.125rem;  /* small headings */
+  --t-lg: 1.25rem;   /* section headings and questions */
+  --t-xl: 1.5rem;    /* card and book titles */
+  --t-2xl: 1.875rem; /* page titles */
   --lh: 1.65;
   --ls: 0.01em;
   --ws: 0em;
@@ -175,22 +185,22 @@ img { max-width: 100%; height: auto; display: block; }
 
 main { display: flex; flex-direction: column; gap: 1.6rem; min-height: 60vh; }
 
-h1 { font-size: 2.1rem; line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+h1 { font-size: var(--t-2xl); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
 h1 span { font-weight: 400; }
-h2 { font-size: 1.35rem; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
-h3 { font-size: 1.05rem; line-height: 1.3; font-weight: 700; }
+h2 { font-size: var(--t-lg); line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+h3 { font-size: var(--t-md); line-height: 1.3; font-weight: 700; }
 h1:focus, h2:focus, h3:focus { outline: none; }
 
 .lead, .meta { color: var(--muted); }
-.kicker { font-weight: 700; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.04em; }
-.fine { color: var(--muted); font-size: 0.85rem; }
+.meta { font-size: var(--t-sm); }
+.kicker { font-weight: 700; color: var(--accent); font-size: var(--t-sm); letter-spacing: 0.04em; }
+.fine { color: var(--muted); font-size: var(--t-sm); }
 
 .prose { display: flex; flex-direction: column; gap: 1rem; }
 .prose a { text-underline-offset: 4px; }
 
 .stack { display: flex; flex-direction: column; gap: 1.4rem; }
 .group { display: flex; flex-direction: column; gap: 0.75rem; }
-.group > h2 { font-size: 1.2rem; }
 section.group { scroll-margin-top: 1rem; }
 
 /* ==========================================================================
@@ -204,7 +214,7 @@ section.group { scroll-margin-top: 1rem; }
   .appbar .wm svg { width: 1.35rem; height: 1.35rem; }
   .appbar-tools { gap: 0.35rem; }
   /* .appbar in front, so these win over the base .chip rules further down. */
-  .appbar .chip { padding: 0 0.45rem; font-size: 0.85rem; gap: 0.15rem; }
+  .appbar .chip { padding: 0 0.45rem; gap: 0.15rem; }
   .appbar .chip svg { width: 0.95rem; height: 0.95rem; }
   .appbar { gap: 0.3rem; }
 }
@@ -228,7 +238,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .chip {
   display: inline-flex; align-items: center; gap: 0.3rem; min-height: 2.5rem; padding: 0 0.7rem;
   border-radius: 999px; background: var(--surface); border: 1px solid var(--line);
-  font-weight: 700; font-size: 0.9rem; text-decoration: none; font-variant-numeric: tabular-nums;
+  font-weight: 700; font-size: var(--t-sm); text-decoration: none; font-variant-numeric: tabular-nums;
 }
 .chip svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .chip-streak { color: var(--blue); }
@@ -240,7 +250,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   display: inline-flex; align-items: center; justify-content: center;
   min-width: 2.75rem; min-height: 2.75rem; padding: 0 0.8rem;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  border-radius: 999px; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-decoration: none;
+  border-radius: 999px; font-weight: 700; font-size: var(--t-sm); cursor: pointer; text-decoration: none;
 }
 .iconbtn:hover { border-color: var(--accent); }
 .iconbtn svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
@@ -263,18 +273,27 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .tabbar a {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem;
   min-height: 3.4rem; border-radius: 16px; text-decoration: none; color: var(--muted);
-  font-size: 0.72rem; font-weight: 600; transition: color 0.2s ease, background-color 0.2s ease;
+  font-size: var(--t-xs); font-weight: 600; transition: color 0.2s ease, background-color 0.2s ease;
 }
 .tabbar a svg { width: 1.55rem; height: 1.55rem; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .tabbar a[aria-current='page'] { color: var(--ink); background: var(--surface-2); }
 .tabbar a[aria-current='page'] svg { stroke: var(--accent); }
+.tab-brand a { gap: 0; }
 .brand-mark {
-  display: grid; place-items: center; width: 1.55rem; height: 1.55rem; border-radius: 7px;
+  display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 14px;
   background: linear-gradient(145deg, var(--alpine), var(--brg));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--alpine) 30%, transparent), 0 10px 22px -10px rgb(0 0 0 / 0.7);
+  animation: brand-float 3.4s ease-in-out infinite;
+  transition: scale 0.2s var(--ease), box-shadow 0.2s ease;
 }
-.brand-mark svg { width: 1.15rem; height: 1.15rem; }
+/* The float moves `translate` and the hover grows `scale`, so the two never fight. */
+.tab-brand a:hover .brand-mark, .tab-brand a:focus-visible .brand-mark { scale: 1.08; }
+.tab-brand a[aria-current='page'] { background: none; }
+.tab-brand a[aria-current='page'] .brand-mark { box-shadow: 0 0 0 3px var(--accent), 0 10px 22px -10px rgb(0 0 0 / 0.7); }
+.brand-mark svg { width: 1.7rem; height: 1.7rem; }
 .brand-mark path { fill: #062018; stroke: none; }
 .brand-mark path.tick { fill: none; stroke: #8ff0d2; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes brand-float { 50% { translate: 0 -4px; } }
 
 /* ==========================================================================
    BUTTONS
@@ -317,16 +336,14 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .book { display: flex; flex-direction: column; gap: 0.45rem; text-decoration: none; width: 7.6rem; flex: none; }
 .book .cover { transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease); }
 .book:hover .cover, .book:focus-visible .cover { transform: translateY(-4px) rotate(-1deg); }
-.book b { font-size: 0.85rem; line-height: 1.3; font-weight: 700; }
-.book small { color: var(--muted); font-size: 0.75rem; line-height: 1.3; }
-.book .mini-bar { height: 0.3rem; border-radius: 999px; background: var(--line); overflow: hidden; }
-.book .mini-bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: inherit; transition: width 0.6s var(--ease); }
+.book b { font-size: var(--t-sm); line-height: 1.3; font-weight: 700; }
+.book small { color: var(--muted); font-size: var(--t-xs); line-height: 1.3; }
 .book.soon { opacity: 0.6; }
 .book.soon .cover { filter: grayscale(0.6); }
 
 .shelf { display: flex; flex-direction: column; gap: 0.8rem; scroll-margin-top: 1rem; }
 .shelf-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-.shelf-head a { font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.shelf-head a { font-size: var(--t-sm); font-weight: 600; color: var(--accent); text-decoration: none; }
 .shelf-row {
   display: flex; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none;
   margin: 0 -1.15rem; padding: 0.4rem 1.15rem 0.8rem; scrollbar-width: none;
@@ -342,15 +359,15 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   display: grid; grid-template-columns: 5.2rem 1fr; gap: 1rem; align-items: center;
   padding: 0.9rem; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); text-decoration: none;
 }
-.continue b { display: block; font-size: 1.05rem; line-height: 1.3; }
-.continue small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
-.pill-progress { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.55rem; font-size: 0.78rem; font-weight: 700; color: var(--accent); }
+.continue b { display: block; font-size: var(--t-base); line-height: 1.3; }
+.continue small { display: block; color: var(--muted); font-size: var(--t-sm); margin-top: 0.15rem; }
+.pill-progress { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.55rem; font-size: var(--t-xs); font-weight: 700; color: var(--accent); }
 .pill-progress span:first-child { flex: 1; height: 0.45rem; border-radius: 999px; background: var(--line); overflow: hidden; }
 .pill-progress span:first-child i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: inherit; transition: width 0.7s var(--ease); }
 
 .hello { display: flex; align-items: center; gap: 0.9rem; }
 .hello .avatar-slot { width: 3.4rem; height: 3.4rem; flex: none; }
-.hello h1 { font-size: 1.6rem; }
+.hello h1 { font-size: var(--t-xl); }
 
 /* ==========================================================================
    EXPLORE
@@ -361,19 +378,19 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .search svg { position: absolute; left: 1rem; width: 1.2rem; height: 1.2rem; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; pointer-events: none; }
 .search input {
   width: 100%; min-height: 3.3rem; padding: 0 1rem 0 2.9rem; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--surface); font-size: 1rem;
+  border: 1px solid var(--line); background: var(--surface); font-size: var(--t-base);
 }
 .search input:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 .topics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; list-style: none; padding: 0; }
 .topic {
-  position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 0.4rem;
-  min-height: 5.6rem; padding: 0.85rem 0.9rem; border-radius: 18px; overflow: hidden; width: 100%;
+  position: relative; display: flex; flex-direction: column; justify-content: flex-start; gap: 0.35rem;
+  min-height: 5.6rem; height: 100%; padding: 0.85rem 0.9rem; border-radius: 18px; overflow: hidden; width: 100%;
   background: linear-gradient(150deg, var(--c), color-mix(in srgb, var(--c) 40%, #000));
   color: #fff; text-decoration: none; text-align: left; border: 2px solid transparent; cursor: pointer;
 }
-.topic b { font-size: 0.95rem; line-height: 1.25; position: relative; }
-.topic small { font-size: 0.72rem; opacity: 0.85; line-height: 1.3; position: relative; }
+.topic b { font-size: var(--t-base); line-height: 1.25; position: relative; }
+.topic small { font-size: var(--t-xs); opacity: 0.85; line-height: 1.3; position: relative; }
 .topic::after {
   content: ''; position: absolute; right: -1.2rem; bottom: -1.4rem; width: 4.4rem; height: 4.4rem; border-radius: 50%;
   background: rgb(255 255 255 / 0.14); transition: transform 0.5s var(--ease);
@@ -396,17 +413,17 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .book-hero .cover-wrap { width: min(52vw, 13.5rem); perspective: 900px; }
 .book-hero .cover { animation: book-in 0.9s var(--ease) both; box-shadow: 0 30px 50px -24px rgb(0 0 0 / 0.85); }
 @keyframes book-in { from { opacity: 0; transform: rotateY(-28deg) translateY(16px) scale(0.92); } }
-.book-hero h1 { font-size: 1.75rem; }
+.book-hero h1 { font-size: var(--t-xl); }
 .book-by { color: var(--muted); }
 .book-by b { color: var(--ink); }
 .badge {
   display: inline-flex; align-items: center; min-height: 2rem; padding: 0.2rem 0.85rem; border-radius: 8px;
-  background: var(--gold-soft); color: var(--gold); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--gold-soft); color: var(--gold); font-size: var(--t-xs); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
   text-decoration: none;
 }
 .progress-pill {
   display: inline-flex; align-items: center; gap: 0.55rem; min-width: 8rem; padding: 0.3rem 0.4rem 0.3rem 0.35rem;
-  border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 700; font-size: 0.85rem;
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 700; font-size: var(--t-sm);
 }
 .progress-pill i {
   width: 1.3rem; height: 1.3rem; border-radius: 50%; flex: none;
@@ -425,16 +442,16 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .topic-card:hover { transform: translateY(-3px); border-color: var(--accent); }
 .topic-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--surface-2); }
 .topic-card span { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.7rem 0.8rem 0.8rem; }
-.topic-card b { font-size: 0.88rem; line-height: 1.3; }
-.topic-card small { color: var(--muted); font-size: 0.75rem; }
+.topic-card b { font-size: var(--t-sm); line-height: 1.3; }
+.topic-card small { color: var(--muted); font-size: var(--t-xs); }
 .topic-card.done { border-color: var(--best-line); }
 
 .charities { display: flex; flex-direction: column; gap: 0.6rem; }
 .charities { list-style: none; padding: 0; }
 .charity { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.85rem 0.9rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
 .charity b { display: block; }
-.charity small { display: block; color: var(--muted); font-size: 0.82rem; }
-.charity a { font-size: 0.8rem; font-weight: 600; color: var(--accent); }
+.charity small { display: block; color: var(--muted); font-size: var(--t-sm); }
+.charity a { font-size: var(--t-sm); font-weight: 600; color: var(--accent); }
 
 .cta-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
@@ -450,10 +467,9 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
   padding: 1.1rem; display: flex; flex-direction: column; gap: 0.9rem;
 }
-.card h2 { font-size: 1.15rem; }
 
 .notice {
-  padding: 0.7rem 0.95rem; border-radius: 12px; font-weight: 600; font-size: 0.82rem; line-height: 1.45;
+  padding: 0.7rem 0.95rem; border-radius: 12px; font-weight: 600; font-size: var(--t-sm); line-height: 1.45;
   background: var(--okay-bg); color: var(--okay-ink); border: 1px solid var(--okay-line);
 }
 
@@ -467,15 +483,21 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .support ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
 .support li { display: flex; flex-direction: column; }
 .support a { font-weight: 600; text-underline-offset: 4px; }
-.support span { color: var(--muted); font-size: 0.85rem; }
+.support span { color: var(--muted); font-size: var(--t-sm); }
 
 .foot {
   display: flex; flex-direction: column; gap: 0.6rem;
   margin-top: 2.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line);
-  color: var(--muted); font-size: 0.8rem;
+  color: var(--muted); font-size: var(--t-sm);
 }
 .foot a { font-weight: 600; text-underline-offset: 4px; }
-#disclaimer, #how, #stats, #points, #achievements, #saved { scroll-margin-top: 1rem; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; list-style: none; padding: 0; }
+.foot-links a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+/* On a course's own pages, where there is no tab bar, the footer closes the page. */
+.book-page .foot, .reader .foot { margin-top: 1rem; }
+/* In the reader the footer has to clear the fixed Back, Next and Listen buttons. */
+.deck ~ .foot { padding-bottom: calc(6.5rem + env(safe-area-inset-bottom)); }
+#disclaimer, #privacy, #how, #stats, #points, #achievements, #saved { scroll-margin-top: 1rem; }
 
 
 /* ==========================================================================
@@ -485,12 +507,12 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .me .avatar-slot { width: 7.5rem; height: 7.5rem; }
 .avatar-slot { display: block; border-radius: 50%; }
 .avatar-slot svg { width: 100%; height: 100%; display: block; border-radius: 50%; }
-.me h1 { font-size: 1.7rem; }
+.me h1 { font-size: var(--t-xl); }
 
 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; list-style: none; padding: 0; }
 .stat { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.9rem 1rem; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
-.stat b { font-size: 1.35rem; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
-.stat small { color: var(--muted); font-size: 0.78rem; }
+.stat b { font-size: var(--t-lg); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat small { color: var(--muted); font-size: var(--t-xs); }
 .stat.wide { grid-column: 1 / -1; }
 .stat .stat-icon { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 0.2rem; }
 .stat.time { color: var(--accent); }
@@ -501,8 +523,8 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 
 .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.6rem, 1fr)); gap: 0.7rem; list-style: none; padding: 0; }
 .badge-card { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; padding: 1rem 0.7rem; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); text-align: center; }
-.badge-card b { font-size: 0.88rem; line-height: 1.25; }
-.badge-card small { color: var(--muted); font-size: 0.74rem; line-height: 1.35; }
+.badge-card b { font-size: var(--t-sm); line-height: 1.25; }
+.badge-card small { color: var(--muted); font-size: var(--t-xs); line-height: 1.35; }
 .badge-icon {
   display: grid; place-items: center; width: 3.6rem; height: 3.6rem; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #f6dc8a, var(--gold) 60%, #6e520c); color: #2b2004;
@@ -519,7 +541,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .builder .preview { align-self: center; width: 9rem; height: 9rem; animation: preview-in 0.6s var(--bounce) both; }
 @keyframes preview-in { from { transform: scale(0.7); opacity: 0; } }
 .builder label.name { display: flex; flex-direction: column; gap: 0.4rem; font-weight: 700; }
-.builder input[type='text'] { min-height: 3.2rem; padding: 0 1rem; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); font-size: 1rem; }
+.builder input[type='text'] { min-height: 3.2rem; padding: 0 1rem; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); font-size: var(--t-base); }
 .swatches { display: flex; flex-wrap: wrap; gap: 0.55rem; }
 .swatch { position: relative; }
 .swatch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
@@ -538,9 +560,9 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .option span {
   display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 5.4rem; min-height: 3rem;
   padding: 0.5rem 0.7rem; border-radius: 14px; border: 2px solid var(--line); background: var(--surface);
-  font-size: 0.8rem; font-weight: 600; text-align: center; line-height: 1.25;
+  font-size: var(--t-sm); font-weight: 600; text-align: center; line-height: 1.25;
 }
-.option span small { font-weight: 500; color: var(--muted); font-size: 0.7rem; }
+.option span small { font-weight: 500; color: var(--muted); font-size: var(--t-xs); }
 .option input:checked + span { border-color: var(--accent); background: var(--accent-soft); }
 .option input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
 .option input:disabled + span { opacity: 0.5; cursor: not-allowed; border-style: dashed; }
@@ -556,8 +578,8 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   box-shadow: 0 16px 36px -14px rgb(0 0 0 / 0.6); animation: toast-in 0.55s var(--bounce) both;
 }
 .toast.leaving { animation: toast-out 0.5s ease both; }
-.toast b { display: block; font-size: 0.9rem; line-height: 1.3; }
-.toast small { display: block; color: var(--muted); font-size: 0.78rem; line-height: 1.35; }
+.toast b { display: block; font-size: var(--t-sm); line-height: 1.3; }
+.toast small { display: block; color: var(--muted); font-size: var(--t-xs); line-height: 1.35; }
 .toast-icon { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--gold); color: #2b2004; font-size: 1.2rem; flex: none; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(-18px) scale(0.92); } }
 @keyframes toast-out { to { opacity: 0; transform: translateY(-14px); } }
@@ -573,12 +595,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
 .reader-bar { display: flex; align-items: center; gap: 0.5rem; }
-.reader-bar h1 { flex: 1; font-size: 1.05rem; line-height: 1.25; font-weight: 700; letter-spacing: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.reader-intro { display: flex; flex-direction: column; gap: 0.7rem; padding-top: 0.6rem; }
-.reader-intro .notice { font-size: 0.78rem; }
-.reader-intro details { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
-.reader-intro summary { min-height: 2.75rem; padding: 0.6rem 0.9rem; font-weight: 600; font-size: 0.88rem; cursor: pointer; }
-.reader-intro details p { padding: 0 0.9rem 0.8rem; font-size: 0.92rem; }
+.reader-bar h1 { flex: 1; font-size: var(--t-base); line-height: 1.25; font-weight: 700; letter-spacing: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .deck { display: flex; flex-direction: column; gap: 1rem; flex: 1; padding-bottom: calc(6.2rem + env(safe-area-inset-bottom)); }
 .deck-segs { display: flex; gap: 0.3rem; list-style: none; padding: 0; }
@@ -593,7 +610,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 }
 .deck-segs li.current { transform: scaleY(1.7); }
 .deck-segs li.current i { background: var(--accent); }
-.deck-count { font-weight: 600; font-size: 0.78rem; color: var(--muted); }
+.deck-count { font-weight: 600; font-size: var(--t-xs); color: var(--muted); }
 
 .deck-stage { display: flex; flex-direction: column; gap: 1.25rem; touch-action: pan-y; }
 .deck-card {
@@ -603,17 +620,16 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   will-change: transform;
 }
 .deck-card .opt { background: var(--ground); }
-.deck-card .quiz-title { font-size: 1.45rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; }
+.deck-card .quiz-title { font-size: var(--t-xl); line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; }
 .deck-card .quiz-title:focus { outline: none; }
-.deck-card .principle h3 { font-size: 1.05rem; }
 
 .scene-photo { margin: 0; border-radius: 18px; overflow: hidden; background: var(--surface-2); }
 .scene-photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.scene-photo figcaption { font-size: 0.68rem; color: var(--muted); padding: 0.35rem 0.6rem; }
+.scene-photo figcaption { font-size: var(--t-xs); color: var(--muted); padding: 0.35rem 0.6rem; }
 .scene-photo figcaption a { text-underline-offset: 3px; }
 
 /* "Playing as": the reader's own character, cast in every scenario. */
-.cast { display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start; padding: 0.25rem 0.75rem 0.25rem 0.25rem; border-radius: 999px; background: var(--surface-2); font-size: 0.8rem; font-weight: 600; }
+.cast { display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start; padding: 0.25rem 0.75rem 0.25rem 0.25rem; border-radius: 999px; background: var(--surface-2); font-size: var(--t-sm); font-weight: 600; }
 .cast .avatar-slot { width: 1.9rem; height: 1.9rem; }
 .cast[hidden] { display: none; }
 
@@ -638,7 +654,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .round-btn.listen svg path.play { fill: currentColor; }
 .round-btn.listen svg path.stop, .round-btn.listen[aria-pressed='true'] svg path.play { display: none; }
 .round-btn.listen[aria-pressed='true'] svg path.stop { display: inline; }
-.next-label { font-size: 0.8rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.next-label { font-size: var(--t-sm); font-weight: 600; color: var(--muted); white-space: nowrap; }
 @media (max-width: 359px) {
   .round-btn { width: 3rem; height: 3rem; }
   .deck-nav-inner { gap: 0.45rem; }
@@ -648,11 +664,11 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 /* The summary at the end of a course. Without JavaScript it is not shown: every card already is. */
 .deck:not(.js-deck) .deck-done { display: none; }
 .deck-done { display: flex; flex-direction: column; gap: 1rem; text-align: center; align-items: stretch; }
-.deck-done h2 { font-size: 1.6rem; }
+.deck-done h2 { font-size: var(--t-xl); }
 .deck-done h2:focus { outline: none; }
-.done-score { font-size: 1.1rem; font-weight: 600; }
+.done-score { font-size: var(--t-md); font-weight: 600; }
 .done-reward { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
-.done-reward span { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--gold-soft); color: var(--gold); font-weight: 700; font-size: 0.85rem; }
+.done-reward span { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--gold-soft); color: var(--gold); font-weight: 700; font-size: var(--t-sm); }
 .done-badge {
   position: relative; align-self: center; display: grid; place-items: center;
   width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink);
@@ -664,7 +680,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   animation: badge-ring 0.9s ease-out 0.15s both;
 }
 .done-group { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
-.done-group h3, .done-rules h3 { font-size: 1rem; font-weight: 700; margin-top: 0.5rem; }
+.done-group h3, .done-rules h3 { font-size: var(--t-md); font-weight: 700; margin-top: 0.5rem; }
 .done-rules { text-align: left; display: flex; flex-direction: column; gap: 0.6rem; padding: 1rem; border-radius: 16px; background: var(--accent-soft); }
 .done-reset { align-self: center; }
 .done-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
@@ -674,10 +690,10 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 }
 .done-list a:hover { border-color: var(--accent); }
 .done-list b { display: block; font-weight: 700; line-height: 1.3; }
-.done-list small { color: var(--muted); font-size: 0.8rem; }
+.done-list small { color: var(--muted); font-size: var(--t-sm); }
 .done-mark {
   flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%;
-  border: 2px dashed var(--line); font-weight: 800; font-size: 0.9rem;
+  border: 2px dashed var(--line); font-weight: 800; font-size: var(--t-sm);
 }
 .done-mark[data-call='best'] { border: 0; background: var(--best-bg); color: var(--best-ink); }
 .done-mark[data-call='okay'] { border: 0; background: var(--okay-bg); color: var(--okay-ink); }
@@ -687,7 +703,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
    SCENARIO: THE SITUATION, THE ANSWERS, THE REASONS
    ========================================================================== */
 [data-scenario], [data-quiz], [data-after] { display: flex; flex-direction: column; gap: 1.3rem; }
-.situation { font-size: 1.08rem; }
+.situation { font-size: var(--t-base); }
 
 /* Course content is justified, like a printed book: the scenario, the answers, the
    reasons, the principle, and a course's description and key principles. Headings,
@@ -711,7 +727,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 }
 
 [data-quiz] fieldset { display: flex; flex-direction: column; gap: 0.7rem; }
-[data-quiz] legend { font-size: 1.25rem; line-height: 1.25; }
+[data-quiz] legend { font-size: var(--t-lg); line-height: 1.25; }
 
 .opt { background: var(--surface); border: 2px solid var(--line); border-radius: 16px; overflow: hidden; }
 .opt label { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.95rem 1.05rem; cursor: pointer; }
@@ -724,7 +740,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .locked .opt label { cursor: default; }
 .locked .opt input { cursor: default; }
 .locked .opt:not(.chosen):hover { border-color: var(--line); }
-.yours { display: block; margin-top: 0.25rem; font-style: normal; font-size: 0.8rem; font-weight: 700; color: var(--accent); }
+.yours { display: block; margin-top: 0.25rem; font-style: normal; font-size: var(--t-sm); font-weight: 700; color: var(--accent); }
 
 /* Without JavaScript the radio buttons do nothing, so they are left out and every reason shows. */
 [data-scenario]:not(.js-quiz) .opt input { display: none; }
@@ -743,7 +759,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
   display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.1rem;
   background: var(--accent-soft); border-left: 0.35rem solid var(--accent); border-radius: 0 14px 14px 0;
 }
-.principle h2 { font-size: 1.15rem; }
+.principle h2 { font-size: var(--t-md); }
 
 .stepper { display: flex; flex-direction: column; gap: 0.6rem; }
 
@@ -769,7 +785,7 @@ dialog.settings {
 }
 dialog.settings::backdrop { background: rgb(5 6 2 / 0.6); }
 dialog.settings form { display: flex; flex-direction: column; gap: 1.4rem; padding: 1.4rem 1.25rem; }
-dialog.settings h2 { font-size: 1.3rem; }
+dialog.settings h2 { font-size: var(--t-lg); }
 
 fieldset { border: 0; padding: 0; min-width: 0; }
 legend { font-weight: 700; padding: 0; margin-bottom: 0.6rem; }
@@ -779,7 +795,7 @@ legend { font-weight: 700; padding: 0; margin-bottom: 0.6rem; }
 .seg span {
   display: flex; align-items: center; justify-content: center; text-align: center;
   min-height: 3rem; padding: 0 0.75rem; border: 2px solid var(--line); border-radius: 12px;
-  background: var(--surface); font-size: 0.85rem; line-height: 1.3;
+  background: var(--surface); font-size: var(--t-sm); line-height: 1.3;
 }
 .seg input:checked + span { border-color: var(--accent); background: var(--accent-soft); font-weight: 700; }
 .seg input:checked + span::before { content: '\2713\00a0'; }
@@ -807,8 +823,16 @@ main { animation: page-in 0.35s ease both; }
 }
 
 /* ==========================================================================
-   ABOUT: the brand page
+   LONG-FORM PAGES (About, Disclaimer and privacy): plain text, no cards, with a
+   hairline and generous space between sections, like the pages of a book.
    ========================================================================== */
+.longform { display: flex; flex-direction: column; gap: 2.25rem; }
+.longform .page-section { display: flex; flex-direction: column; gap: 0.9rem; }
+.longform .page-section + .page-section,
+.longform .prose + .page-section { padding-top: 2.25rem; border-top: 1px solid var(--line); }
+.longform .ticks { gap: 0.8rem; }
+.longform a { text-underline-offset: 4px; }
+
 /* The first letter of the page, set large across the opening lines, like the first page of a book. */
 .drop-cap::first-letter {
   float: left; font-size: 3.6em; line-height: 0.8; font-weight: 800; color: var(--accent);
@@ -820,11 +844,41 @@ main { animation: page-in 0.35s ease both; }
     -webkit-initial-letter: 3; initial-letter: 3;
   }
 }
-.palette { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem; }
-.palette li { display: flex; gap: 0.85rem; align-items: center; }
-.palette b { font-size: 0.92rem; }
-.palette small { color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
-.palette .fine { display: block; }
-.palette-swatch { flex: none; width: 2.8rem; height: 2.8rem; border-radius: 14px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 0 0 1px var(--line); }
-.credits { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.88rem; }
+.credits { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: var(--t-sm); }
 .credits a { text-underline-offset: 4px; }
+
+/* ==========================================================================
+   OPENING SCREEN (src/components/Splash.astro, src/scripts/splash.ts)
+   The Good Call mark draws itself: the speech bubble, then the tick. On a first
+   visit it then asks for the visitor's name. It only shows when JavaScript has
+   added html.splash-on (see Base.astro), so without JavaScript it never appears.
+   Both paths of the mark use pathLength="100", so the drawing always ends exactly closed.
+   ========================================================================== */
+.splash { display: none; }
+html.splash-on { overflow: hidden; }
+html.splash-on .splash {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1.5rem 1.25rem;
+  background: radial-gradient(90% 60% at 50% 35%, var(--glow), transparent 70%), var(--ground);
+  overflow-y: auto;
+}
+.splash.leaving { animation: splash-out 0.45s ease forwards; }
+.splash-inner { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; width: min(100%, 22rem); text-align: center; }
+.splash-mark { width: 5.5rem; height: 5.5rem; overflow: visible; transition: width 0.5s var(--ease), height 0.5s var(--ease); }
+.splash-mark path { fill: none; stroke: var(--accent); stroke-linecap: round; stroke-linejoin: round; }
+.splash-bubble { stroke-width: 4.5; stroke-dasharray: 100; stroke-dashoffset: 100; animation: splash-draw 0.8s var(--ease) 0.1s forwards; }
+.splash-tick { stroke-width: 5; stroke-dasharray: 100; stroke-dashoffset: 100; animation: splash-draw 0.45s var(--ease) 0.8s forwards, splash-pop 0.45s var(--bounce) 1.2s; transform-box: fill-box; transform-origin: center; }
+.splash-word { font-size: var(--t-xl); font-weight: 300; letter-spacing: -0.01em; opacity: 0; animation: splash-rise 0.5s var(--ease) 1s forwards; }
+.splash-word b { font-weight: 700; }
+.splash.asking .splash-mark { width: 3.5rem; height: 3.5rem; }
+.splash-form { display: flex; flex-direction: column; gap: 0.9rem; width: 100%; text-align: left; animation: splash-rise 0.5s var(--ease) both; }
+.splash-form h2 { text-align: center; }
+.splash-form .fine { text-align: center; }
+.splash-form input {
+  min-height: 3.3rem; padding: 0 1rem; border-radius: 14px; border: 1px solid var(--line); background: var(--surface);
+  font-size: var(--t-base); text-align: center;
+}
+.splash-form input:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
+@keyframes splash-draw { to { stroke-dashoffset: 0; } }
+@keyframes splash-pop { 50% { transform: scale(1.18); } }
+@keyframes splash-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes splash-out { to { opacity: 0; visibility: hidden; } }
