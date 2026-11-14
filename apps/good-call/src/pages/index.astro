@@ -1,51 +1,77 @@
 ---
+// Home: every course as a book, on three shelves. Parenting courses are listed by
+// age right here, with nothing to click through first. Above the shelves, a card
+// leads back into the course the visitor was last reading (src/scripts/books.ts).
 import Base from '../layouts/Base.astro';
-import ProgressBar from '../components/ProgressBar.astro';
+import Book from '../components/Book.astro';
+import BookCover from '../components/BookCover.astro';
 import { getLiveSets } from '../lib/scenarios';
-import { sets, groups } from '../lib/site';
+import { sets, groups, type SetId } from '../lib/site';
 import { href } from '../lib/paths';
 
-// Home lists the everyday sets, then one door each into parenting and work.
-// What Good Call is and how it works are in the footer and on the About page.
 const liveSets = await getLiveSets();
-const everyday = liveSets.filter(({ id }) => sets[id].group === 'everyday');
-const count = (n: number) => `${n} ${n === 1 ? 'scenario' : 'scenarios'}`;
+const all = Object.keys(sets) as SetId[];
+const shelf = (group: keyof typeof groups) => all.filter((id) => sets[id].group === group);
+const shelves = [
+  { id: 'everyday', name: groups.everyday.name, books: shelf('everyday') },
+  { id: 'parenting', name: 'Parenting, age by age', books: shelf('parenting') },
+  { id: 'work', name: groups.work.name, books: shelf('work') },
+];
 ---
 
-<Base title="Good Call" path="/">
-  <h1>What's the<br /><span>good call?</span></h1>
+<Base title="Good Call" path="/" tab="home">
+  <div class="hello">
+    <span class="avatar-slot" data-avatar aria-hidden="true"></span>
+    <div>
+      <p class="kicker" data-hello>Welcome to Good Call</p>
+      <h1>What's the <span>good call?</span></h1>
+    </div>
+  </div>
   <p class="lead">
     Navigate the moments no textbook prepares you for. Made for schools, NGOs and everyone ready to grow.
   </p>
 
-  <section class="group" aria-labelledby="everyday-title">
-    <h2 id="everyday-title">{groups.everyday.name}</h2>
+  <section class="group" aria-labelledby="continue-title" data-continue-section hidden>
+    <h2 id="continue-title">Continue learning</h2>
     {
-      everyday.map(({ id, scenarios }) => (
-        <a class="tile" href={href(`/practice/${id}/`)}>
-          <b>{sets[id].name}</b>
-          <small>{sets[id].blurb}</small>
-          <small>{count(scenarios.length)}</small>
-          <ProgressBar name={sets[id].name} scenarios={scenarios} />
+      liveSets.map(({ id }) => (
+        <a class="continue" href={href(`/courses/${id}/`)} data-continue={id} hidden>
+          <BookCover id={id} decorative />
+          <span>
+            <b>{sets[id].name}</b>
+            <small data-continue-detail />
+            <span class="pill-progress">
+              <span>
+                <i data-continue-fill />
+              </span>
+              <span data-continue-percent>0%</span>
+            </span>
+          </span>
         </a>
       ))
     }
   </section>
 
-  <section class="group" aria-labelledby="parenting-title">
-    <h2 id="parenting-title">{groups.parenting.name}</h2>
-    <a class="tile" href={href('/parenting/')}>
-      <b>The parenting course</b>
-      <small>From the first weeks to adolescence, for every kind of family</small>
-    </a>
-  </section>
+  {
+    shelves.map((group) => (
+      <section class="shelf" id={group.id} aria-labelledby={`${group.id}-title`}>
+        <div class="shelf-head">
+          <h2 id={`${group.id}-title`}>{group.name}</h2>
+        </div>
+        <ul class="shelf-row">
+          {group.books.map((id) => (
+            <li>
+              <Book id={id} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 
-  <section class="group" aria-labelledby="work-title">
-    <h2 id="work-title">{groups.work.name}</h2>
-    <a class="tile" href={href('/work/')}>
-      <b>Workplace readiness</b>
-      <small>Interview skills and professional judgement for working life</small>
-    </a>
-  </section>
+  <a class="btn ghost block" href={href('/explore/')}>Search every course</a>
 
+  <script>
+    import '../scripts/books.ts';
+  </script>
 </Base>

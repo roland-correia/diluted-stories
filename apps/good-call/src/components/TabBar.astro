@@ -1,0 +1,44 @@
+---
+// The bar along the bottom of the screen, within thumb reach: Home, Explore and
+// Profile, then the Good Call mark, which opens the About page.
+import { href } from '../lib/paths';
+
+export type Tab = 'home' | 'explore' | 'profile' | 'about';
+
+interface Props {
+  current?: Tab;
+}
+
+const { current } = Astro.props;
+const items: { tab: Tab; label: string; path: string; icon: string }[] = [
+  { tab: 'home', label: 'Home', path: '/', icon: '<path d="M4 11.5L12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"/>' },
+  { tab: 'explore', label: 'Explore', path: '/explore/', icon: '<circle cx="11" cy="11" r="6.2"/><path d="M15.6 15.6L20 20"/>' },
+  { tab: 'profile', label: 'Profile', path: '/profile/', icon: '<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-4 3.2-6.5 7-6.5s7 2.5 7 6.5"/>' },
+];
+---
+
+<nav class="tabbar" aria-label="Main">
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <a href={href(item.path)} aria-current={current === item.tab ? 'page' : undefined}>
+            <svg viewBox="0 0 24 24" aria-hidden="true" set:html={item.icon} />
+            <span>{item.label}</span>
+          </a>
+        </li>
+      ))
+    }
+    <li class="tab-brand">
+      <a href={href('/about/')} aria-current={current === 'about' ? 'page' : undefined}>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <path d="M18 10H46A10 10 0 0 1 56 20V36A10 10 0 0 1 46 46H28L18 55V46A10 10 0 0 1 8 36V20A10 10 0 0 1 18 10Z"></path>
+            <path class="tick" d="M21 28.5L28.5 36L43 21"></path>
+          </svg>
+        </span>
+        <span>About</span>
+      </a>
+    </li>
+  </ul>
+</nav>

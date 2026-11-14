@@ -1,22 +1,28 @@
-// A module's deck: every question in the module, topic after topic, one card on
-// screen at a time, like flashcards.
+// A course's deck: every question in the course, topic after topic, one card on
+// screen at a time, like the pages of a story.
 //
-// - Move with the Next and Back buttons, by swiping left and right on a touch
+// - Move with the round Next and Back buttons, by swiping left and right on a touch
 //   screen, or with the arrow keys.
 // - The deck opens on the first unanswered card, or on the summary if every
 //   card is answered. The address keeps the current card (#card=2, or
 //   #card=done), so a reload or a shared link opens the same card. It is
 //   deliberately not a bare element id (#card-2): the browser would treat that
-//   as "scroll to this element" and skip past the module's heading.
+//   as "scroll to this element" and skip past the reader's top bar.
 // - The bar at the top has one segment per topic, filling as its cards are
 //   answered. Moving into a new topic briefly highlights the topic's name.
-// - After the last card comes a summary of the whole module, which leads
-//   straight on to the next module.
+// - After the last card comes a summary of the whole course: the results, the
+//   coins earned and the character item unlocked, then on to the next book.
+// - Opening the reader marks the course as the one to continue from on Home.
 // - Movement is skipped for people who ask their device for reduced motion.
 //
 // Without JavaScript every card is shown in order and this file does nothing.
 
 import { readProgress, clearSet, callLabels, PROGRESS_EVENT, type Call } from './progress';
+import { updateProfile } from './store';
+import { COINS } from '../lib/game';
+
+/** Sent on `document` each time a different card is shown, so the Listen button can stop. */
+export const SLIDE_EVENT = 'gc:slide';
 
 const deck = document.querySelector<HTMLElement>('[data-deck]');
 
@@ -31,10 +37,8 @@ function setUpDeck(deck: HTMLElement) {
   const nav = deck.querySelector<HTMLElement>('[data-deck-nav]')!;
   const prev = nav.querySelector<HTMLButtonElement>('[data-prev]')!;
   const next = nav.querySelector<HTMLButtonElement>('[data-next]')!;
+  const nextLabel = nav.querySelector<HTMLElement>('[data-next-label]');
   const count = deck.querySelector<HTMLElement>('[data-deck-count]')!;
-  // When moving between cards, the screen scrolls so this bar sits at the top, with
-  // the card right under it. The module's title stays above, out of the way.
-  const anchor = deck.querySelector<HTMLElement>('.deck-segs') ?? deck;
   const segments = Array.from(deck.querySelectorAll<HTMLElement>('[data-seg]')).map((seg) => ({
     seg,
     fill: seg.querySelector<HTMLElement>('[data-seg-fill]')!,
@@ -47,6 +51,11 @@ function setUpDeck(deck: HTMLElement) {
 
   deck.classList.add('js-deck');
   nav.hidden = false;
+
+  // This is now the course to continue from on the home page.
+  updateProfile((profile) => {
+    profile.lastCourse = deck.dataset.set;
+  });
 
   // The address form of a slide: #card=1 … #card=n, then #card=done.
   const keyOf = (i: number) => (slides[i] === summary ? 'done' : String(i + 1));
@@ -96,13 +105,13 @@ function setUpDeck(deck: HTMLElement) {
     history.replaceState(null, '', `#card=${keyOf(index)}`);
     if (current === summary) renderSummary();
     update();
+    document.dispatchEvent(new CustomEvent(SLIDE_EVENT));
 
     if (moveFocus) {
-      // Bring the progress bar and the new card into view, then move focus to the
-      // card's heading so screen readers announce the new card. The jump is
-      // instant, like turning a card: the card's own slide-in is the movement.
-      const top = anchor.getBoundingClientRect().top;
-      if (top < 0 || top > window.innerHeight / 2) anchor.scrollIntoView({ block: 'start', behavior: 'instant' });
+      // Back to the top, where the new card starts under the sticky top bar, then
+      // move focus to the card's heading so screen readers announce it. The jump
+      // is instant, like turning a page: the card's own slide-in is the movement.
+      if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'instant' });
       current.querySelector<HTMLElement>('h2')?.focus({ preventScroll: true });
     }
   }
@@ -120,7 +129,7 @@ function setUpDeck(deck: HTMLElement) {
     }
 
     const complete = ids.every((id) => progress[id]);
-    count.textContent = onSummary ? (complete ? 'Module complete' : 'Your progress') : `Card ${index + 1} of ${cards.length}`;
+    count.textContent = onSummary ? (complete ? 'Course complete' : 'Your progress') : `Card ${index + 1} of ${cards.length}`;
 
     nav.hidden = onSummary;
     prev.disabled = index === 0;
@@ -128,9 +137,13 @@ function setUpDeck(deck: HTMLElement) {
     // itself has finished locking.
     const answered = !onSummary && Boolean(progress[ids[index]]);
     const last = index === cards.length - 1;
-    if (answered) next.textContent = last ? 'See how you did' : 'Next card';
-    else next.textContent = last ? 'Skip to the summary' : 'Skip this one';
-    next.classList.toggle('ghost', !answered);
+    let label: string;
+    if (answered) label = last ? 'See how you did' : 'Next card';
+    else label = last ? 'Skip to the summary' : 'Skip this one';
+    next.setAttribute('aria-label', label);
+    if (nextLabel) nextLabel.textContent = label;
+    // Once answered, the Next button is filled in and nudges, to show the way on.
+    next.classList.toggle('go', answered);
   }
 
   function renderSummary() {
@@ -146,7 +159,13 @@ function setUpDeck(deck: HTMLElement) {
     // first unanswered one; the next module becomes the second choice.
     resume.hidden = complete;
     summary.querySelector('[data-next-module]')?.classList.toggle('ghost', !complete);
-    summary.querySelector<HTMLElement>('[data-done-kicker]')!.textContent = complete ? 'Module complete' : 'Your progress';
+    summary.querySelector<HTMLElement>('[data-done-kicker]')!.textContent = complete ? 'Course complete' : 'Your progress';
+
+    // Coins earned in this course, and the item it unlocks once finished.
+    const coins = answers.reduce((sum, answer) => sum + (answer ? COINS[answer.call] : 0), 0) + (complete ? COINS.courseComplete : 0);
+    summary.querySelector<HTMLElement>('[data-reward-coins]')!.textContent = `${coins} ${coins === 1 ? 'coin' : 'coins'} earned`;
+    const item = summary.querySelector<HTMLElement>('[data-reward-item]');
+    if (item) item.hidden = !complete;
 
     if (complete) {
       score.textContent = `You made ${good} good ${good === 1 ? 'call' : 'calls'} out of ${cards.length}.`;

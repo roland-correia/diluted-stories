@@ -1,9 +1,12 @@
 ---
 // One scenario as a quiz: the situation, the answers, and the reason for each.
-// Used as a card in a topic's deck, and on a scenario's own page.
-// src/scripts/scenario.ts makes each one work.
+// Used as a card in a course's reader, and on a scenario's own page.
+// src/scripts/scenario.ts makes each one work, and src/scripts/cast.ts puts the
+// visitor's own character into it.
+import { Image } from 'astro:assets';
 import { slugOf, type Scenario } from '../lib/scenarios';
 import { calls } from '../lib/site';
+import { imageOf, type Photo } from '../lib/photos';
 
 interface Props {
   entry: Scenario;
@@ -11,9 +14,11 @@ interface Props {
   label: string;
   /** 'page' when the scenario has a page to itself, so its title is the page heading. */
   as?: 'page' | 'card';
+  /** The photograph for this scenario's topic, if it has one. */
+  photo?: Photo;
 }
 
-const { entry, label, as = 'card' } = Astro.props;
+const { entry, label, as = 'card', photo } = Astro.props;
 const scenario = entry.data;
 const slug = slugOf(entry);
 const paragraphs = scenario.situation.trim().split(/\n\s*\n/);
@@ -27,13 +32,32 @@ const Principle = as === 'page' ? 'h2' : 'h3';
     <Title class="quiz-title" tabindex="-1">{scenario.title}</Title>
   </header>
 
+  {
+    photo && (
+      <figure class="scene-photo">
+        <Image src={imageOf(photo)} alt={photo.alt} widths={[480, 720, 1000]} sizes="(min-width: 36rem) 32rem, 92vw" loading="lazy" />
+        <figcaption>
+          Photo by{' '}
+          <a href={photo.page} target="_blank" rel="noopener">
+            {photo.by} on Unsplash
+          </a>
+        </figcaption>
+      </figure>
+    )
+  }
+
+  <p class="cast" data-cast hidden>
+    <span class="avatar-slot" data-cast-avatar aria-hidden="true"></span>
+    <span>Playing as <b data-cast-name></b></span>
+  </p>
+
   <div class="prose situation">
     {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
   </div>
 
   <form data-quiz>
     <fieldset>
-      <legend>{scenario.question}</legend>
+      <legend data-question={scenario.question}>{scenario.question}</legend>
       {
         scenario.options.map((option, index) => (
           <div class="opt" data-option data-call={option.call}>

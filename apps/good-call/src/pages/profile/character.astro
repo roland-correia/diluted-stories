@@ -1,0 +1,180 @@
+---
+// The character builder. Visitors name their character and choose how they look;
+// finishing a course unlocks an item to wear, and some achievements unlock a
+// background. The character is saved in this browser only (src/scripts/character.ts)
+// and appears on the Profile tab and on every scenario card.
+import Base from '../../layouts/Base.astro';
+import { accessories, courses, type AccessoryId, type Slot } from '../../lib/courses';
+import { achievements, backgrounds, bonusBackgrounds, hairColours, hairStyles, skins, tops } from '../../lib/game';
+import { sets, type SetId } from '../../lib/site';
+import { href } from '../../lib/paths';
+
+const skinNames = ['Very light', 'Light', 'Medium', 'Tan', 'Brown', 'Deep'];
+const hairColourNames = ['Black', 'Dark brown', 'Light brown', 'Blonde', 'Red', 'Grey'];
+const hairStyleNames: Record<(typeof hairStyles)[number], string> = {
+  short: 'Short',
+  long: 'Long',
+  curly: 'Curly',
+  buzz: 'Buzz cut',
+  bun: 'Bun',
+  waves: 'Waves',
+};
+const topNames = ['Alpine green', 'Calm blue', 'Berry', 'Mustard', 'Violet', 'Charcoal'];
+const backgroundNames = ['Mint', 'Sky', 'Peach', 'Lavender', 'Sand', 'Mist'];
+
+const slots: { slot: Slot; name: string }[] = [
+  { slot: 'head', name: 'On your head' },
+  { slot: 'face', name: 'On your face' },
+  { slot: 'neck', name: 'Around your neck' },
+  { slot: 'detail', name: 'Finishing touch' },
+];
+// Which course unlocks each item.
+const unlockedBy = Object.fromEntries(
+  (Object.keys(courses) as SetId[]).filter((id) => courses[id].unlock).map((id) => [courses[id].unlock!, id]),
+) as Record<AccessoryId, SetId>;
+const itemsIn = (slot: Slot) => (Object.keys(accessories) as AccessoryId[]).filter((id) => accessories[id].slot === slot);
+const achievementName = (id: string) => achievements.find((a) => a.id === id)?.name ?? id;
+---
+
+<Base
+  title="Your character"
+  description="Name and style your Good Call character, and wear the items you unlock by finishing courses."
+  path="/profile/character/"
+  tab="profile"
+>
+  <h1>Your character</h1>
+  <p class="lead">
+    Your character plays the main part in every scenario. Finish a course to unlock something new to wear.
+  </p>
+
+  <form class="builder" data-builder>
+    <span class="avatar-slot preview" data-preview aria-hidden="true"></span>
+
+    <label class="name">
+      Name
+      <input type="text" name="name" maxlength="20" autocomplete="nickname" placeholder="What should we call you?" />
+    </label>
+
+    <fieldset>
+      <legend>Skin tone</legend>
+      <div class="swatches">
+        {
+          skins.map((colour, i) => (
+            <label class="swatch">
+              <input type="radio" name="skin" value={i} />
+              <span style={`--sw: ${colour}`}>
+                <span class="visually-hidden">{skinNames[i]}</span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Hairstyle</legend>
+      <div class="options">
+        {
+          hairStyles.map((style) => (
+            <label class="option">
+              <input type="radio" name="hair" value={style} />
+              <span>{hairStyleNames[style]}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Hair colour</legend>
+      <div class="swatches">
+        {
+          hairColours.map((colour, i) => (
+            <label class="swatch">
+              <input type="radio" name="hairColour" value={i} />
+              <span style={`--sw: ${colour}`}>
+                <span class="visually-hidden">{hairColourNames[i]}</span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Top</legend>
+      <div class="swatches">
+        {
+          tops.map((colour, i) => (
+            <label class="swatch">
+              <input type="radio" name="top" value={i} />
+              <span style={`--sw: ${colour}`}>
+                <span class="visually-hidden">{topNames[i]}</span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Background</legend>
+      <div class="swatches">
+        {
+          backgrounds.map((colour, i) => (
+            <label class="swatch">
+              <input type="radio" name="background" value={i} />
+              <span style={`--sw: ${colour}`}>
+                <span class="visually-hidden">{backgroundNames[i]}</span>
+              </span>
+            </label>
+          ))
+        }
+        {
+          (Object.keys(bonusBackgrounds) as (keyof typeof bonusBackgrounds)[]).map((key) => (
+            <label class="swatch" title={`Unlocked by the ${achievementName(bonusBackgrounds[key].achievement)} achievement`}>
+              <input type="radio" name="background" value={key} data-needs-achievement={bonusBackgrounds[key].achievement} disabled />
+              <span style={`--sw: ${bonusBackgrounds[key].colour}`}>
+                <span class="visually-hidden">
+                  {key === 'gold' ? 'Gold' : 'Racing green'}, unlocked by the {achievementName(bonusBackgrounds[key].achievement)}{' '}
+                  achievement
+                </span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+      <p class="fine">Two more backgrounds unlock with the Deep learner and Week strong achievements.</p>
+    </fieldset>
+
+    {
+      slots.map(({ slot, name }) => (
+        <fieldset>
+          <legend>{name}</legend>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name={`slot-${slot}`} value="" checked />
+              <span>Nothing</span>
+            </label>
+            {itemsIn(slot).map((item) => (
+              <label class="option">
+                <input type="radio" name={`slot-${slot}`} value={item} data-needs-course={unlockedBy[item]} disabled />
+                <span>
+                  {accessories[item].name}
+                  <small data-lock-note>Finish {sets[unlockedBy[item]].name.split(':')[0]}</small>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))
+    }
+
+    <button class="btn block" type="submit">Save my character</button>
+    <a class="btn ghost block" href={href('/profile/')}>Cancel</a>
+  </form>
+
+  <script>
+    import '../../scripts/character.ts';
+  </script>
+</Base>

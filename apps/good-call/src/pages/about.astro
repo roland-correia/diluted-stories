@@ -1,16 +1,35 @@
 ---
+// About: the brand page, opened by the Good Call mark at the end of the tab bar.
+// What Good Call is and stands for, how it works, its colours, the photo
+// credits, and the disclaimer.
 import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
 import { calls } from '../lib/site';
-import { href } from '../lib/paths';
+import { COINS } from '../lib/game';
+import { photos } from '../lib/photos';
+
+const palette = [
+  { name: 'British Racing Green 4', hex: '#050602', role: 'The deepest shade, behind everything in dark mode. Steady and quiet.' },
+  { name: 'British Racing Green', hex: '#004225', role: 'Our heritage green, for covers and the glow behind each page.' },
+  { name: 'Alpine Green', hex: '#005C4C', role: 'Buttons, progress and the mark. Growth, and going the right way.' },
+  { name: 'Calm blue', hex: '#2F6690', role: 'Streaks and information. Chosen to slow the pulse, not raise it.' },
+  { name: 'Gold', hex: '#D9B44A', role: 'Coins and achievements. Warmth, and effort worth celebrating.' },
+];
+// Every photographer, once, however many photos of theirs are used.
+const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, photo])).values()];
 ---
 
 <Base
   title="About"
-  description="What Good Call is, how it works, who it is for, how answers are judged, and the disclaimer."
+  description="What Good Call is and stands for, how it works, how answers are judged, its colours, photo credits and the disclaimer."
   path="/about/"
-  back={{ href: href('/'), label: 'Back' }}
+  tab="about"
 >
-  <h1>About Good Call</h1>
+  <section class="me" aria-labelledby="about-title">
+    <span class="brand-hero" aria-hidden="true"><Wordmark /></span>
+    <h1 id="about-title">About Good Call</h1>
+    <p class="lead">Practise the call before it counts.</p>
+  </section>
 
   <div class="prose">
     <p>
@@ -28,14 +47,41 @@ import { href } from '../lib/paths';
     </p>
   </div>
 
+  <section class="card" aria-labelledby="values-title">
+    <h2 id="values-title">What we stand for</h2>
+    <ul class="ticks">
+      <li><span><b>Respect.</b> Every scenario starts from everyone's right to be treated with dignity.</span></li>
+      <li><span><b>Honesty.</b> Real situations, plainly told, without shaming anyone for not knowing yet.</span></li>
+      <li><span><b>Calm.</b> No timers, no leaderboards and no pressure. Learning sticks when you feel safe.</span></li>
+      <li><span><b>Privacy.</b> No account and no tracking. What you learn here stays with you.</span></li>
+      <li><span><b>Care.</b> Support is always one tap away, and every course points to charities doing the real work.</span></li>
+    </ul>
+  </section>
+
   <section class="card" id="how" aria-labelledby="how-title">
     <h2 id="how-title">How it works</h2>
     <ul class="ticks">
+      <li>Every course is a book. Open one to see its topics, then start reading.</li>
       <li>No timer. Take as long as you need.</li>
       <li>Every answer comes with its reason, the good ones too.</li>
       <li>One go at each scenario. Once you lock in an answer, it stays.</li>
+      <li>Your character plays the main part. Finish a course to unlock something new for them to wear.</li>
+      <li>
+        Earn coins as you go: {COINS.best} for a good call, {COINS.okay} for one that could be better, {COINS.risky} for
+        trying and {COINS.courseComplete} for finishing a course. Pledge them to a charity linked to what you learned.
+      </li>
       <li>No account. Your progress is saved in this browser.</li>
     </ul>
+  </section>
+
+  <section class="card" aria-labelledby="coins-title">
+    <h2 id="coins-title">About coins and pledges</h2>
+    <p>
+      Coins are points, not money. They cannot be bought, sold or cashed in, and Good Call does not donate on your
+      behalf. Pledging them is a way to say which causes matter to you, and every charity is linked so you can
+      support it directly if you want to. We have no partnership with these charities and they do not endorse Good
+      Call.
+    </p>
   </section>
 
   <section class="card" aria-labelledby="judged-title">
@@ -49,11 +95,28 @@ import { href } from '../lib/paths';
     <p>Every answer has its reason. The reason is the point, not the score.</p>
   </section>
 
+  <section class="card" aria-labelledby="colours-title">
+    <h2 id="colours-title">Our colours</h2>
+    <ul class="palette">
+      {
+        palette.map((colour) => (
+          <li>
+            <span class="palette-swatch" style={`background: ${colour.hex}`} aria-hidden="true" />
+            <span>
+              <b>{colour.name}</b> <small>{colour.hex}</small>
+              <span class="fine">{colour.role}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
   <section class="card" aria-labelledby="limits-title">
     <h2 id="limits-title">What this is not</h2>
     <ul class="ticks">
       <li>Not legal advice. Where a law is mentioned, it is the law in England and Wales unless it says otherwise.</li>
-      <li>Not a qualification. Finishing a set does not certify anything.</li>
+      <li>Not a qualification. Finishing a course does not certify anything.</li>
       <li>Not a mark scheme. Employers score their own tests in their own way.</li>
       <li>
         Not yet reviewed. These scenarios are first versions. They have not been checked by a consent educator, a
@@ -95,8 +158,30 @@ import { href } from '../lib/paths';
     <p>
       You get one go at each scenario. Once you lock in an answer it cannot be changed, so your result is your real
       first judgement. Your answers and reading settings are saved in this browser only. Nothing is sent anywhere,
-      there is no account and no tracking. To remove your answers, use "Clear my answers and start this set again" on
-      a set's page.
+      there is no account and no tracking. To remove your answers from one course, use "Clear my answers and start
+      again" at the end of it. To remove everything, use "Delete all my Good Call data" on your profile.
     </p>
   </section>
+
+  {
+    credits.length > 0 && (
+      <section class="card" aria-labelledby="credits-title">
+        <h2 id="credits-title">Photo credits</h2>
+        <p>
+          Photos are from <a href="https://unsplash.com/">Unsplash</a>, used under the{' '}
+          <a href="https://unsplash.com/license">Unsplash Licence</a>. Thank you to:
+        </p>
+        <ul class="credits">
+          {credits.map((photo) => (
+            <li>
+              <a href={photo.page} target="_blank" rel="noopener">
+                {photo.by}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="fine">Book covers and characters are drawn for Good Call.</p>
+      </section>
+    )
+  }
 </Base>

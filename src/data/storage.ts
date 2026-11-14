@@ -6,9 +6,9 @@
 // below. Setting a cookie or adding analytics also means asking for permission
 // first, so it needs a consent banner as well as a line here.
 //
-// Keys come from: src/scripts/settings.ts, apps/good-call/src/scripts/{settings,progress}.ts,
+// Keys come from: src/scripts/settings.ts, apps/good-call/src/scripts/{settings,progress,store}.ts,
 // apps/5-minute-mandarin/src/scripts/{settings,progress}.ts and apps/5-minute-mandarin/src/app/store.ts.
-export const STORAGE_UPDATED = '13 November 2026';
+export const STORAGE_UPDATED = '14 November 2026';
 
 export const storage = [
   {
@@ -24,6 +24,16 @@ export const storage = [
   {
     key: 'gc-progress',
     what: 'Which scenarios you have answered and the option you chose. Saved each time you answer.',
+    where: 'Good Call',
+  },
+  {
+    key: 'gc-profile',
+    what: 'Your character (its name, look and the items it wears), the courses you saved, the coins you pledged to charities, and which achievements you have already been shown.',
+    where: 'Good Call',
+  },
+  {
+    key: 'gc-stats',
+    what: 'How long you have spent learning in total and on each day, and the days you answered a question, for your time and streak.',
     where: 'Good Call',
   },
   {

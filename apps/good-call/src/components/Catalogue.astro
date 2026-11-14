@@ -1,0 +1,25 @@
+---
+// Every live course and its question ids, in the order its deck runs, written into
+// the page as data. src/scripts/store.ts reads it to work out completion, coins and
+// unlocked character items, without fetching anything.
+import { getLiveSets, sectionsOf } from '../lib/scenarios';
+import { courses } from '../lib/courses';
+import { sets } from '../lib/site';
+import { href } from '../lib/paths';
+
+const liveSets = await getLiveSets();
+const data = liveSets.map(({ id, scenarios }) => {
+  const sections = sectionsOf(id, scenarios);
+  const ordered = sections.length > 0 ? sections.flatMap((section) => section.scenarios) : scenarios;
+  return {
+    id,
+    name: sets[id].name,
+    path: href(`/courses/${id}/`),
+    ids: ordered.map((entry) => entry.id),
+    unlock: courses[id].unlock,
+    charities: courses[id].charities.map((c) => c.name),
+  };
+});
+---
+
+<script type="application/json" id="gc-catalogue" set:html={JSON.stringify(data)} />
