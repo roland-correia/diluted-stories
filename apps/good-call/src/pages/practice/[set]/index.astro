@@ -2,7 +2,7 @@
 // The reader: a course as one continuous deck of cards, every question in it,
 // topic after topic, one card at a time, like the pages of a story. It opens on
 // the first unanswered card. The bar across the top has one segment per topic.
-// After the last card, a summary shows the results, the coins earned and the
+// After the last card, a summary shows the results, the points earned and the
 // item unlocked, and leads on to the next book.
 // src/scripts/deck.ts runs the deck, src/scripts/scenario.ts each question on it,
 // src/scripts/listen.ts the Listen button and src/scripts/cast.ts puts the
@@ -88,7 +88,7 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
           <h2 id="done-title" tabindex="-1">{set.name}</h2>
           <p class="done-score" data-done-score></p>
           <div class="done-reward" data-done-reward>
-            <span data-reward-coins>0 coins earned</span>
+            <span data-reward-points>0 points earned</span>
             {course.unlock && <span data-reward-item hidden>Unlocked: {accessories[course.unlock].name}</span>}
           </div>
 
@@ -130,7 +130,6 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
               </a>
             )
           }
-          <a class="btn ghost block" href={`${bookPath}#give`}>Give your coins to a charity</a>
           <a class="btn ghost block" href={bookPath}>Back to the course</a>
           <button type="button" class="textbtn done-reset" data-deck-reset>Clear my answers and start again</button>
         </section>

@@ -1,15 +1,15 @@
-// The visitor's own record: their character, saved courses, coin pledges, time
+// The visitor's own record: their character, saved courses, time
 // spent and learning days. Kept in this browser's localStorage only, under two
 // keys, and listed on the Diluted Stories cookies page (src/data/storage.ts in the
 // root of this repository). Nothing is sent anywhere.
 //
-// Coins, streaks and achievements are not stored. They are worked out each time
+// Points, streaks and achievements are not stored. They are worked out each time
 // from the saved answers (progress.ts), the time spent and the learning days.
 
 import { readProgress } from './progress';
 import {
   achievements,
-  COINS,
+  POINTS,
   currentStreak,
   dayKey,
   defaultCharacter,
@@ -25,21 +25,12 @@ const STATS_KEY = 'gc-stats';
 /** Sent on `document` whenever the profile or the stats change, so headers and badges can redraw. */
 export const PROFILE_EVENT = 'gc:profile';
 
-export interface Pledge {
-  course: string;
-  charity: string;
-  coins: number;
-  /** YYYY-MM-DD */
-  date: string;
-}
-
 export interface Profile {
   character: Character;
   /** True once the visitor has saved their character at least once. */
   customised: boolean;
   /** Course ids, most recently saved first. */
   saved: string[];
-  pledges: Pledge[];
   /** Achievements already announced, so each is only celebrated once. */
   seen: string[];
   /** The course opened most recently, for "Continue learning". */
@@ -59,7 +50,6 @@ const emptyProfile = (): Profile => ({
   character: { ...defaultCharacter, wearing: [] },
   customised: false,
   saved: [],
-  pledges: [],
   seen: [],
 });
 
@@ -102,7 +92,7 @@ export function updateProfile(change: (profile: Profile) => void) {
 // ---------------------------------------------------------------- the catalogue
 
 // Every course and its question ids, written into each page by
-// src/components/Catalogue.astro so the scripts can work out completion and coins.
+// src/components/Catalogue.astro so the scripts can work out completion and points.
 export interface CatalogueCourse {
   id: string;
   name: string;
@@ -154,19 +144,12 @@ export function learningDays(stats = readStats()): Set<string> {
   return days;
 }
 
-export function coinsEarned(progress = readProgress()): number {
-  let coins = 0;
-  for (const answer of Object.values(progress)) coins += COINS[answer.call];
-  for (const state of courseStates(progress)) if (state.complete) coins += COINS.courseComplete;
-  return coins;
-}
-
-export function coinsPledged(profile = readProfile()): number {
-  return profile.pledges.reduce((sum, pledge) => sum + pledge.coins, 0);
-}
-
-export function coinsAvailable(): number {
-  return Math.max(0, coinsEarned() - coinsPledged());
+/** Every point earned: one amount per answer, plus a bonus for each finished course. */
+export function pointsEarned(progress = readProgress()): number {
+  let points = 0;
+  for (const answer of Object.values(progress)) points += POINTS[answer.call];
+  for (const state of courseStates(progress)) if (state.complete) points += POINTS.courseComplete;
+  return points;
 }
 
 export function facts(): Facts {
@@ -184,7 +167,7 @@ export function facts(): Facts {
     seconds: stats.seconds,
     streak: currentStreak(days),
     bestStreak: longestStreak(days),
-    pledged: coinsPledged(profile),
+    points: pointsEarned(progress),
     customised: profile.customised,
   };
 }

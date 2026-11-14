@@ -11,7 +11,7 @@
 // - The bar at the top has one segment per topic, filling as its cards are
 //   answered. Moving into a new topic briefly highlights the topic's name.
 // - After the last card comes a summary of the whole course: the results, the
-//   coins earned and the character item unlocked, then on to the next book.
+//   points earned and the character item unlocked, then on to the next book.
 // - Opening the reader marks the course as the one to continue from on Home.
 // - Movement is skipped for people who ask their device for reduced motion.
 //
@@ -19,7 +19,7 @@
 
 import { readProgress, clearSet, callLabels, PROGRESS_EVENT, type Call } from './progress';
 import { updateProfile } from './store';
-import { COINS } from '../lib/game';
+import { POINTS } from '../lib/game';
 
 /** Sent on `document` each time a different card is shown, so the Listen button can stop. */
 export const SLIDE_EVENT = 'gc:slide';
@@ -161,9 +161,9 @@ function setUpDeck(deck: HTMLElement) {
     summary.querySelector('[data-next-module]')?.classList.toggle('ghost', !complete);
     summary.querySelector<HTMLElement>('[data-done-kicker]')!.textContent = complete ? 'Course complete' : 'Your progress';
 
-    // Coins earned in this course, and the item it unlocks once finished.
-    const coins = answers.reduce((sum, answer) => sum + (answer ? COINS[answer.call] : 0), 0) + (complete ? COINS.courseComplete : 0);
-    summary.querySelector<HTMLElement>('[data-reward-coins]')!.textContent = `${coins} ${coins === 1 ? 'coin' : 'coins'} earned`;
+    // Points earned in this course, and the item it unlocks once finished.
+    const points = answers.reduce((sum, answer) => sum + (answer ? POINTS[answer.call] : 0), 0) + (complete ? POINTS.courseComplete : 0);
+    summary.querySelector<HTMLElement>('[data-reward-points]')!.textContent = `${points} ${points === 1 ? 'point' : 'points'} earned`;
     const item = summary.querySelector<HTMLElement>('[data-reward-item]');
     if (item) item.hidden = !complete;
 

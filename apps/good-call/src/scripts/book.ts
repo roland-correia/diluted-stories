@@ -1,10 +1,9 @@
 // A course's book page (src/pages/courses/[set]/index.astro): progress, the
-// Start/Continue button, the save bookmark, the unlockable item and coin pledges.
+// Start/Continue button, the save bookmark and the unlockable item.
 
 import { PROGRESS_EVENT, readProgress } from './progress';
-import { coinsAvailable, courseStates, PROFILE_EVENT, readProfile, updateProfile } from './store';
+import { courseStates, PROFILE_EVENT, readProfile, updateProfile } from './store';
 import { avatarSvg } from './avatar';
-import { dayKey } from '../lib/game';
 import { accessories, type AccessoryId } from '../lib/courses';
 
 const page = document.querySelector<HTMLElement>('[data-book-page]');
@@ -15,11 +14,6 @@ if (page) {
   const start = document.querySelector<HTMLAnchorElement>('[data-start]')!;
   const readerPath = start.getAttribute('href')!;
   const save = page.querySelector<HTMLButtonElement>('[data-save]')!;
-  const form = page.querySelector<HTMLFormElement>('[data-pledge-form]')!;
-  const amount = form.querySelector<HTMLInputElement>('input[name="coins"]')!;
-  const controls = form.querySelector<HTMLElement>('[data-pledge-controls]')!;
-  const status = form.querySelector<HTMLElement>('[data-pledge-status]')!;
-  let lastPledge = '';
 
   save.hidden = false;
 
@@ -76,12 +70,6 @@ if (page) {
         : `${plural(state.total - state.answered, 'question')} to go.`;
     }
 
-    // Pledging.
-    const coins = coinsAvailable();
-    controls.hidden = coins === 0;
-    amount.max = String(coins);
-    if (!amount.value || Number(amount.value) > coins) amount.value = String(Math.min(coins, 10));
-    status.textContent = lastPledge || (coins === 0 ? 'Answer questions to earn coins to pledge.' : `You have ${plural(coins, 'coin')} to give.`);
   }
 
   save.addEventListener('click', () => {
@@ -90,25 +78,6 @@ if (page) {
     });
   });
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const coins = Math.floor(Number(amount.value));
-    const available = coinsAvailable();
-    const charity = String(new FormData(form).get('charity') ?? '');
-    if (!charity || !Number.isFinite(coins) || coins < 1 || coins > available) {
-      lastPledge = `Choose a charity and between 1 and ${available} coins.`;
-      render();
-      return;
-    }
-    updateProfile((profile) => {
-      profile.pledges.push({ course: id, charity, coins, date: dayKey() });
-    });
-    lastPledge = `Thank you. You pledged ${plural(coins, 'coin')} to ${charity}.`;
-    // A first pledge earns the Big heart achievement.
-    document.dispatchEvent(new CustomEvent('gc:celebrate'));
-    amount.value = '';
-    render();
-  });
 
   render();
   document.addEventListener(PROGRESS_EVENT, render);

@@ -1,10 +1,9 @@
-// The Profile tab: fills in the stats, saved and unfinished courses, achievements
-// and pledges from this browser's storage. See src/scripts/store.ts.
+// The Profile tab: fills in the stats, saved and unfinished courses and
+// achievements from this browser's storage. See src/scripts/store.ts.
 
 import { PROGRESS_EVENT } from './progress';
 import {
-  catalogue,
-  coinsAvailable,
+  pointsEarned,
   courseStates,
   facts,
   PROFILE_EVENT,
@@ -33,7 +32,7 @@ function render() {
   set('time', formatDuration(f.seconds));
   set('streak', plural(f.streak, 'day'));
   set('best', f.bestStreak > f.streak ? `Day streak. Best: ${plural(f.bestStreak, 'day')}` : 'Day streak');
-  set('coins', String(coinsAvailable()));
+  set('points', String(pointsEarned()));
   set('good', String(f.goodCalls));
   set('finished', String(f.coursesCompleted));
 
@@ -62,26 +61,11 @@ function render() {
   const total = document.querySelectorAll('[data-achievement]').length;
   document.querySelector<HTMLElement>('[data-achievement-count]')!.textContent = `${unlocked.size} of ${total} unlocked`;
 
-  // Pledges, newest first.
-  const names = new Map(catalogue().map((course) => [course.id, course.name]));
-  const pledges = document.querySelector<HTMLElement>('[data-pledges]')!;
-  pledges.replaceChildren(
-    ...[...profile.pledges].reverse().map((pledge) => {
-      const item = document.createElement('li');
-      const what = document.createElement('span');
-      what.textContent = `${pledge.charity}, from ${names.get(pledge.course) ?? 'a course'}`;
-      const coins = document.createElement('b');
-      coins.textContent = plural(pledge.coins, 'coin');
-      item.append(what, coins);
-      return item;
-    }),
-  );
-  document.querySelector<HTMLElement>('[data-pledges-empty]')!.hidden = profile.pledges.length > 0;
 }
 
 document.querySelector('[data-wipe]')?.addEventListener('click', () => {
   const sure = confirm(
-    'Delete your character, answers, time, streak, coins and saved courses from this browser? This cannot be undone. Your reading settings stay.',
+    'Delete your character, answers, time, streak, points and saved courses from this browser? This cannot be undone. Your reading settings stay.',
   );
   if (!sure) return;
   try {

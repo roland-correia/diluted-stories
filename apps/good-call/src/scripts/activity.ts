@@ -3,12 +3,12 @@
 //   visitor has done something (scrolled, tapped, typed) in the last three minutes,
 //   so a tab left open overnight does not count.
 // - Marks today as a learning day when a question is answered.
-// - Keeps the streak and coin counters in the header up to date.
+// - Keeps the streak and points counters in the header up to date.
 // - Announces each newly earned achievement and character item, once.
 
 import { PROGRESS_EVENT } from './progress';
 import {
-  coinsAvailable,
+  pointsEarned,
   courseStates,
   facts,
   markAnsweredToday,
@@ -75,8 +75,8 @@ function renderCounters() {
   const f = facts();
   document.querySelectorAll<HTMLElement>('[data-streak]').forEach((el) => (el.textContent = String(f.streak)));
   document.querySelectorAll<HTMLElement>('[data-streak-chip]').forEach((el) => el.classList.toggle('lit', f.streak > 0));
-  const coins = coinsAvailable();
-  document.querySelectorAll<HTMLElement>('[data-coins]').forEach((el) => (el.textContent = String(coins)));
+  const points = pointsEarned();
+  document.querySelectorAll<HTMLElement>('[data-points]').forEach((el) => (el.textContent = String(points)));
 }
 
 // ---------------------------------------------------------------- celebrations
@@ -129,7 +129,7 @@ document.addEventListener(PROGRESS_EVENT, () => {
   celebrate();
 });
 document.addEventListener(PROFILE_EVENT, renderCounters);
-// Sent by pages that award something on the spot, such as a coin pledge.
+// Sent by pages that award something on the spot.
 document.addEventListener(CELEBRATE_EVENT, celebrate);
 // Coming back with the browser's Back button can show the page as it was, so redraw.
 addEventListener('pageshow', (event) => {

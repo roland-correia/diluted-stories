@@ -1,11 +1,11 @@
 ---
-// Profile: the visitor's character, their time and streak, coins and pledges,
+// Profile: the visitor's character, their time and streak, points,
 // saved courses and achievements. All of it is read from this browser's own
 // storage by src/scripts/profile.ts; there is no account and nothing is sent anywhere.
 import Base from '../../layouts/Base.astro';
 import Book from '../../components/Book.astro';
 import { getLiveSets } from '../../lib/scenarios';
-import { achievements, COINS } from '../../lib/game';
+import { achievements, POINTS } from '../../lib/game';
 import { badgeIcons } from '../../lib/icons';
 import { href } from '../../lib/paths';
 
@@ -14,7 +14,7 @@ const liveSets = await getLiveSets();
 
 <Base
   title="Your profile"
-  description="Your Good Call character, time spent learning, streak, coins, saved courses and achievements. Kept in your browser only."
+  description="Your Good Call character, time spent learning, streak, points, saved courses and achievements. Kept in your browser only."
   path="/profile/"
   tab="profile"
 >
@@ -37,10 +37,10 @@ const liveSets = await getLiveSets();
         <b data-stat="streak">0 days</b>
         <small data-stat="best">Day streak</small>
       </li>
-      <li class="stat coins" id="coins">
+      <li class="stat points" id="points">
         <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M9.5 10.2c0-1.2 1.1-2 2.5-2s2.5.8 2.5 1.9c0 2.6-5 1.5-5 4 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-2"></path></svg>
-        <b data-stat="coins">0</b>
-        <small>Coins to give</small>
+        <b data-stat="points">0</b>
+        <small>Points collected</small>
       </li>
       <li class="stat">
         <b data-stat="good">0</b>
@@ -105,26 +105,22 @@ const liveSets = await getLiveSets();
     </ul>
   </section>
 
-  <section class="card" aria-labelledby="give-title">
-    <h2 id="give-title">Coins and charities</h2>
+  <section class="card" aria-labelledby="points-title">
+    <h2 id="points-title">About points</h2>
     <p>
-      You earn coins as you learn: {COINS.best} for a good call, {COINS.okay} for one that could be better,
-      {COINS.risky} for trying, and {COINS.courseComplete} for finishing a course. On each course's page you can pledge
-      them to a charity connected to what it teaches.
+      You collect points as you learn: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,
+      {POINTS.risky} for trying, and {POINTS.courseComplete} for finishing a course.
     </p>
-    <p class="notice">
-      Coins have no cash value, and Good Call does not donate money on your behalf. A pledge shows which causes matter
-      to you. To give for real, follow the link to the charity's own website.
+    <p>
+      Coming later: turning points into real donations to charities connected to each course. It is not switched on yet,
+      so for now your points simply add up.
     </p>
-    <h3>Your pledges</h3>
-    <ul class="pledges" data-pledges></ul>
-    <p class="meta" data-pledges-empty>No pledges yet.</p>
   </section>
 
   <section class="card" aria-labelledby="data-title">
     <h2 id="data-title">Your data</h2>
     <p>
-      Your character, answers, time and coins are saved in this browser only. Nothing is sent to Good Call or anyone
+      Your character, answers, time and points are saved in this browser only. Nothing is sent to Good Call or anyone
       else, and there is no account. Clearing your browser's site data removes them.
     </p>
     <button type="button" class="btn ghost" data-open-settings aria-haspopup="dialog">Reading settings</button>

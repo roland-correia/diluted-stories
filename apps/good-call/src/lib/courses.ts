@@ -58,7 +58,7 @@ export interface Course {
   /** The promise on the book page, above the course's name. */
   tagline: string;
   category: CategoryId;
-  /** Charities connected to the course, which readers can pledge their coins to. */
+  /** Charities connected to the course, shown on its book page. */
   charities: Charity[];
   /** The character item unlocked by finishing every question in the course. */
   unlock?: AccessoryId;

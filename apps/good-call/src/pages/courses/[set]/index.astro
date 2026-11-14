@@ -1,7 +1,7 @@
 ---
 // A course's book page: the cover, progress, what the course covers, its topics
-// with a photograph each, the character item it unlocks, and the charities its
-// coins can be pledged to. The button at the bottom opens the reader on the first
+// with a photograph each, the character item it unlocks, and the charities
+// connected to it. The button at the bottom opens the reader on the first
 // unanswered question. src/scripts/book.ts fills in everything that depends on
 // this visitor.
 import { Image } from 'astro:assets';
@@ -96,7 +96,7 @@ const isWork = set.group === 'work';
           <div style="display:flex;gap:1rem;align-items:center">
             <span class="avatar-slot" style="width:4.5rem;height:4.5rem;flex:none" data-unlock-preview={course.unlock} aria-hidden="true" />
             <p>
-              <b>{accessories[course.unlock].name}</b> for your character, plus 50 bonus coins.{' '}
+              <b>{accessories[course.unlock].name}</b> for your character, plus 50 bonus points.{' '}
               <span data-unlock-state>Answer every question to earn them.</span>
             </p>
           </div>
@@ -104,39 +104,29 @@ const isWork = set.group === 'work';
       )
     }
 
-    <section class="card" id="give" aria-labelledby="give-title">
-      <h2 id="give-title">Give your coins</h2>
-      <p>Pledge the coins you earn to a charity working on what this course is about.</p>
-      <form class="charities" data-pledge-form>
-        <fieldset class="charities">
-          <legend class="visually-hidden">Choose a charity</legend>
-          {
-            course.charities.map((charity, i) => (
-              <label class="charity">
-                <input type="radio" name="charity" value={charity.name} checked={i === 0} />
-                <span>
-                  <b>{charity.name}</b>
-                  <small>{charity.why}</small>
-                  <a href={charity.url} target="_blank" rel="noopener">
-                    Visit {charity.name}
-                    <span class="visually-hidden"> (opens in a new tab)</span>
-                  </a>
-                </span>
-              </label>
-            ))
-          }
-        </fieldset>
-        <div class="coin-row" data-pledge-controls hidden>
-          <label for="pledge-amount">Coins</label>
-          <input id="pledge-amount" type="number" name="coins" min="1" step="1" inputmode="numeric" required />
-          <button class="btn gold" type="submit">Pledge</button>
-        </div>
-        <p class="meta" data-pledge-status aria-live="polite">Answer questions to earn coins to pledge.</p>
-      </form>
-      <p class="notice">
-        Coins have no cash value, and Good Call does not donate money on your behalf. A pledge shows which causes matter
-        to you. To give for real, visit the charity's own website.
+    <section class="card" id="charities" aria-labelledby="charities-title">
+      <h2 id="charities-title">Charities connected to this course</h2>
+      <p>
+        You collect points as you learn. We are working on turning points into real donations to charities like these.
+        That is not switched on yet, so for now your points simply add up.
       </p>
+      <ul class="charities">
+        {
+          course.charities.map((charity) => (
+            <li class="charity">
+              <span>
+                <b>{charity.name}</b>
+                <small>{charity.why}</small>
+                <a href={charity.url} target="_blank" rel="noopener">
+                  Visit {charity.name}
+                  <span class="visually-hidden"> (opens in a new tab)</span>
+                </a>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="fine">These charities are not partners of Good Call and do not endorse it.</p>
     </section>
 
     <details class="support">

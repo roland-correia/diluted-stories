@@ -28,7 +28,7 @@ export const storage = [
   },
   {
     key: 'gc-profile',
-    what: 'Your character (its name, look and the items it wears), the courses you saved, the coins you pledged to charities, and which achievements you have already been shown.',
+    what: 'Your character (its name, look and the items it wears), the courses you saved, the course you read last, and which achievements you have already been shown.',
     where: 'Good Call',
   },
   {

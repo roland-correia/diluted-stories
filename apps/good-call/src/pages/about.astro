@@ -3,9 +3,8 @@
 // What Good Call is and stands for, how it works, its colours, the photo
 // credits, and the disclaimer.
 import Base from '../layouts/Base.astro';
-import Wordmark from '../components/Wordmark.astro';
 import { calls } from '../lib/site';
-import { COINS } from '../lib/game';
+import { POINTS } from '../lib/game';
 import { photos } from '../lib/photos';
 
 const palette = [
@@ -13,7 +12,7 @@ const palette = [
   { name: 'British Racing Green', hex: '#004225', role: 'Our heritage green, for covers and the glow behind each page.' },
   { name: 'Alpine Green', hex: '#005C4C', role: 'Buttons, progress and the mark. Growth, and going the right way.' },
   { name: 'Calm blue', hex: '#2F6690', role: 'Streaks and information. Chosen to slow the pulse, not raise it.' },
-  { name: 'Gold', hex: '#D9B44A', role: 'Coins and achievements. Warmth, and effort worth celebrating.' },
+  { name: 'Gold', hex: '#D9B44A', role: 'Points and achievements. Warmth, and effort worth celebrating.' },
 ];
 // Every photographer, once, however many photos of theirs are used.
 const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, photo])).values()];
@@ -25,14 +24,12 @@ const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, phot
   path="/about/"
   tab="about"
 >
-  <section class="me" aria-labelledby="about-title">
-    <span class="brand-hero" aria-hidden="true"><Wordmark /></span>
-    <h1 id="about-title">About Good Call</h1>
-    <p class="lead">Practise the call before it counts.</p>
-  </section>
+  <!-- The logo is already in the bar above, so the page opens like the first page of a
+       book: a large initial letter, then the text. The heading is kept for screen readers. -->
+  <h1 class="visually-hidden">About Good Call</h1>
 
   <div class="prose">
-    <p>
+    <p class="drop-cap">
       Good Call is practice for judgement. Each scenario is a moment where the right thing to do is not obvious, or is
       obvious and still hard. You choose, and then you see the reasoning.
     </p>
@@ -67,20 +64,22 @@ const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, phot
       <li>One go at each scenario. Once you lock in an answer, it stays.</li>
       <li>Your character plays the main part. Finish a course to unlock something new for them to wear.</li>
       <li>
-        Earn coins as you go: {COINS.best} for a good call, {COINS.okay} for one that could be better, {COINS.risky} for
-        trying and {COINS.courseComplete} for finishing a course. Pledge them to a charity linked to what you learned.
+        Collect points as you go: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,
+        {POINTS.risky} for trying and {POINTS.courseComplete} for finishing a course.
       </li>
       <li>No account. Your progress is saved in this browser.</li>
     </ul>
   </section>
 
-  <section class="card" aria-labelledby="coins-title">
-    <h2 id="coins-title">About coins and pledges</h2>
+  <section class="card" aria-labelledby="points-title">
+    <h2 id="points-title">About points</h2>
     <p>
-      Coins are points, not money. They cannot be bought, sold or cashed in, and Good Call does not donate on your
-      behalf. Pledging them is a way to say which causes matter to you, and every charity is linked so you can
-      support it directly if you want to. We have no partnership with these charities and they do not endorse Good
-      Call.
+      We are working on turning the points you collect into real donations to charities connected to each course.
+      That is not released yet, so for now points simply add up. Points cannot be bought or sold.
+    </p>
+    <p>
+      Each course links to charities working on what it teaches. They are not partners of Good Call and do not endorse
+      it.
     </p>
   </section>
 

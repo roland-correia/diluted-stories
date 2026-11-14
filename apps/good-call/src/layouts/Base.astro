@@ -1,7 +1,7 @@
 ---
 // The shell of every page. Two kinds:
 // - 'app' pages (Home, Explore, Profile, About) have the header with the streak and
-//   coin counters, a footer, and the tab bar along the bottom.
+//   points counters, a footer, and the tab bar along the bottom.
 // - 'bare' pages (a course's book page and its reader) fill the screen like an
 //   open book, and draw their own top bar with a way back.
 import '@fontsource-variable/lexend';
@@ -78,15 +78,15 @@ const canonical = absolute(path);
                   <path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.6 2.3 2.8C10.8 8.6 11.4 5.6 12 3z" />
                 </svg>
                 <span data-streak>0</span>
-                <span class="visually-hidden">day streak</span>
+                <span class="visually-hidden">&nbsp;day streak</span>
               </a>
-              <a class="chip chip-coins" href={href('/profile/#coins')}>
+              <a class="chip chip-points" href={href('/profile/#points')}>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <circle cx="12" cy="12" r="8" />
                   <path d="M12 8v8M9.5 10.2c0-1.2 1.1-2 2.5-2s2.5.8 2.5 1.9c0 2.6-5 1.5-5 4 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-2" />
                 </svg>
-                <span data-coins>0</span>
-                <span class="visually-hidden">coins</span>
+                <span data-points>0</span>
+                <span class="visually-hidden">&nbsp;points</span>
               </a>
               <button type="button" class="iconbtn round" data-open-settings aria-haspopup="dialog" aria-label="Reading settings">
                 Aa

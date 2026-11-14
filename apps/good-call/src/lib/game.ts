@@ -1,4 +1,4 @@
-// The rules of the game layer: character options, coins, streaks and achievements.
+// The rules of the game layer: character options, points, streaks and achievements.
 // Shared by the pages (to list things) and by the browser scripts (to work out
 // what each visitor has earned). Everything is worked out from what is saved in
 // the visitor's own browser; nothing is sent anywhere.
@@ -45,11 +45,12 @@ export const defaultCharacter: Character = {
 /** The name to show for a character that has not been named yet. */
 export const FALLBACK_NAME = 'You';
 
-// ---------------------------------------------------------------- coins
+// ---------------------------------------------------------------- points
 
-// Coins are points, not money. They are earned by answering, and can be
-// pledged to a course's charities to show which causes matter to you.
-export const COINS = { best: 10, okay: 5, risky: 2, courseComplete: 50 } as const;
+// Points are earned by answering and by finishing courses, and for now they are
+// simply collected. Turning them into real donations to charities is planned but
+// not released: until it is, nothing on the site may suggest that points are donated.
+export const POINTS = { best: 10, okay: 5, risky: 2, courseComplete: 50 } as const;
 
 // ---------------------------------------------------------------- achievements
 
@@ -62,7 +63,8 @@ export interface Facts {
   streak: number;
   /** The longest streak there has ever been, so a broken streak keeps its achievement. */
   bestStreak: number;
-  pledged: number;
+  /** Every point earned so far. */
+  points: number;
   customised: boolean;
 }
 
@@ -160,12 +162,12 @@ export const achievements: Achievement[] = [
     test: (f) => f.bestStreak >= 7,
   },
   {
-    id: 'big-heart',
-    name: 'Big heart',
-    goal: 'Pledge coins to a charity.',
-    praise: 'You backed a cause you care about.',
+    id: 'point-collector',
+    name: 'Point collector',
+    goal: 'Collect 500 points.',
+    praise: 'Five hundred points, and counting.',
     icon: 'heart',
-    test: (f) => f.pledged > 0,
+    test: (f) => f.points >= 500,
   },
   {
     id: 'make-it-yours',

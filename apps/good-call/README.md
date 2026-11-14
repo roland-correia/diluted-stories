@@ -3,7 +3,7 @@
 Practice for judgement: short scenarios on consent, race, parenting and situations at work. You
 choose what you would do, then see why each choice helps or harms. It works like a reading app:
 each course is a book with its own cover, read one card at a time, with a character, streaks,
-achievements and coins that can be pledged to charities. Built with [Astro](https://astro.build), served at
+achievements and points. Built with [Astro](https://astro.build), served at
 `dilutedstories.com/projects/good-call/`.
 
 ## Run it on your computer
@@ -55,12 +55,13 @@ Each set (a course) is split into topics, listed in `categories` in `src/lib/sit
 shown. Every course has two pages:
 
 - **The book page**, `/courses/<set>/`: the cover, progress, what it covers, a card per topic with
-  its photograph, the character item it unlocks, its charities, and a Start (or Continue) button.
+  its photograph, the character item it unlocks, the charities connected to it, and a Start
+  (or Continue) button.
 - **The reader**, `/practice/<set>/`: one continuous deck of cards through every topic in turn
   (`src/scripts/deck.ts`). It opens on the first unanswered card, with round Back and Next buttons
   and a Listen button (read aloud by the browser) at the bottom of the screen, swiping on touch
   screens and arrow keys. The bar at the top has one segment per topic. After the last card, a
-  summary shows every answer by topic, the coins earned and the item unlocked, then the next book.
+  summary shows every answer by topic, the points earned and the item unlocked, then the next book.
 
 Each question also has a page of its own at `/practice/<set>/<scenario>/`, for direct links. The old
 topic pages at `/practice/<set>/topics/<topic>/` redirect to that topic's first card, and the old
@@ -95,20 +96,20 @@ resizes them and serves WebP at the right size. Rules:
 - Write alt text that says what the photo shows, and credit the photographer. Credits appear on each
   card and on the About page.
 
-## Character, coins, streaks and achievements
+## Character, points, streaks and achievements
 
 All of it lives in the visitor's browser, under `gc-profile` and `gc-stats` (`src/scripts/store.ts`),
 beside `gc-progress` (answers) and `gc-settings` (reading settings). The cookies page of the root
 site lists every key (`src/data/storage.ts` in the repository root); keep it in step.
 
-- **Coins, streaks and achievements are worked out, not stored**, from the answers, the time spent
+- **Points, streaks and achievements are worked out, not stored**, from the answers, the time spent
   and the learning days (`src/lib/game.ts`), so they can never drift out of step.
 - **Time** counts only while a page is on screen and the visitor has done something in the last three
   minutes (`src/scripts/activity.ts`). A day counts towards the streak after a minute of learning or
   one answer.
-- **Coins have no cash value.** Pledges record which charity a visitor would back; nothing is paid.
-  The pages say so. Real donations would need agreements with each charity (in the UK, commercial
-  participator rules) before the wording changes.
+- **Points are collected, not spent, for now.** Turning them into real donations to each course's
+  charities is planned but not released, and the pages say so. Before it is switched on, it needs an
+  agreement with each charity (in the UK, the commercial participator rules apply).
 - **The character** is drawn as SVG (`src/scripts/avatar.ts`). Finishing a course unlocks the item
   named in `courses`. The name a visitor gives it appears on each card ("Playing as Sam") and in the
   question ("What is the best call, Sam?").
@@ -122,11 +123,11 @@ src/content.config.ts    the rules every scenario must follow (the schema)
 src/content/scenarios/   the scenarios, one YAML file each, in a folder per set
 src/lib/site.ts          the sets, their categories (topics) and the three verdicts
 src/lib/courses.ts       each course as a book: cover, Explore category, charities and unlockable item
-src/lib/game.ts          character options, coins, achievements, streak and time rules
+src/lib/game.ts          character options, points, achievements, streak and time rules
 src/lib/photos.ts        the photo for each topic, with alt text and credit
 src/pages/               home (shelves), explore (search), profile and the character builder, a course's
                          book page, its reader, one scenario, about (the brand page)
-src/layouts/Base.astro   the page shell: app bar with streak and coins, tab bar, footer, or a bare page for reading
+src/layouts/Base.astro   the page shell: app bar with streak and points, tab bar, footer, or a bare page for reading
 src/components/          book covers, books, the tab bar, quiz card, settings dialog, support links
 src/scripts/             scenario.ts (lock in an answer), deck.ts (the reader), listen.ts (read aloud),
                          cast.ts (the visitor's character in each card), progress.ts (saved answers),
