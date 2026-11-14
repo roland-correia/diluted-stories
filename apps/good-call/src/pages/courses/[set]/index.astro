@@ -8,6 +8,7 @@ import { Image } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
 import BookCover from '../../../components/BookCover.astro';
 import Support from '../../../components/Support.astro';
+import Footer from '../../../components/Footer.astro';
 import { getLiveSets, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets, type SetId } from '../../../lib/site';
 import { courses, categories, accessories } from '../../../lib/courses';
@@ -138,10 +139,7 @@ const isWork = set.group === 'work';
 
     <Support set={id} />
 
-    <p class="fine">
-      For education only. It is not legal or professional advice, and it cannot be used to excuse or defend anyone's
-      behaviour. <a href={href('/about/#disclaimer')}>Read the full disclaimer</a>
-    </p>
+    <Footer />
   </div>
 
   <div class="cta-bar">

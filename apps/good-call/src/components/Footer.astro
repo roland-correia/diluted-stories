@@ -1,0 +1,13 @@
+---
+// The footer on every page: the copyright line, then the Disclaimer (which also
+// covers privacy) and the Cookies policy, side by side.
+import { href } from '../lib/paths';
+---
+
+<footer class="foot">
+  <p>© 2026 Good Call. Built by <a href="https://dilutedstories.com/">Diluted Stories</a></p>
+  <ul class="foot-links">
+    <li><a href={href('/disclaimer/')}>Disclaimer</a></li>
+    <li><a href="/cookies/">Cookies</a></li>
+  </ul>
+</footer>

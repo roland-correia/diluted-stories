@@ -10,6 +10,8 @@ import Wordmark from '../components/Wordmark.astro';
 import SettingsDialog from '../components/SettingsDialog.astro';
 import TabBar, { type Tab } from '../components/TabBar.astro';
 import Catalogue from '../components/Catalogue.astro';
+import Footer from '../components/Footer.astro';
+import Splash from '../components/Splash.astro';
 import { SITE_NAME, DESCRIPTION } from '../lib/site';
 import { href, absolute } from '../lib/paths';
 
@@ -62,6 +64,27 @@ const canonical = absolute(path);
         }
       } catch (e) {}
     </script>
+
+    <!--
+      The opening screen (src/components/Splash.astro), decided before the page paints:
+      - shown when arriving from outside Good Call (another site, a link, a new tab),
+        but not when moving between its own pages;
+      - and always, with a question, until the visitor has told us their name.
+      If this browser blocks storage, the name could never be saved, so it does not ask.
+    -->
+    <script is:inline define:vars={{ base: import.meta.env.BASE_URL.replace(/\/$/, '') }}>
+      try {
+        var profile = JSON.parse(localStorage.getItem('gc-profile') || '{}');
+        var named = Boolean(profile.character && String(profile.character.name || '').trim());
+        var inside = false;
+        try {
+          var from = new URL(document.referrer);
+          inside = from.origin === location.origin && from.pathname.indexOf(base + '/') === 0;
+        } catch (e) {}
+        if (!inside || !named) document.documentElement.classList.add('splash-on');
+        if (!named) document.documentElement.classList.add('splash-ask');
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -96,17 +119,7 @@ const canonical = absolute(path);
           <main id="main">
             <slot />
           </main>
-          <footer class="foot">
-            <p>
-              For education only. It is not legal or professional advice, and it cannot be used to excuse or defend
-              anyone's behaviour. Your answers and progress stay in your browser.{' '}
-              <a href={href('/about/#disclaimer')}>Read the full disclaimer</a>
-            </p>
-            <p>
-              © 2026 Good Call, a subsidiary of <a href="https://dilutedstories.com/">Diluted Stories</a>.{' '}
-              <a href="/cookies/">Cookies</a>
-            </p>
-          </footer>
+          <Footer />
           <TabBar current={tab} />
         </div>
       ) : (
@@ -115,10 +128,12 @@ const canonical = absolute(path);
         </main>
       )
     }
+    <Splash />
     <div class="toasts" data-toasts aria-live="polite"></div>
     <SettingsDialog />
     <Catalogue />
     <script>
+      import '../scripts/splash.ts';
       import '../scripts/settings.ts';
       import '../scripts/activity.ts';
     </script>
