@@ -1,9 +1,12 @@
 ---
-// Profile: the visitor's character, their time and streak, points,
-// saved courses and achievements. All of it is read from this browser's own
-// storage by src/scripts/profile.ts; there is no account and nothing is sent anywhere.
+// Profile: the visitor's character, on a stage where it moves about, their time,
+// streak and points, courses in progress and achievements. The detail behind each
+// number is behind an info button, to keep the page calm. Saved courses live on
+// Explore. Everything is read from this browser's own storage by
+// src/scripts/profile.ts; there is no account and nothing is sent anywhere.
 import Base from '../../layouts/Base.astro';
 import Book from '../../components/Book.astro';
+import InfoTip from '../../components/InfoTip.astro';
 import { getLiveSets } from '../../lib/scenarios';
 import { achievements, POINTS } from '../../lib/game';
 import { badgeIcons } from '../../lib/icons';
@@ -14,12 +17,12 @@ const liveSets = await getLiveSets();
 
 <Base
   title="Your profile"
-  description="Your Good Call character, time spent learning, streak, points, saved courses and achievements. Kept in your browser only."
+  description="Your Good Call character, time spent learning, streak, points, courses in progress and achievements. Kept in your browser only."
   path="/profile/"
   tab="profile"
 >
   <section class="me" aria-labelledby="me-title">
-    <span class="avatar-slot" data-avatar aria-hidden="true"></span>
+    <button type="button" class="stage" data-stage aria-label="Your character. Tap for a move."></button>
     <h1 id="me-title" data-profile-name>Your profile</h1>
     <a class="btn ghost" href={href('/profile/character/')} data-character-link>Create your character</a>
   </section>
@@ -28,49 +31,67 @@ const liveSets = await getLiveSets();
     <h2 id="stats-title">Your learning</h2>
     <ul class="stats">
       <li class="stat time wide">
-        <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+        <div class="stat-head">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+          <InfoTip id="info-time" label="About total time" title="Total time">
+            <p>Time counts while Good Call is on screen and you are using it.</p>
+            <p>If you leave it open without touching it for three minutes, the clock pauses until you come back.</p>
+          </InfoTip>
+        </div>
         <b data-stat="time">Under a minute</b>
         <small>Total time spent learning</small>
       </li>
       <li class="stat streak">
-        <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.6 2.3 2.8C10.8 8.6 11.4 5.6 12 3z"></path></svg>
+        <div class="stat-head">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1.2 2.6 2.3 2.8C10.8 8.6 11.4 5.6 12 3z"></path></svg>
+          <InfoTip id="info-streak" label="About your streak" title="Day streak">
+            <p>A day joins your streak when you spend a minute learning or answer a question.</p>
+            <p>After a learning day, you have until the end of the next day to keep your streak going.</p>
+          </InfoTip>
+        </div>
         <b data-stat="streak">0 days</b>
         <small data-stat="best">Day streak</small>
       </li>
       <li class="stat points" id="points">
-        <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M9.5 10.2c0-1.2 1.1-2 2.5-2s2.5.8 2.5 1.9c0 2.6-5 1.5-5 4 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-2"></path></svg>
+        <div class="stat-head">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M9.5 10.2c0-1.2 1.1-2 2.5-2s2.5.8 2.5 1.9c0 2.6-5 1.5-5 4 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-2"></path></svg>
+          <InfoTip id="info-points" label="About points" title="Points">
+            <p>
+              You collect points as you learn: {POINTS.best} for a good call, {POINTS.okay} for one that could be
+              better,{' '}{POINTS.risky} for trying, and {POINTS.courseComplete} for finishing a course.
+            </p>
+            <p>
+              We are working on turning points into real donations to charities connected to each course. That is not
+              switched on yet, so for now your points simply add up.
+            </p>
+          </InfoTip>
+        </div>
         <b data-stat="points">0</b>
         <small>Points collected</small>
       </li>
       <li class="stat">
+        <div class="stat-head">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+          <InfoTip id="info-good" label="About good calls" title="Good calls">
+            <p>A good call is the answer that respects everyone involved and solves the problem.</p>
+            <p>Only your first answer to each scenario counts, so this is your real judgement.</p>
+          </InfoTip>
+        </div>
         <b data-stat="good">0</b>
         <small>Good calls made</small>
       </li>
       <li class="stat">
+        <div class="stat-head">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5C4.7 20 4 19.3 4 18.5zM20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"></path></svg>
+          <InfoTip id="info-finished" label="About finished courses" title="Courses finished">
+            <p>A course is finished when you have answered every question in it.</p>
+            <p>Each one you finish adds {POINTS.courseComplete} points and unlocks something new for your character.</p>
+          </InfoTip>
+        </div>
         <b data-stat="finished">0</b>
         <small>Courses finished</small>
       </li>
     </ul>
-    <p class="fine">
-      Time counts while Good Call is on screen and you are using it. A day joins your streak when you spend a minute
-      learning or answer a question.
-    </p>
-  </section>
-
-  <section class="group" id="saved" aria-labelledby="saved-title">
-    <h2 id="saved-title">Saved courses</h2>
-    <ul class="book-grid" data-saved-list>
-      {
-        liveSets.map(({ id }) => (
-          <li data-saved={id} hidden>
-            <Book id={id} />
-          </li>
-        ))
-      }
-    </ul>
-    <p class="meta" data-saved-empty>
-      Nothing saved yet. Tap the bookmark on any course to keep it here.
-    </p>
   </section>
 
   <section class="group" aria-labelledby="reading-title" data-reading-section hidden>
@@ -87,7 +108,13 @@ const liveSets = await getLiveSets();
   </section>
 
   <section class="group" id="achievements" aria-labelledby="achievements-title">
-    <h2 id="achievements-title">Achievements</h2>
+    <div class="with-info">
+      <h2 id="achievements-title">Achievements</h2>
+      <InfoTip id="info-achievements" label="About achievements" title="Achievements">
+        <p>Achievements unlock as you learn: for answering, for good calls, for time spent, for streaks and for finishing courses.</p>
+        <p>Some also unlock a new background for your character.</p>
+      </InfoTip>
+    </div>
     <p class="meta" data-achievement-count>{achievements.length} to collect</p>
     <ul class="badges">
       {
@@ -105,27 +132,26 @@ const liveSets = await getLiveSets();
     </ul>
   </section>
 
-  <section class="card" aria-labelledby="points-title">
-    <h2 id="points-title">About points</h2>
-    <p>
-      You collect points as you learn: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,{' '}
-      {POINTS.risky} for trying, and {POINTS.courseComplete} for finishing a course.
-    </p>
-    <p>
-      Coming later: turning points into real donations to charities connected to each course. It is not switched on yet,
-      so for now your points simply add up.
-    </p>
+  <section class="group" aria-labelledby="settings-title">
+    <h2 id="settings-title">Settings</h2>
+    <button type="button" class="btn ghost block" data-open-settings aria-haspopup="dialog">Reading settings</button>
+    <button type="button" class="btn ghost block" data-wipe aria-haspopup="dialog">Delete all my Good Call data</button>
   </section>
 
-  <section class="card" aria-labelledby="data-title">
-    <h2 id="data-title">Your data</h2>
-    <p>
-      Your character, answers, time and points are saved in this browser only. Nothing is sent to Good Call or anyone
-      else, and there is no account. Clearing your browser's site data removes them.
-    </p>
-    <button type="button" class="btn ghost" data-open-settings aria-haspopup="dialog">Reading settings</button>
-    <button type="button" class="textbtn" data-wipe>Delete all my Good Call data from this browser</button>
-  </section>
+  <dialog class="confirm" id="wipe-dialog" aria-labelledby="wipe-title">
+    <form method="dialog">
+      <h2 id="wipe-title">Delete all your Good Call data?</h2>
+      <p>
+        Your name, character, answers, saved courses, time, streak and points are saved in this browser only. Nothing is sent to Good
+        Call or anyone else, and there is no account.
+      </p>
+      <p>
+        Deleting removes all of it from this browser, and it cannot be undone. Your reading settings stay as they are.
+      </p>
+      <button class="btn danger block" value="delete">Yes, delete everything</button>
+      <button class="btn ghost block" value="keep" autofocus>No, keep my data</button>
+    </form>
+  </dialog>
 
   <script>
     import '../../scripts/books.ts';

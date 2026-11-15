@@ -1,10 +1,12 @@
 // The character builder (src/pages/profile/character.astro): shows the saved
-// choices, unlocks earned items, redraws the preview on every change, and saves.
+// choices, unlocks earned items, redraws the character on its stage after every
+// change, and saves.
 
 import { readProfile, unlockedAchievements, unlockedItems, updateProfile } from './store';
-import { avatarSvg } from './avatar';
+import { backgroundColour } from './avatar';
+import { mountStage } from './stage';
 import { accessories, type AccessoryId } from '../lib/courses';
-import { bonusBackgrounds, defaultCharacter, hairStyles, type Character } from '../lib/game';
+import { bonusBackgrounds, bottoms, defaultCharacter, facialHair, hairStyles, outfits, type Character } from '../lib/game';
 import { href } from '../lib/paths';
 
 const form = document.querySelector<HTMLFormElement>('[data-builder]');
@@ -38,6 +40,11 @@ if (form) {
   pick('hairColour', String(saved.hairColour));
   pick('top', String(saved.top));
   pick('background', String(saved.background));
+  pick('outfit', saved.outfit);
+  pick('bottom', saved.bottom);
+  pick('bottomColour', String(saved.bottomColour));
+  pick('facial', saved.facial);
+  pick('lashes', saved.lashes ? 'yes' : 'no');
   for (const id of saved.wearing) if (id in accessories) pick(`slot-${accessories[id].slot}`, id);
 
   function current(): Character {
@@ -47,6 +54,10 @@ if (form) {
       return Number.isInteger(n) && n >= 0 ? n : fallback;
     };
     const hair = String(data.get('hair'));
+    const oneOf = <T extends readonly string[]>(list: T, name: string, fallback: T[number]): T[number] => {
+      const value = String(data.get(name) ?? '');
+      return (list as readonly string[]).includes(value) ? (value as T[number]) : fallback;
+    };
     const background = String(data.get('background') ?? '');
     const wearing = ['head', 'face', 'neck', 'detail']
       .map((slot) => String(data.get(`slot-${slot}`) ?? ''))
@@ -59,10 +70,25 @@ if (form) {
       top: number('top', defaultCharacter.top),
       background: background in bonusBackgrounds ? (background as keyof typeof bonusBackgrounds) : number('background', 0),
       wearing,
+      outfit: oneOf(outfits, 'outfit', defaultCharacter.outfit),
+      bottom: oneOf(bottoms, 'bottom', defaultCharacter.bottom),
+      bottomColour: number('bottomColour', defaultCharacter.bottomColour),
+      facial: oneOf(facialHair, 'facial', defaultCharacter.facial),
+      lashes: data.get('lashes') === 'yes',
     };
   }
 
-  const draw = () => (preview.innerHTML = avatarSvg(current(), 144));
+  // The character stands on its stage and moves about; each change redraws it in place.
+  const stage = mountStage(preview, current());
+  let look = '';
+  const draw = () => {
+    const character = current();
+    preview.style.setProperty('--char-bg', backgroundColour(character));
+    // Typing a name does not change the drawing, so it does not interrupt a move.
+    const next = JSON.stringify({ ...character, name: '' });
+    if (next !== look) stage.draw(character);
+    look = next;
+  };
   form.addEventListener('input', draw);
   form.addEventListener('change', draw);
   draw();

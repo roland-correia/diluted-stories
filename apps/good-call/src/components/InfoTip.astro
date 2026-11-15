@@ -1,0 +1,29 @@
+---
+// A small "i" button that opens a short explanation in a pop-up, so pages can stay
+// clean while the detail is one tap away. It uses the browser's own popover
+// (closes on Escape or a tap outside); src/scripts/info.ts adds the same
+// behaviour for older browsers without it.
+interface Props {
+  /** Unique on the page, e.g. 'info-time'. */
+  id: string;
+  /** What the button is about, read out by screen readers: "About total time". */
+  label: string;
+  /** The pop-up's heading. */
+  title: string;
+}
+
+const { id, label, title } = Astro.props;
+---
+
+<button type="button" class="info-btn" popovertarget={id} aria-label={label} data-info-btn={id}>
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M12 11v5.5"></path>
+    <circle class="dot" cx="12" cy="7.6" r="1.1"></circle>
+  </svg>
+</button>
+<div id={id} popover class="info-pop" role="dialog" aria-labelledby={`${id}-title`}>
+  <h2 class="info-pop-title" id={`${id}-title`}>{title}</h2>
+  <div class="info-pop-body"><slot /></div>
+  <button type="button" class="btn ghost block" popovertarget={id} popovertargetaction="hide" data-info-close={id}>Got it</button>
+</div>

@@ -184,6 +184,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 main { display: flex; flex-direction: column; gap: 1.6rem; min-height: 60vh; }
+/* Space between the top bar (the Good Call logo) and the first thing on each page. */
+.shell > main { padding-top: 1.25rem; }
 
 h1 { font-size: var(--t-2xl); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
 h1 span { font-weight: 400; }
@@ -347,6 +349,8 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .shelf-row {
   display: flex; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none;
   margin: 0 -1.15rem; padding: 0.4rem 1.15rem 0.8rem; scrollbar-width: none;
+  /* Snapping lines the first book up with the heading, not with the screen edge. */
+  scroll-padding-inline: 1.15rem;
 }
 .shelf-row::-webkit-scrollbar { display: none; }
 .shelf-row > li { scroll-snap-align: start; }
@@ -433,7 +437,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 }
 .progress-pill span { flex: 1; text-align: center; padding-right: 0.6rem; }
 
-.topic-cards { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none; margin: 0 -1.15rem; padding: 0.2rem 1.15rem 0.6rem; scrollbar-width: none; }
+.topic-cards { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none; margin: 0 -1.15rem; padding: 0.2rem 1.15rem 0.6rem; scrollbar-width: none; scroll-padding-inline: 1.15rem; }
 .topic-cards::-webkit-scrollbar { display: none; }
 .topic-cards li { scroll-snap-align: start; flex: none; width: 10.5rem; }
 .topic-card {
@@ -488,7 +492,7 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 
 .foot {
   display: flex; flex-direction: column; gap: 0.6rem;
-  margin-top: 2.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line);
+  margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
   color: var(--muted); font-size: var(--t-sm);
 }
 .foot a { font-weight: 600; text-underline-offset: 4px; }
@@ -539,8 +543,6 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 
 /* The character builder. */
 .builder { display: flex; flex-direction: column; gap: 1.3rem; }
-.builder .preview { align-self: center; width: 9rem; height: 9rem; animation: preview-in 0.6s var(--bounce) both; }
-@keyframes preview-in { from { transform: scale(0.7); opacity: 0; } }
 .builder label.name { display: flex; flex-direction: column; gap: 0.4rem; font-weight: 700; }
 .builder input[type='text'] { min-height: 3.2rem; padding: 0 1rem; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); font-size: var(--t-base); }
 .swatches { display: flex; flex-wrap: wrap; gap: 0.55rem; }
@@ -827,24 +829,58 @@ main { animation: page-in 0.35s ease both; }
    LONG-FORM PAGES (About, Disclaimer and privacy): plain text, no cards, with a
    hairline and generous space between sections, like the pages of a book.
    ========================================================================== */
-.longform { display: flex; flex-direction: column; gap: 2.25rem; }
-.longform .page-section { display: flex; flex-direction: column; gap: 0.9rem; }
-.longform .page-section + .page-section,
-.longform .prose + .page-section { padding-top: 2.25rem; border-top: 1px solid var(--line); }
+.longform { display: flex; flex-direction: column; gap: 3rem; }
+.longform .page-section { display: flex; flex-direction: column; gap: 1rem; }
+/* Each section opens like a chapter: a short accent rule, then its heading. */
+.longform .page-section > h2::before,
+.longform .page-section > .with-info > h2::before {
+  content: ''; display: block; width: 2.25rem; height: 3px; margin-bottom: 0.9rem; border-radius: 999px; background: var(--accent);
+}
+.longform p, .longform li, .longform dd {
+  text-align: justify; -webkit-hyphens: auto; hyphens: auto;
+  hyphenate-limit-chars: 8 4 4; -webkit-hyphenate-limit-before: 4; -webkit-hyphenate-limit-after: 4;
+}
 .longform .ticks { gap: 0.8rem; }
 .longform a { text-underline-offset: 4px; }
 
-/* The first letter of the page, set large across the opening lines, like the first page of a book. */
+/* Values: each word in the brand colour, its meaning underneath, like a glossary. */
+.values { display: flex; flex-direction: column; gap: 1.1rem; }
+.values div { display: flex; flex-direction: column; gap: 0.2rem; padding-left: 1rem; border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); }
+.values dt { font-weight: 700; color: var(--accent); }
+.values dd { margin: 0; }
+
+/* The three verdicts, each with its own mark and colour. */
+.verdicts { display: flex; flex-direction: column; gap: 0.8rem; list-style: none; padding: 0; }
+.verdicts li { display: flex; gap: 0.8rem; align-items: flex-start; }
+.verdict-mark { flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; margin-top: 0.1rem; border-radius: 50%; font-weight: 800; font-size: var(--t-sm); }
+.verdict-mark[data-call='best'] { background: var(--best-bg); color: var(--best-ink); }
+.verdict-mark[data-call='okay'] { background: var(--okay-bg); color: var(--okay-ink); }
+.verdict-mark[data-call='risky'] { background: var(--risky-bg); color: var(--risky-ink); }
+
+/* The first letter of the page, set large across the opening lines, like the first
+   page of a book. Light, in the brand green, to match "Good" in the wordmark. */
 .drop-cap::first-letter {
-  float: left; font-size: 3.6em; line-height: 0.8; font-weight: 800; color: var(--accent);
-  margin: 0.06em 0.12em 0 0;
+  float: left; font-size: 4em; line-height: 0.78; font-weight: 300; color: var(--accent);
+  margin: 0.04em 0.1em 0 -0.03em;
 }
 @supports (initial-letter: 3) or (-webkit-initial-letter: 3) {
   .drop-cap::first-letter {
-    float: none; font-size: inherit; line-height: inherit; margin: 0 0.14em 0 0;
+    float: none; font-size: inherit; line-height: inherit; margin: 0 0.12em 0 0;
     -webkit-initial-letter: 3; initial-letter: 3;
   }
 }
+
+/* Donate: a quiet invitation, not a banner. */
+.donate { display: flex; flex-direction: column; gap: 1rem; }
+.donate .btn[aria-disabled='true'] { opacity: 0.6; cursor: default; filter: none; }
+
+/* Photo credits fold away behind a summary line. */
+.credits-fold { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.credits-fold summary { display: flex; align-items: center; justify-content: space-between; min-height: 3.25rem; font-weight: 600; cursor: pointer; list-style: none; }
+.credits-fold summary::-webkit-details-marker { display: none; }
+.credits-fold summary::after { content: ''; width: 0.6rem; height: 0.6rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s ease; }
+.credits-fold[open] summary::after { transform: rotate(225deg) translateY(-2px); }
+.credits-fold > :not(summary) { margin-bottom: 1rem; }
 .credits { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: var(--t-sm); }
 .credits a { text-underline-offset: 4px; }
 
@@ -883,3 +919,153 @@ html.splash-on .splash {
 @keyframes splash-pop { 50% { transform: scale(1.18); } }
 @keyframes splash-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+
+/* ==========================================================================
+   THE CHARACTER ON STAGE (src/scripts/stage.ts draws and moves it)
+   Every part turns around its own joint: the arms at the shoulders, the legs at
+   the hips, the head at the neck. Coordinates are the drawing's own (120 x 222).
+   ========================================================================== */
+.stage {
+  position: relative; display: block; width: 100%; height: 15.5rem; padding: 0; border: 0; border-radius: 28px;
+  background:
+    radial-gradient(closest-side, color-mix(in srgb, var(--char-bg, #cfe8df) 38%, transparent), transparent) 50% 62% / 16rem 16rem no-repeat,
+    linear-gradient(to bottom, transparent 82%, color-mix(in srgb, var(--line) 60%, transparent) 82.5%, transparent 84%),
+    var(--surface);
+  cursor: pointer; overflow: hidden; -webkit-tap-highlight-color: transparent;
+}
+.stage:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.walker {
+  position: absolute; left: 50%; bottom: 1.4rem; width: 6.4rem; margin-left: -3.2rem;
+  transform: translateX(var(--x, 0px)); transition-property: transform; transition-timing-function: linear;
+}
+.walker .char { display: block; width: 100%; height: auto; overflow: visible; transform: scaleX(var(--dir, 1)); }
+
+.char .c-body { transform-box: view-box; transform-origin: 60px 214px; animation: c-breathe 3.2s ease-in-out infinite; }
+.char .c-head { transform-box: view-box; transform-origin: 60px 74px; }
+.char .c-eyes { transform-box: fill-box; transform-origin: center; animation: c-blink 4.6s infinite; }
+.char .c-arm-l { transform-box: view-box; transform-origin: 40px 92px; }
+.char .c-arm-r { transform-box: view-box; transform-origin: 80px 92px; }
+.char .c-leg-l { transform-box: view-box; transform-origin: 52px 148px; }
+.char .c-leg-r { transform-box: view-box; transform-origin: 68px 148px; }
+.char .c-shadow { transform-box: fill-box; transform-origin: center; }
+.char .c-heart { opacity: 0; transform-box: fill-box; transform-origin: center bottom; }
+.stage.excited .char .c-body { animation-duration: 1.1s; }
+
+/* Walking: legs step, arms swing the other way, the body bobs. */
+.char.is-walking .c-body { animation: c-bob 0.26s ease-in-out infinite alternate; }
+.char.is-walking .c-leg-l { animation: c-step 0.52s ease-in-out infinite alternate; }
+.char.is-walking .c-leg-r { animation: c-step 0.52s ease-in-out infinite alternate-reverse; }
+.char.is-walking .c-arm-l { animation: c-swing 0.52s ease-in-out infinite alternate-reverse; }
+.char.is-walking .c-arm-r { animation: c-swing 0.52s ease-in-out infinite alternate; }
+
+/* The moves. */
+.char.emote-wave .c-arm-r { animation: c-wave 1.6s ease-in-out; }
+.char.emote-wave .c-head { animation: c-tilt 1.6s ease-in-out; }
+.char.emote-jump .c-body { animation: c-jump 0.9s cubic-bezier(0.3, 0.7, 0.4, 1); }
+.char.emote-jump .c-shadow { animation: c-shrink 0.9s ease; }
+.char.emote-jump .c-arm-l { animation: c-flap-l 0.9s ease; }
+.char.emote-jump .c-arm-r { animation: c-flap-r 0.9s ease; }
+.char.emote-dance .c-body { animation: c-sway 0.5s ease-in-out 4 alternate; }
+.char.emote-dance .c-arm-l { animation: c-dance-l 0.5s ease-in-out 4 alternate; }
+.char.emote-dance .c-arm-r { animation: c-dance-r 0.5s ease-in-out 4 alternate-reverse; }
+.char.emote-dance .c-leg-l { animation: c-step 0.5s ease-in-out 4 alternate; }
+.char.emote-dance .c-leg-r { animation: c-step 0.5s ease-in-out 4 alternate-reverse; }
+.char.emote-cheer .c-body { animation: c-hop 1.3s ease; }
+.char.emote-cheer .c-arm-l { animation: c-cheer-l 1.3s ease; }
+.char.emote-cheer .c-arm-r { animation: c-cheer-r 1.3s ease; }
+.char.emote-heart .c-heart { animation: c-heart 1.5s ease; }
+.char.emote-heart .c-head { animation: c-tilt 1.5s ease; }
+
+@keyframes c-breathe { 50% { transform: translateY(-1.5px); } }
+@keyframes c-blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+@keyframes c-bob { to { transform: translateY(-2.5px); } }
+@keyframes c-step { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+@keyframes c-swing { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+@keyframes c-wave {
+  0%, 100% { transform: none; }
+  20%, 50%, 80% { transform: rotate(-155deg); }
+  35%, 65% { transform: rotate(-125deg); }
+}
+@keyframes c-tilt { 30%, 70% { transform: rotate(-6deg); } }
+@keyframes c-jump {
+  0%, 100% { transform: none; }
+  15% { transform: scaleY(0.92); }
+  45% { transform: translateY(-26px); }
+  75% { transform: scaleY(0.95); }
+}
+@keyframes c-shrink { 45% { transform: scale(0.6); opacity: 0.1; } }
+@keyframes c-flap-l { 45% { transform: rotate(50deg); } }
+@keyframes c-flap-r { 45% { transform: rotate(-50deg); } }
+@keyframes c-sway { from { transform: rotate(-6deg); } to { transform: rotate(6deg) translateY(-3px); } }
+@keyframes c-dance-l { from { transform: rotate(40deg); } to { transform: rotate(150deg); } }
+@keyframes c-dance-r { from { transform: rotate(-40deg); } to { transform: rotate(-150deg); } }
+@keyframes c-hop { 25%, 65% { transform: translateY(-10px); } 45% { transform: none; } }
+@keyframes c-cheer-l { 20%, 80% { transform: rotate(160deg); } }
+@keyframes c-cheer-r { 20%, 80% { transform: rotate(-160deg); } }
+@keyframes c-heart {
+  0% { opacity: 0; transform: translateY(10px) scale(0.4); }
+  30% { opacity: 1; transform: translateY(-4px) scale(1.1); }
+  70% { opacity: 1; transform: translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+}
+
+/* ==========================================================================
+   INFO POP-UPS (src/components/InfoTip.astro)
+   ========================================================================== */
+.info-btn {
+  display: inline-grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; margin: -0.7rem -0.7rem -0.7rem 0;
+  padding: 0; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer;
+}
+.info-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.info-btn svg .dot { fill: currentColor; stroke: none; }
+.info-btn:hover, .info-btn:focus-visible { color: var(--accent); }
+.info-pop {
+  width: min(calc(100% - 2rem), 24rem); margin: auto; padding: 1.25rem; border: 1px solid var(--line); border-radius: 22px;
+  background: var(--ground); color: var(--ink); box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.6);
+  flex-direction: column; gap: 0.75rem;
+}
+/* Separate rules: a browser that does not know :popover-open would drop a shared rule. */
+.info-pop { display: none; }
+.info-pop:popover-open { display: flex; }
+.info-pop.open { display: flex; position: fixed; inset: 0; height: fit-content; z-index: 60; }
+.info-pop::backdrop { background: rgb(5 6 2 / 0.55); }
+.info-pop-title { font-size: var(--t-md); }
+.info-pop-body { display: flex; flex-direction: column; gap: 0.6rem; color: var(--muted); }
+.info-pop:popover-open { animation: pop-in 0.3s var(--bounce); }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.94); } }
+/* A page title with a button on the same line, such as Explore and its saved courses. */
+.page-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.saved-btn { position: relative; }
+.saved-btn svg { fill: none; }
+.count-dot {
+  position: absolute; top: -0.2rem; right: -0.2rem; display: grid; place-items: center; min-width: 1.3rem; height: 1.3rem;
+  padding: 0 0.3rem; border-radius: 999px; background: var(--gold); color: #1c1503; font-size: var(--t-xs); font-weight: 800;
+}
+/* A heading with an info button beside it. */
+.with-info { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.stat-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+
+/* ==========================================================================
+   HALF-SCREEN SHEET (saved courses on Explore) and the confirm dialog
+   ========================================================================== */
+dialog.sheet {
+  width: 100%; max-width: 40rem; max-height: none; height: min(56dvh, 30rem); margin: auto auto 0; padding: 0;
+  border: 1px solid var(--line); border-bottom: 0; border-radius: 26px 26px 0 0;
+  background: var(--ground); color: var(--ink);
+}
+dialog.sheet[open] { display: flex; flex-direction: column; animation: sheet-up 0.4s var(--ease); }
+dialog.sheet::backdrop { background: rgb(5 6 2 / 0.55); }
+.sheet-grip { align-self: center; width: 2.75rem; height: 0.3rem; margin-top: 0.6rem; border-radius: 999px; background: var(--line); }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.6rem 1.15rem 0.4rem; }
+.sheet-body { flex: 1; overflow-y: auto; padding: 0.4rem 1.15rem calc(1.2rem + env(safe-area-inset-bottom)); }
+.sheet-body .shelf-row { margin: 0 -1.15rem; }
+@keyframes sheet-up { from { transform: translateY(100%); } }
+
+dialog.confirm {
+  width: calc(100% - 2rem); max-width: 26rem; padding: 0; border: 1px solid var(--line); border-radius: 22px;
+  background: var(--ground); color: var(--ink);
+}
+dialog.confirm::backdrop { background: rgb(5 6 2 / 0.6); }
+dialog.confirm form { display: flex; flex-direction: column; gap: 1rem; padding: 1.4rem 1.25rem; }
+dialog.confirm p { color: var(--muted); }
+.btn.danger { background: var(--risky-ink); border-color: var(--risky-ink); color: var(--risky-bg); }

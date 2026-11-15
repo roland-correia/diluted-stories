@@ -35,7 +35,13 @@ const categoryIds = Object.keys(categories) as CategoryId[];
   path="/explore/"
   tab="explore"
 >
-  <h1>Explore</h1>
+  <div class="page-head">
+    <h1>Explore</h1>
+    <button type="button" class="iconbtn round saved-btn" data-open-saved aria-haspopup="dialog" aria-controls="saved-sheet" aria-label="Saved courses">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h11v16l-5.5-4-5.5 4z"></path></svg>
+      <span class="count-dot" data-saved-count hidden></span>
+    </button>
+  </div>
 
   <form class="search" role="search" action="" method="get" data-search-form>
     <label for="search-input" class="visually-hidden">Search courses</label>
@@ -85,8 +91,31 @@ const categoryIds = Object.keys(categories) as CategoryId[];
     </div>
   </section>
 
+  <dialog class="sheet" id="saved-sheet" aria-labelledby="saved-title">
+    <span class="sheet-grip" aria-hidden="true"></span>
+    <div class="sheet-head">
+      <h2 id="saved-title">Saved courses</h2>
+      <button type="button" class="iconbtn round" data-close-saved aria-label="Close saved courses">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <div class="sheet-body">
+      <ul class="shelf-row" data-saved-list>
+        {
+          liveSets.map(({ id }) => (
+            <li data-saved={id} hidden>
+              <Book id={id} />
+            </li>
+          ))
+        }
+      </ul>
+      <p class="meta" data-saved-empty>Nothing saved yet. Tap the bookmark on any course to keep it here.</p>
+    </div>
+  </dialog>
+
   <script>
     import '../scripts/books.ts';
     import '../scripts/explore.ts';
+    import '../scripts/saved.ts';
   </script>
 </Base>

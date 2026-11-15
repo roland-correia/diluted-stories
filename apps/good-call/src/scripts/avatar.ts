@@ -1,10 +1,25 @@
-// Draws a visitor's character as an SVG string, from the choices saved in their
-// profile. Used on the Profile tab, in the character builder and on every card
-// they play. The drawing is decoration: wherever it appears, the character's name
-// is written next to it as text.
+// Draws a visitor's character as SVG, from the choices saved in their profile.
+// - avatarSvg: head and shoulders in a circle, for small places (the greeting on
+//   Home, "Playing as" on each card, the course unlock preview).
+// - characterSvg: the full-length character, which src/scripts/stage.ts animates
+//   on the Profile tab and in the character builder.
+// Both share one head, so the two always match. The drawings are decoration:
+// wherever they appear, the character's name is written as text too.
 
 import { accessories, type AccessoryId } from '../lib/courses';
-import { backgrounds, bonusBackgrounds, hairColours, skins, tops, type Character } from '../lib/game';
+import {
+  backgrounds,
+  bonusBackgrounds,
+  bottomColours,
+  bottoms,
+  facialHair,
+  hairColours,
+  hairStyles,
+  outfits,
+  skins,
+  tops,
+  type Character,
+} from '../lib/game';
 
 function shade(hex: string, amount: number): string {
   // Darken (negative) or lighten (positive) a #rrggbb colour by a fraction.
@@ -20,6 +35,24 @@ function shade(hex: string, amount: number): string {
 export function backgroundColour(character: Character): string {
   const bg = character.background;
   return typeof bg === 'number' ? (backgrounds[bg] ?? backgrounds[0]) : bonusBackgrounds[bg]?.colour ?? backgrounds[0];
+}
+
+// Every saved choice is checked, so an old or damaged save still draws a character.
+function pick<T extends readonly string[]>(list: T, value: unknown): T[number] {
+  return (list as readonly string[]).includes(value as string) ? (value as T[number]) : list[0];
+}
+
+function colours(character: Character) {
+  const skin = skins[character.skin] ?? skins[2];
+  const top = tops[character.top] ?? tops[0];
+  return {
+    skin,
+    hair: hairColours[character.hairColour] ?? hairColours[0],
+    top,
+    topDark: shade(top, -0.22),
+    bottom: bottomColours[character.bottomColour] ?? bottomColours[0],
+    shoe: '#2b2b33',
+  };
 }
 
 // Hair is drawn in two parts: what sits behind the head, and what sits in front.
@@ -100,38 +133,157 @@ function accessory(id: AccessoryId, character: Character): string {
   }
 }
 
+const wornItems = (character: Character) =>
+  (Array.isArray(character.wearing) ? character.wearing : []).filter((id) => id in accessories);
+
+/**
+ * The head, from the neck up, centred on (60, 52) in a 120-wide drawing.
+ * `chest` items (pins, scarves, bow ties) are drawn separately, over the clothes.
+ */
+function head(character: Character): { back: string; face: string; worn: string } {
+  const c = colours(character);
+  const { back, front } = hair(pick(hairStyles, character.hair), c.hair);
+  const wearing = wornItems(character);
+  // Head items replace the hair's front, so a beanie or cap is not drawn over a fringe.
+  const headItem = wearing.some((id) => accessories[id].slot === 'head' && id !== 'headband' && id !== 'headphones' && id !== 'headset');
+  const facial = pick(facialHair, character.facial);
+  const beard =
+    facial === 'beard'
+      ? `<path d="M40 56c1 14 9 22 20 22s19-8 20-22c-4 6-9 8-12 8-3-2-5-3-8-3s-5 1-8 3c-3 0-8-2-12-8z" fill="${c.hair}"/>`
+      : facial === 'stubble'
+        ? `<path d="M41 57c2 13 9 20 19 20s17-7 19-20c-4 7-11 10-19 10s-15-3-19-10z" fill="${c.hair}" opacity="0.28"/>`
+        : '';
+  const moustache =
+    facial === 'moustache' || facial === 'beard'
+      ? `<path d="M51 62c3-3 6-3 9-1 3-2 6-2 9 1-3 2-6 2-9 0-3 2-6 2-9 0z" fill="${c.hair}"/>`
+      : '';
+  const lashes = character.lashes
+    ? '<path d="M47.5 51.6l-2-1.8M49.5 50.9l-.9-2.4M71.5 51.6l2.2-1.8M69.5 50.9l.9-2.4" stroke="#1d1d1f" stroke-width="1.2" stroke-linecap="round"/>'
+    : '';
+  const face = `
+    <rect x="52" y="68" width="16" height="17" rx="6" fill="${shade(c.skin, -0.12)}"/>
+    <circle cx="60" cy="52" r="24" fill="${c.skin}"/>
+    <circle cx="36.5" cy="55" r="4" fill="${shade(c.skin, -0.08)}"/>
+    <circle cx="83.5" cy="55" r="4" fill="${shade(c.skin, -0.08)}"/>
+    ${beard}
+    ${headItem ? '' : front}
+    <g class="c-eyes"><circle cx="51" cy="54" r="2.4" fill="#1d1d1f"/><circle cx="69" cy="54" r="2.4" fill="#1d1d1f"/></g>
+    ${lashes}
+    <circle cx="46" cy="61" r="3" fill="#f08a7a" opacity="0.35"/>
+    <circle cx="74" cy="61" r="3" fill="#f08a7a" opacity="0.35"/>
+    ${moustache}
+    <path class="c-mouth" d="M53 63c4 4 10 4 14 0" fill="none" stroke="#7a3b2e" stroke-width="2" stroke-linecap="round"/>`;
+  const onHead = wearing.filter((id) => ['head', 'face', 'detail'].includes(accessories[id].slot) && id !== 'heart');
+  return { back, face, worn: onHead.map((id) => accessory(id, character)).join('') };
+}
+
+/** Items worn on the clothes: the heart pin, scarf and bow tie. */
+const chestItems = (character: Character) =>
+  wornItems(character)
+    .filter((id) => id === 'heart' || accessories[id].slot === 'neck')
+    .map((id) => accessory(id, character))
+    .join('');
+
+/** The neckline of each outfit, for the head-and-shoulders drawing. */
+function neckline(outfit: Character['outfit'], topDark: string): string {
+  switch (outfit) {
+    case 'hoodie':
+      return `<path d="M44 85c8 9 24 9 32 0" fill="none" stroke="${topDark}" stroke-width="6" stroke-linecap="round"/><path d="M56 92v9M64 92v9" stroke="#f1f1f1" stroke-width="1.6" stroke-linecap="round"/>`;
+    case 'shirt':
+      return `<path d="M52 84l8 9 8-9" fill="#f6f6f2"/><path d="M60 93v28" stroke="${topDark}" stroke-width="1.4"/>`;
+    case 'dress':
+      return `<path d="M48 85c4 7 20 7 24 0" fill="none" stroke="${topDark}" stroke-width="2"/>`;
+    default:
+      return `<path d="M50 84c3 4 7 6 10 6s7-2 10-6" fill="none" stroke="${topDark}" stroke-width="2"/>`;
+  }
+}
+
 // Each drawing needs its own clip-path id, so several can share a page.
 let drawn = 0;
 
-/** The character as an SVG. `size` is in CSS pixels; the drawing scales to fit. */
+/** Head and shoulders in a circle. `size` is in CSS pixels; the drawing scales to fit. */
 export function avatarSvg(character: Character, size = 96): string {
   const clip = `avatar-clip-${(drawn += 1)}`;
-  const skin = skins[character.skin] ?? skins[2];
-  const hairColour = hairColours[character.hairColour] ?? hairColours[0];
-  const top = tops[character.top] ?? tops[0];
-  const { back, front } = hair(character.hair, hairColour);
-  const wearing = character.wearing.filter((id) => id in accessories);
-  // Head items replace the hair's front, so a beanie or cap is not drawn over a fringe.
-  const headItem = wearing.some((id) => accessories[id].slot === 'head' && id !== 'headband' && id !== 'headphones' && id !== 'headset');
-
+  const c = colours(character);
+  const h = head(character);
   return `<svg viewBox="0 0 120 120" width="${size}" height="${size}" aria-hidden="true" focusable="false" class="avatar-svg">
   <clipPath id="${clip}"><circle cx="60" cy="60" r="60"/></clipPath>
   <g clip-path="url(#${clip})">
     <rect width="120" height="120" fill="${backgroundColour(character)}"/>
-    ${back}
-    <path d="M18 122c0-24 18-38 42-38s42 14 42 38z" fill="${top}"/>
-    <path d="M50 84c3 4 7 6 10 6s7-2 10-6" fill="none" stroke="${shade(top, -0.25)}" stroke-width="2"/>
-    <rect x="52" y="68" width="16" height="17" rx="6" fill="${shade(skin, -0.12)}"/>
-    <circle cx="60" cy="52" r="24" fill="${skin}"/>
-    <circle cx="36.5" cy="55" r="4" fill="${shade(skin, -0.08)}"/>
-    <circle cx="83.5" cy="55" r="4" fill="${shade(skin, -0.08)}"/>
-    ${headItem ? '' : front}
-    <circle cx="51" cy="54" r="2.4" fill="#1d1d1f"/>
-    <circle cx="69" cy="54" r="2.4" fill="#1d1d1f"/>
-    <path d="M53 63c4 4 10 4 14 0" fill="none" stroke="#7a3b2e" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="46" cy="61" r="3" fill="#f08a7a" opacity="0.35"/>
-    <circle cx="74" cy="61" r="3" fill="#f08a7a" opacity="0.35"/>
-    ${wearing.map((id) => accessory(id, character)).join('')}
+    ${h.back}
+    <path d="M18 122c0-24 18-38 42-38s42 14 42 38z" fill="${c.top}"/>
+    ${neckline(pick(outfits, character.outfit), c.topDark)}
+    ${h.face}
+    ${chestItems(character)}
+    ${h.worn}
+  </g>
+</svg>`;
+}
+
+/**
+ * The full-length character, 120 x 220, standing on the ground at y = 214.
+ * Groups have classes for src/scripts/stage.ts and the CSS to animate:
+ * c-body (everything that jumps and sways), c-head, c-eyes, c-arm-l, c-arm-r,
+ * c-leg-l, c-leg-r, c-heart (a heart that pops up) and c-shadow.
+ */
+export function characterSvg(character: Character): string {
+  const c = colours(character);
+  const h = head(character);
+  const outfit = pick(outfits, character.outfit);
+  const bottom = pick(bottoms, character.bottom);
+  const longSleeves = outfit === 'hoodie' || outfit === 'shirt';
+  const dress = outfit === 'dress';
+
+  // Legs hang from the hips (y 148) and end in shoes at y 212.
+  const legFill = (x: number) => {
+    if (dress) return `<rect x="${x + 2}" y="176" width="10" height="30" rx="5" fill="${c.skin}"/>`;
+    if (bottom === 'shorts') {
+      return `<rect x="${x + 2}" y="168" width="10" height="38" rx="5" fill="${c.skin}"/><rect x="${x}" y="146" width="14" height="28" rx="6" fill="${c.bottom}"/>`;
+    }
+    if (bottom === 'skirt') return `<rect x="${x + 2}" y="160" width="10" height="46" rx="5" fill="${c.skin}"/>`;
+    return `<rect x="${x}" y="146" width="14" height="60" rx="6" fill="${c.bottom}"/>`;
+  };
+  const leg = (side: 'l' | 'r', x: number) =>
+    `<g class="c-leg-${side}">${legFill(x)}<rect x="${x - 3}" y="202" width="20" height="10" rx="5" fill="${c.shoe}"/></g>`;
+  const skirt =
+    !dress && bottom === 'skirt'
+      ? `<path d="M40 146h40l8 30c-9 4-19 6-28 6s-19-2-28-6z" fill="${c.bottom}"/>`
+      : '';
+  const dressSkirt = dress
+    ? `<path d="M40 118h40l12 62c-10 5-21 7-32 7s-22-2-32-7z" fill="${c.top}"/><path d="M40 118h40" stroke="${c.topDark}" stroke-width="2"/>`
+    : '';
+
+  // Arms hang from the shoulders (40, 92) and (80, 92).
+  const arm = (side: 'l' | 'r') => {
+    const x = side === 'l' ? 28 : 80;
+    const hand = side === 'l' ? 34 : 86;
+    const sleeve = longSleeves
+      ? `<rect x="${x}" y="88" width="12" height="52" rx="6" fill="${c.top}"/><rect x="${x}" y="134" width="12" height="5" rx="2" fill="${c.topDark}"/>`
+      : `<rect x="${x + 1}" y="104" width="10" height="36" rx="5" fill="${c.skin}"/><rect x="${x}" y="88" width="12" height="22" rx="6" fill="${c.top}"/>`;
+    return `<g class="c-arm-${side}">${sleeve}<circle cx="${hand}" cy="144" r="6" fill="${c.skin}"/></g>`;
+  };
+
+  const torso =
+    outfit === 'hoodie'
+      ? `<path d="M36 96c0-7 5-11 12-11h24c7 0 12 4 12 11v52c0 3-2 5-5 5H41c-3 0-5-2-5-5z" fill="${c.top}"/><path d="M45 126h30v14H45z" fill="${c.topDark}" opacity="0.5"/>`
+      : `<path d="M36 96c0-7 5-11 12-11h24c7 0 12 4 12 11v${dress ? 26 : 52}c0 3-2 5-5 5H41c-3 0-5-2-5-5z" fill="${c.top}"/>`;
+
+  return `<svg viewBox="0 0 120 222" class="char" aria-hidden="true" focusable="false">
+  <ellipse class="c-shadow" cx="60" cy="214" rx="28" ry="4.5" fill="#000" opacity="0.22"/>
+  <g class="c-body">
+    ${leg('l', 45)}${leg('r', 61)}
+    ${skirt}
+    ${dressSkirt}
+    ${arm('l')}${arm('r')}
+    <g class="c-head">
+      ${h.back}
+      ${h.face}
+      ${h.worn}
+    </g>
+    ${torso}
+    ${neckline(outfit, c.topDark)}
+    ${chestItems(character)}
+    <path class="c-heart" d="M60 6c-6-6-15-2-12 6 2 5 12 11 12 11s10-6 12-11c3-8-6-12-12-6z" fill="#e2456b" opacity="0"/>
   </g>
 </svg>`;
 }
