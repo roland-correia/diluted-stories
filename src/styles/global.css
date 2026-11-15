@@ -342,14 +342,14 @@ ol.steps { list-style: none; padding: 0; }
   border-radius: var(--radius-sm); border: 1px solid rgb(74 47 8 / 0.18); background: rgb(255 255 255 / 0.55);
   color: var(--sand-ink);
 }
-.product:hover { background: rgb(255 255 255 / 0.85); border-color: var(--wine); }
+a.product:hover { background: rgb(255 255 255 / 0.85); border-color: var(--wine); }
 .product h3 { font-size: 1.8rem; font-weight: 500; }
 .product p { color: var(--sand-ink); max-width: 26rem; }
 .product .go {
   margin-top: 0.75rem; display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
   border-radius: 50%; border: 1.5px solid var(--wine); color: var(--wine); font-size: 1.2rem;
 }
-.product:hover .go { background: var(--wine); color: var(--cream); }
+a.product:hover .go { background: var(--wine); color: var(--cream); }
 
 /* ==========================================================================
    CARDS
@@ -444,7 +444,8 @@ article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
    ========================================================================== */
 .site-footer {
   margin-top: 3.5rem; border-radius: var(--radius); padding: clamp(1.75rem, 5vw, 3.5rem);
-  display: grid; gap: 2rem 3rem; grid-template-columns: 1fr;
+  display: grid; gap: 1.25rem 3rem; grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'mark' 'lead' 'socials' 'nav' 'base';
   background: linear-gradient(160deg, var(--wine-deep) 0%, #2a0a11 100%); color: var(--cream);
   position: relative; overflow: hidden; isolation: isolate;
 }
@@ -453,10 +454,11 @@ article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
   right: -10rem; top: -14rem; background: radial-gradient(circle, rgb(194 73 90 / 0.32), rgb(194 73 90 / 0) 64%);
 }
 .site-footer a { color: inherit; }
-.footer-brand { display: flex; flex-direction: column; gap: 1rem; }
 .site-footer .wm { font-size: 2rem; }
-.footer-lead { color: rgb(251 242 231 / 0.8); max-width: 26rem; }
-.footer-nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; align-content: start; }
+.footer-mark { grid-area: mark; justify-self: start; }
+.footer-lead { grid-area: lead; color: rgb(251 242 231 / 0.8); max-width: 26rem; }
+.footer-socials { grid-area: socials; }
+.footer-nav { grid-area: nav; display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; align-content: start; }
 .footer-nav a {
   display: inline-flex; align-items: center; min-height: 2.75rem;
   font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent;
@@ -464,18 +466,26 @@ article.measure { display: flex; flex-direction: column; gap: 1.25rem; }
 .footer-nav a:hover { border-bottom-color: var(--gold); }
 /* Email, phone and social icons share one row, and wrap on a narrow screen. */
 .footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.75rem; }
-.footer-contact > a { display: inline-flex; align-items: center; min-height: 2.75rem; text-underline-offset: 4px; }
+.footer-contact > a { display: inline-flex; align-items: center; min-height: 2.75rem; text-underline-offset: 4px; overflow-wrap: anywhere; }
 .footer-fine { color: rgb(251 242 231 / 0.7); font-size: 0.8rem; }
 .footer-fine { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.75rem; }
 .footer-fine a { display: inline-flex; align-items: center; min-height: 2.75rem; padding-inline: 0.25rem; text-underline-offset: 3px; }
 .footer-base {
-  display: flex; flex-direction: column; gap: 1rem; padding-top: 1.75rem;
+  grid-area: base; display: flex; flex-direction: column; gap: 1rem; padding-top: 1.75rem;
   border-top: 1px solid rgb(251 242 231 / 0.22);
 }
 @media (min-width: 48rem) {
-  .site-footer { grid-template-columns: 1.2fr 1fr; }
-  .footer-base { grid-column: 1 / -1; }
-  .footer-contact .socials { margin-left: auto; }
+  .site-footer {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-areas: 'mark nav' 'lead socials' 'base base';
+    row-gap: 1rem;
+  }
+  .footer-nav { justify-content: flex-start; }
+  .footer-socials { justify-self: end; align-self: start; }
+  .footer-base { margin-top: 1rem; }
+}
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .footer-base .footer-fine { flex-basis: 100%; }
   .footer-base { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
   .footer-base .footer-contact { flex: 1; }
 }
