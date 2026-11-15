@@ -83,7 +83,8 @@ Good Call and 5 Minute Mandarin live in `apps/`. Each is its own Astro project, 
 `README.md`, `package.json` and commands (run them from that app's folder). The deploy builds each
 one into `dist/projects/<app name>/`, so they are served at `dilutedstories.com/projects/good-call/`
 and `dilutedstories.com/projects/5-minute-mandarin/`. The home page cards for them come from
-`src/data/products.ts`.
+`src/data/products.ts`. While a product is in development its card is plain text (not a link); add
+`live: true` to its entry there to make the card link to it.
 
 ## Other files
 

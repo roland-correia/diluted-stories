@@ -1,21 +1,20 @@
 // Our own products, shown on the home page under "Under development".
 // Each one is its own Astro project in apps/, built into /projects/<id>/ on this
-// site (see .github/workflows/deploy.yml). When a product launches properly,
-// move it out of this list (or delete its entry).
+// site (see .github/workflows/deploy.yml).
 //
-// `hidden: true` takes a product's card off the home page but leaves the product
-// itself deployed, so its address (/projects/<id>/) still works for anyone who has
-// the link. Delete that one line to show the card again.
-type Product = { id: string; name: string; blurb: string; path: string; hidden?: true };
+// While a product is in development its card is just text: it is NOT a link, but its
+// address (/projects/<id>/) still works for anyone who has it. When it is ready for
+// visitors, add `live: true` to its entry and the card becomes a link to `path`.
+// When a product launches properly, move it out of this list (or delete its entry).
+export type Product = { id: string; name: string; blurb: string; path: string; live?: true };
 
-const all: Product[] = [
+export const products: Product[] = [
   {
     id: 'good-call',
     name: 'Good Call',
     blurb:
       'Short scenarios about everyday life, parenting and work. Choose what you would do, then see why.',
     path: '/projects/good-call/',
-    hidden: true,
   },
   {
     id: '5-minute-mandarin',
@@ -25,5 +24,3 @@ const all: Product[] = [
     path: '/projects/5-minute-mandarin/',
   },
 ];
-
-export const products = all.filter((product) => !product.hidden);

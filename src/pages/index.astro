@@ -92,13 +92,20 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
     </div>
     <div class="grid two">
       {
-        products.map((product) => (
-          <a class="product" href={href(product.path)}>
-            <h3>{product.name}</h3>
-            <p>{product.blurb}</p>
-            <span class="go" aria-hidden="true">→</span>
-          </a>
-        ))
+        products.map((product) =>
+          product.live ? (
+            <a class="product" href={href(product.path)}>
+              <h3>{product.name}</h3>
+              <p>{product.blurb}</p>
+              <span class="go" aria-hidden="true">→</span>
+            </a>
+          ) : (
+            <div class="product">
+              <h3>{product.name}</h3>
+              <p>{product.blurb}</p>
+            </div>
+          ),
+        )
       }
     </div>
   </section>
