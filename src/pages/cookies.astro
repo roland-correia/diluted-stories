@@ -2,6 +2,10 @@
 import Base from '../layouts/Base.astro';
 import EmailLink from '../components/EmailLink.astro';
 import { storage, STORAGE_UPDATED } from '../data/storage';
+import { socials } from '../lib/site';
+
+// The profiles we link to, so this sentence always matches the links actually on the site.
+const linkedSites = [...socials.map((social) => social.name), 'WhatsApp'].join(', ');
 ---
 
 <Base
@@ -57,7 +61,7 @@ import { storage, STORAGE_UPDATED } from '../data/storage';
         its <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">privacy statement<span class="visually-hidden"> (opens in a new tab)</span></a>.
       </p>
       <p>
-        Links to LinkedIn, Instagram, GitHub, WhatsApp and the support organisations listed in Good Call open
+        Links to {linkedSites} and the support organisations listed in Good Call open
         their own sites, which have their own policies.
       </p>
     </section>

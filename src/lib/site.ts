@@ -22,9 +22,15 @@ export const nav = [
 ] as const;
 
 // Social profiles, shown as icon links in the footer and on /contact/.
-// `icon` picks the drawing in SocialLinks.astro.
-export const socials = [
+// `icon` picks the drawing in SocialLinks.astro. `hidden: true` takes a profile off
+// the site (footer, Contact page and the Cookies policy's list of outbound links)
+// without losing it: delete that one line to show it again.
+type Social = { name: string; icon: 'linkedin' | 'instagram' | 'github'; url: string; hidden?: true };
+
+const allSocials: Social[] = [
   { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/diluted-stories' },
   { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/dilutedstories/' },
-  { name: 'GitHub', icon: 'github', url: 'https://github.com/Diluted-Stories' },
-] as const;
+  { name: 'GitHub', icon: 'github', url: 'https://github.com/Diluted-Stories', hidden: true },
+];
+
+export const socials = allSocials.filter((social) => !social.hidden);
