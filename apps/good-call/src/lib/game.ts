@@ -12,6 +12,13 @@ export const hairStyles = ['short', 'long', 'curly', 'buzz', 'bun', 'waves'] as 
 export const tops = ['#005c4c', '#2f6690', '#9b2f52', '#b07a1f', '#5a3d8c', '#3d4a44'] as const;
 export const backgrounds = ['#cfe8df', '#cddcf0', '#f3d9c6', '#e5d8f2', '#f0e6c4', '#d7dcd9'] as const;
 
+// Clothes and features. None of these is tied to a gender: any character can wear
+// anything, so everyone can make a character that looks like them.
+export const outfits = ['tee', 'hoodie', 'shirt', 'dress'] as const;
+export const bottoms = ['trousers', 'shorts', 'skirt'] as const;
+export const bottomColours = ['#2b3a55', '#3d4a44', '#6b4a2b', '#1f1f24', '#8a8f98', '#9b2f52'] as const;
+export const facialHair = ['none', 'stubble', 'moustache', 'beard'] as const;
+
 // Extra backgrounds earned through achievements, not courses.
 export const bonusBackgrounds = {
   gold: { colour: '#d9b44a', achievement: 'deep-learner' },
@@ -19,6 +26,9 @@ export const bonusBackgrounds = {
 } as const;
 
 export type HairStyle = (typeof hairStyles)[number];
+export type Outfit = (typeof outfits)[number];
+export type Bottom = (typeof bottoms)[number];
+export type FacialHair = (typeof facialHair)[number];
 
 export interface Character {
   name: string;
@@ -30,6 +40,12 @@ export interface Character {
   background: number | keyof typeof bonusBackgrounds;
   /** The items being worn, at most one per slot. */
   wearing: AccessoryId[];
+  /** The top half: a T-shirt, hoodie, shirt or dress. A dress covers `bottom`. */
+  outfit: Outfit;
+  bottom: Bottom;
+  bottomColour: number;
+  facial: FacialHair;
+  lashes: boolean;
 }
 
 export const defaultCharacter: Character = {
@@ -40,6 +56,11 @@ export const defaultCharacter: Character = {
   top: 0,
   background: 0,
   wearing: [],
+  outfit: 'tee',
+  bottom: 'trousers',
+  bottomColour: 0,
+  facial: 'none',
+  lashes: false,
 };
 
 /** The name to show for a character that has not been named yet. */

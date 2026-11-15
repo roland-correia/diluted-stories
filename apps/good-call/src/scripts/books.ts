@@ -1,6 +1,7 @@
 // Fills in everything on a page that depends on what this visitor has done:
 // - each book's progress, read out to screen readers ([data-book-status] inside [data-book]),
-// - the visitor's character wherever there is a [data-avatar] slot, and their name in [data-hello],
+// - the visitor's character wherever there is a [data-avatar] slot, and a greeting
+//   by the time of day with their name in [data-hello] ("Good morning, Sam"),
 // - the "Continue learning" card on the home page.
 // Used on Home, Explore and Profile. Redraws when an answer or the profile changes.
 
@@ -14,6 +15,14 @@ export function describe(state: CourseState): string {
   if (state.complete) return 'Finished';
   if (state.answered === 0) return `${plural(state.total, 'question')}, not started`;
   return `${state.answered} of ${state.total} answered`;
+}
+
+/** "Good morning" before noon, "Good afternoon" until 5pm, then "Good evening", by the device's own clock. */
+export function greeting(now = new Date()): string {
+  const hour = now.getHours();
+  if (hour >= 5 && hour < 12) return 'Good morning';
+  if (hour >= 12 && hour < 17) return 'Good afternoon';
+  return 'Good evening';
 }
 
 export const percentOf = (state: CourseState) => (state.total ? Math.round((state.answered / state.total) * 100) : 0);
@@ -36,7 +45,7 @@ function render() {
 
   const name = profile.character.name.trim();
   document.querySelectorAll<HTMLElement>('[data-hello]').forEach((hello) => {
-    hello.textContent = name ? `Hi, ${name}` : 'Welcome to Good Call';
+    hello.textContent = name ? `${greeting()}, ${name}` : greeting();
   });
 
   // Continue learning: the course read most recently, if it is unfinished;

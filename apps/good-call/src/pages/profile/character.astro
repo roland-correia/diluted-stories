@@ -4,8 +4,21 @@
 // background. The character is saved in this browser only (src/scripts/character.ts)
 // and appears on the Profile tab and on every scenario card.
 import Base from '../../layouts/Base.astro';
+import InfoTip from '../../components/InfoTip.astro';
 import { accessories, courses, type AccessoryId, type Slot } from '../../lib/courses';
-import { achievements, backgrounds, bonusBackgrounds, hairColours, hairStyles, skins, tops } from '../../lib/game';
+import {
+  achievements,
+  backgrounds,
+  bonusBackgrounds,
+  bottomColours,
+  bottoms,
+  facialHair,
+  hairColours,
+  hairStyles,
+  outfits,
+  skins,
+  tops,
+} from '../../lib/game';
 import { sets, type SetId } from '../../lib/site';
 import { href } from '../../lib/paths';
 
@@ -21,6 +34,15 @@ const hairStyleNames: Record<(typeof hairStyles)[number], string> = {
 };
 const topNames = ['Alpine green', 'Calm blue', 'Berry', 'Mustard', 'Violet', 'Charcoal'];
 const backgroundNames = ['Mint', 'Sky', 'Peach', 'Lavender', 'Sand', 'Mist'];
+const outfitNames: Record<(typeof outfits)[number], string> = { tee: 'T-shirt', hoodie: 'Hoodie', shirt: 'Shirt', dress: 'Dress' };
+const bottomNames: Record<(typeof bottoms)[number], string> = { trousers: 'Trousers', shorts: 'Shorts', skirt: 'Skirt' };
+const bottomColourNames = ['Navy', 'Olive', 'Brown', 'Black', 'Grey', 'Berry'];
+const facialNames: Record<(typeof facialHair)[number], string> = {
+  none: 'None',
+  stubble: 'Stubble',
+  moustache: 'Moustache',
+  beard: 'Beard',
+};
 
 const slots: { slot: Slot; name: string }[] = [
   { slot: 'head', name: 'On your head' },
@@ -42,13 +64,16 @@ const achievementName = (id: string) => achievements.find((a) => a.id === id)?.n
   path="/profile/character/"
   tab="profile"
 >
-  <h1>Your character</h1>
-  <p class="lead">
-    Your character plays the main part in every scenario. Finish a course to unlock something new to wear.
-  </p>
+  <div class="with-info">
+    <h1>Your character</h1>
+    <InfoTip id="info-character" label="About your character" title="Your character">
+      <p>Your character plays the main part in every scenario, and appears on your profile.</p>
+      <p>Any character can wear anything. Finish a course to unlock something new to wear.</p>
+    </InfoTip>
+  </div>
 
   <form class="builder" data-builder>
-    <span class="avatar-slot preview" data-preview aria-hidden="true"></span>
+    <button type="button" class="stage" data-preview aria-label="Your character. Tap for a move."></button>
 
     <label class="name">
       Name
@@ -102,7 +127,49 @@ const achievementName = (id: string) => achievements.find((a) => a.id === id)?.n
     </fieldset>
 
     <fieldset>
-      <legend>Top</legend>
+      <legend>Facial hair</legend>
+      <div class="options">
+        {
+          facialHair.map((option) => (
+            <label class="option">
+              <input type="radio" name="facial" value={option} />
+              <span>{facialNames[option]}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Eyes</legend>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="lashes" value="no" />
+          <span>Plain</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="lashes" value="yes" />
+          <span>Lashes</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Clothes</legend>
+      <div class="options">
+        {
+          outfits.map((outfit) => (
+            <label class="option">
+              <input type="radio" name="outfit" value={outfit} />
+              <span>{outfitNames[outfit]}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Top colour</legend>
       <div class="swatches">
         {
           tops.map((colour, i) => (
@@ -110,6 +177,37 @@ const achievementName = (id: string) => achievements.find((a) => a.id === id)?.n
               <input type="radio" name="top" value={i} />
               <span style={`--sw: ${colour}`}>
                 <span class="visually-hidden">{topNames[i]}</span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Bottoms</legend>
+      <div class="options">
+        {
+          bottoms.map((bottom) => (
+            <label class="option">
+              <input type="radio" name="bottom" value={bottom} />
+              <span>{bottomNames[bottom]}</span>
+            </label>
+          ))
+        }
+      </div>
+      <p class="fine">A dress is worn without these.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Bottoms colour</legend>
+      <div class="swatches">
+        {
+          bottomColours.map((colour, i) => (
+            <label class="swatch">
+              <input type="radio" name="bottomColour" value={i} />
+              <span style={`--sw: ${colour}`}>
+                <span class="visually-hidden">{bottomColourNames[i]}</span>
               </span>
             </label>
           ))

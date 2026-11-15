@@ -1,8 +1,8 @@
 ---
 // About: the brand page, opened by the floating Good Call mark at the end of the
-// tab bar. It reads like the opening pages of a book: no cards, a large initial
-// letter, and plain sections with space and a hairline between them. The
-// disclaimer and privacy notice have a page of their own (/disclaimer/).
+// tab bar. It reads like the opening pages of a book: no cards, justified text, a
+// large initial letter, and chapters marked by a short rule. The disclaimer and
+// the privacy notice each have a page of their own.
 import Base from '../layouts/Base.astro';
 import { calls } from '../lib/site';
 import { POINTS } from '../lib/game';
@@ -11,11 +11,18 @@ import { href } from '../lib/paths';
 
 // Every photographer, once, however many photos of theirs are used.
 const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, photo])).values()];
+const values = [
+  { term: 'Respect', text: "Every scenario starts from everyone's right to be treated with dignity." },
+  { term: 'Honesty', text: 'Real situations, plainly told, without shaming anyone for not knowing yet.' },
+  { term: 'Calm', text: 'No timers, no leaderboards and no pressure. Learning sticks when you feel safe.' },
+  { term: 'Privacy', text: 'No tracking, and nothing shared about you unless you join through your school, college or NGO.' },
+  { term: 'Care', text: 'Support is always one tap away, and every course points to charities doing the real work.' },
+];
 ---
 
 <Base
   title="About"
-  description="What Good Call is and stands for, how it works, how answers are judged, how points work, and photo credits."
+  description="What Good Call is and stands for, how it works, how answers are judged, points, supporting Good Call, and photo credits."
   path="/about/"
   tab="about"
 >
@@ -42,13 +49,16 @@ const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, phot
 
     <section class="page-section" aria-labelledby="values-title">
       <h2 id="values-title">What we stand for</h2>
-      <ul class="ticks">
-        <li><span><b>Respect.</b> Every scenario starts from everyone's right to be treated with dignity.</span></li>
-        <li><span><b>Honesty.</b> Real situations, plainly told, without shaming anyone for not knowing yet.</span></li>
-        <li><span><b>Calm.</b> No timers, no leaderboards and no pressure. Learning sticks when you feel safe.</span></li>
-        <li><span><b>Privacy.</b> No tracking, and nothing shared about you unless you join through your school, college or NGO.</span></li>
-        <li><span><b>Care.</b> Support is always one tap away, and every course points to charities doing the real work.</span></li>
-      </ul>
+      <dl class="values">
+        {
+          values.map((value) => (
+            <div>
+              <dt>{value.term}</dt>
+              <dd>{value.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </section>
 
     <section class="page-section" id="how" aria-labelledby="how-title">
@@ -59,27 +69,39 @@ const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, phot
         <li>Every answer comes with its reason, the good ones too.</li>
         <li>One go at each scenario. Once you lock in an answer, it stays.</li>
         <li>Your character plays the main part. Finish a course to unlock something new for them to wear.</li>
-        <li>
-          Collect points as you go: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,{' '}
-          {POINTS.risky} for trying and {POINTS.courseComplete} for finishing a course.
-        </li>
         <li>No account needed. Your progress is saved on this device.</li>
       </ul>
     </section>
 
     <section class="page-section" aria-labelledby="judged-title">
       <h2 id="judged-title">How answers are judged</h2>
-      <p>Real situations are rarely just right or wrong, so there are three verdicts:</p>
-      <ul class="ticks">
-        <li><span><b>{calls.best.label}.</b> The choice that respects everyone involved and solves the problem.</span></li>
-        <li><span><b>{calls.okay.label}.</b> It avoids the worst outcome but leaves something undone.</span></li>
-        <li><span><b>{calls.risky.label}.</b> It is likely to hurt someone, or you.</span></li>
+      <p>Real situations are rarely just right or wrong, so there are three verdicts.</p>
+      <ul class="verdicts">
+        {
+          (['best', 'okay', 'risky'] as const).map((call) => (
+            <li>
+              <span class="verdict-mark" data-call={call} aria-hidden="true">{calls[call].mark}</span>
+              <span>
+                <b>{calls[call].label}.</b>{' '}
+                {call === 'best'
+                  ? 'The choice that respects everyone involved and solves the problem.'
+                  : call === 'okay'
+                    ? 'It avoids the worst outcome but leaves something undone.'
+                    : 'It is likely to hurt someone, or you.'}
+              </span>
+            </li>
+          ))
+        }
       </ul>
       <p>Every answer has its reason. The reason is the point, not the score.</p>
     </section>
 
-    <section class="page-section" aria-labelledby="points-title">
+    <section class="page-section" id="points" aria-labelledby="points-title">
       <h2 id="points-title">About points</h2>
+      <p>
+        You collect points as you learn: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,{' '}
+        {POINTS.risky} for trying, and {POINTS.courseComplete} for finishing a course.
+      </p>
       <p>
         We are working on turning the points you collect into real donations to charities connected to each course.
         That is not released yet, so for now points simply add up. Points cannot be bought or sold.
@@ -90,10 +112,21 @@ const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, phot
       </p>
     </section>
 
+    <section class="page-section donate" id="donate" aria-labelledby="donate-title">
+      <h2 id="donate-title">Support Good Call</h2>
+      <p>
+        Good Call is free, with no account and no tracking, so that anyone can practise the moments that matter. If you
+        would like to help us write more courses and reach more schools, colleges and NGOs, you will soon be able to
+        donate to Good Call directly.
+      </p>
+      <button type="button" class="btn gold block" aria-disabled="true" aria-describedby="donate-note">Donate to Good Call</button>
+      <p class="fine" id="donate-note">Donations are opening soon.</p>
+    </section>
+
     {
       credits.length > 0 && (
-        <section class="page-section" aria-labelledby="credits-title">
-          <h2 id="credits-title">Photo credits</h2>
+        <details class="credits-fold">
+          <summary>Photo credits</summary>
           <p>
             Photos are from <a href="https://unsplash.com/">Unsplash</a>, used under the{' '}
             <a href="https://unsplash.com/license">Unsplash Licence</a>. Thank you to:
@@ -108,12 +141,13 @@ const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, phot
             ))}
           </ul>
           <p class="fine">Book covers and characters are drawn for Good Call.</p>
-        </section>
+        </details>
       )
     }
 
     <p class="fine">
-      Please read the <a href={href('/disclaimer/')}>disclaimer and privacy notice</a> before you use Good Call.
+      Please read the <a href={href('/disclaimer/')}>disclaimer</a> and the{' '}
+      <a href={href('/privacy/')}>privacy notice</a> before you use Good Call.
     </p>
   </div>
 </Base>

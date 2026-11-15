@@ -104,6 +104,15 @@ and that name is used throughout ("Hi, Sam", "Playing as Sam"). Moving between G
 pages does not show it again. The decision is made by a small inline script in `Base.astro`
 before the page paints, so it never flashes. Without JavaScript it never appears.
 
+## Info pop-ups, saved courses and long-form pages
+
+- Detail that would crowd a page sits behind an "i" button (`src/components/InfoTip.astro`), which
+  opens a pop-up using the browser's popover; `src/scripts/info.ts` covers older browsers.
+- Saved courses are on Explore: the bookmark beside the title opens a half-screen sheet
+  (`src/scripts/saved.ts`) with one sideways-scrolling shelf.
+- About, Disclaimer and Privacy are separate pages, linked from the footer with Cookies. Their text is
+  justified, and About's Donate button is a placeholder until a payment link exists.
+
 ## Text and spacing
 
 Every font size comes from one scale, the `--t-*` tokens at the top of `src/styles/global.css`
@@ -125,9 +134,15 @@ site lists every key (`src/data/storage.ts` in the repository root); keep it in 
 - **Points are collected, not spent, for now.** Turning them into real donations to each course's
   charities is planned but not released, and the pages say so. Before it is switched on, it needs an
   agreement with each charity (in the UK, the commercial participator rules apply).
-- **The character** is drawn as SVG (`src/scripts/avatar.ts`). Finishing a course unlocks the item
-  named in `courses`. The name a visitor gives it appears on each card ("Playing as Sam") and in the
-  question ("What is the best call, Sam?").
+- **The character** is drawn as SVG (`src/scripts/avatar.ts`): head and shoulders in small places,
+  full length on the Profile tab and in the builder, where `src/scripts/stage.ts` makes it breathe,
+  blink, walk about and do moves (wave, jump, dance, cheer, a heart), livelier on hover and on tap.
+  Clothes and features (T-shirt, hoodie, shirt or dress; trousers, shorts or skirt; facial hair;
+  lashes) are open to every character, with no gender labels. Finishing a course unlocks the item
+  named in `courses`. The name appears on each card ("Playing as Sam") and in the question.
+- **Ads are not used.** Unlocking outfits or earning points by watching ads was considered and left
+  out for now: it needs an ad network account, a cookie consent banner and changes to the privacy
+  notice, which currently promises no tracking.
 - **Book covers** are drawn as animated SVG (`src/components/BookCover.astro`), so they need no image
   licence. All movement stops for visitors who ask their device for reduced motion.
 

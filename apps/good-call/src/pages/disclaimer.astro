@@ -1,20 +1,19 @@
 ---
-// Disclaimer and privacy: linked from the footer of every page, beside Cookies.
-// It holds what used to be spread over the About page: the disclaimer, what Good
-// Call is not, and what happens to your answers and data.
+// The disclaimer, linked from the footer of every page beside Privacy and Cookies:
+// what Good Call is for, what it is not, and who is responsible for what.
 import Base from '../layouts/Base.astro';
+import { href } from '../lib/paths';
 ---
 
 <Base
-  title="Disclaimer and privacy"
-  description="Good Call is for education only. What it is not, and how your answers and data are kept: on your device, not shared, unless you are registered through an institution."
+  title="Disclaimer"
+  description="Good Call is for education only: not legal or professional advice, not a qualification and not a defence for anyone's behaviour."
   path="/disclaimer/"
 >
-  <h1>Disclaimer and privacy</h1>
+  <h1>Disclaimer</h1>
 
   <div class="longform">
-    <section class="page-section prose" id="disclaimer" aria-labelledby="disclaimer-title">
-      <h2 id="disclaimer-title">Disclaimer</h2>
+    <section class="prose" id="disclaimer" aria-label="Disclaimer">
       <p>
         Good Call is provided for general education only. The scenarios, answers and reasons are teaching material.
         They are not legal, medical, psychological, safeguarding or employment advice, and they are no substitute for
@@ -47,29 +46,6 @@ import Base from '../layouts/Base.astro';
       </p>
     </section>
 
-    <section class="page-section prose" id="privacy" aria-labelledby="privacy-title">
-      <h2 id="privacy-title">Your privacy</h2>
-      <p>
-        You do not need an account to use Good Call. Your name, character, answers, points, time spent and reading
-        settings are saved on this device only, in your browser's storage.
-      </p>
-      <p>
-        We do not share your data or keep a record of it. Your answers are never used to build a profile of you, so
-        they cannot be used to assess you, rank you, target you or discriminate against you.
-      </p>
-      <p>
-        The only exception is if you are registered through an institution on our education plan for schools,
-        colleges and NGOs. Your institution can tell you what is shared with it and why.
-      </p>
-      <p>
-        You get one go at each scenario. Once you lock in an answer it cannot be changed, so your result is your real
-        first judgement. To remove your answers from one course, use "Clear my answers and start again" at the end of
-        it. To remove everything, use "Delete all my Good Call data" on your profile.
-      </p>
-      <p>
-        Every item Good Call saves in your browser is listed on the <a href="/cookies/">Cookies</a> page, where you can
-        also clear them.
-      </p>
-    </section>
+    <p class="fine">How your answers and data are kept is in the <a href={href('/privacy/')}>privacy notice</a>.</p>
   </div>
 </Base>
