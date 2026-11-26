@@ -1,0 +1,40 @@
+set: respect-first
+category: consent
+order: 3
+title: What your mates say
+topic: Pressure from friends
+draft: false
+
+situation: |
+  You're sixteen and you've been going out with Ella for a few months. Your mates keep asking whether you've "done it" yet, and say you're soft for waiting.
+
+question: What is the best call?
+
+options:
+  - text: Push Ella to move faster, so you've got something to tell them.
+    call: risky
+    why: >-
+      Pressure cancels consent. Ella's choices have to be hers, not set by your friends' timetable, and a yes
+      given to keep you happy is not a free one.
+
+  - text: Tell your mates it's between you and Ella, and keep going at a pace you both choose.
+    call: best
+    why: >-
+      Short and confident. It protects Ella's privacy, and most of your mates will respect it more than they
+      let on.
+
+  - text: Laugh it off and change the subject.
+    call: okay
+    why: >-
+      It keeps the pressure off Ella, which matters. But your mates' idea that there is a deadline goes
+      unchallenged.
+
+  - text: Make up a story to shut them up.
+    call: risky
+    why: >-
+      A made-up story about Ella spreads, and it can follow her around. Her private life is hers to share, or
+      not.
+
+principle: >-
+  Pressure cancels consent, including pressure that starts with your friends. The only timetable that counts
+  is the one you both choose.

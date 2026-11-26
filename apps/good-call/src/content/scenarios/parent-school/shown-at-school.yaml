@@ -1,6 +1,6 @@
-set: consent
-category: children
-order: 1
+set: parent-school
+category: safety
+order: 5
 title: Shown at school
 topic: A child who has seen it
 draft: false

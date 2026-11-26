@@ -101,12 +101,6 @@ export const photos: Record<string, Photo> = {
     by: 'Gery Wibowo',
     page: 'https://unsplash.com/photos/laptop-turned-on-Eti6ph51H4A',
   },
-  'consent/children': {
-    file: 'consent-children.jpg',
-    alt: 'A tablet and stylus left on a sofa',
-    by: 'Kelly Sikkema',
-    page: 'https://unsplash.com/photos/white-tablet-computer-on-gray-textile-ipgtlzD86O4',
-  },
   'consent/relationships': {
     file: 'consent-relationships.jpg',
     alt: 'Two cups of coffee on a wooden table',

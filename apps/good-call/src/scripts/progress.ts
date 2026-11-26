@@ -24,6 +24,17 @@ export const callLabels: Record<Call, string> = {
   risky: 'Not the best call',
 };
 
+// Scenarios that moved from the consent course to the parenting course for the
+// child's age (see astro.config.mjs). Saved answers move with them.
+const movedFromConsent: Record<string, string> = {
+  'consent/first-phone': 'parent-school/first-phone',
+  'consent/shown-at-school': 'parent-school/shown-at-school',
+  'consent/goodbye-hug': 'parent-school/goodbye-hug',
+  'consent/search-history': 'parent-teen/search-history',
+  'consent/nude-going-round': 'parent-teen/nude-going-round',
+  'consent/is-that-what-its-like': 'parent-teen/is-that-what-its-like',
+};
+
 export function readProgress(): Progress {
   let saved: Record<string, Answer | Call>;
   try {
@@ -35,7 +46,8 @@ export function readProgress(): Progress {
   const progress: Progress = {};
   for (const [savedId, value] of Object.entries(saved)) {
     // The pornography module was merged into the consent module, so its answers move with it.
-    const id = savedId.replace(/^adult-content\//, 'consent/');
+    const merged = savedId.replace(/^adult-content\//, 'consent/');
+    const id = movedFromConsent[merged] ?? merged;
     progress[id] = typeof value === 'string' ? { call: value, choice: -1 } : value;
   }
   return progress;

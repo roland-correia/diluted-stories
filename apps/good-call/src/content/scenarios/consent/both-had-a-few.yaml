@@ -1,0 +1,40 @@
+set: consent
+category: nights
+order: 11
+title: Both had a few
+topic: Alcohol and capacity
+draft: false
+
+situation: |
+  At a house party you've been getting on well with Alex all night. The flirting has gone both ways, and you've both been drinking.
+
+  By midnight you're both properly drunk. Alex leans on you and says, "Let's go upstairs."
+
+question: What is the best call?
+
+options:
+  - text: Go upstairs. You're as drunk as each other, so it's fair.
+    call: risky
+    why: >-
+      Being drunk yourself doesn't change the question of whether Alex can freely choose. Alcohol also makes
+      you much worse at noticing when someone can't, which is exactly when it matters most.
+
+  - text: Say you'd really like to see them again when you're both sober, and make sure they get home or have somewhere safe to sleep.
+    call: best
+    why: >-
+      When you're both drunk, neither of you can judge well whether the other is able to choose. Waiting
+      costs nothing, keeps you both safe, and leaves the choice for a day you can both really make it.
+
+  - text: Swap numbers and suggest meeting up another day.
+    call: okay
+    why: >-
+      Kind and respectful. Checking that Alex gets home safely as well would make it the best call.
+
+  - text: Get another drink and decide later.
+    call: risky
+    why: >-
+      Another drink makes clear judgement harder for both of you, not easier.
+
+principle: >-
+  "We were both drunk" is not a reason to go ahead. If either of you is too drunk to choose clearly, wait for
+  another day.

@@ -1,6 +1,6 @@
-set: consent
-category: touch
-order: 5
+set: parent-school
+category: safety
+order: 6
 title: Give your uncle a hug
 topic: Children and affection
 draft: false

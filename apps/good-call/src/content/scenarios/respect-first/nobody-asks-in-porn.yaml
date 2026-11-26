@@ -1,0 +1,32 @@
+set: respect-first
+category: porn
+order: 4
+title: Nobody asks in porn
+topic: Consent off camera
+draft: false
+
+situation: |
+  Your mate Kai says asking "Is this OK?" kills the mood. "Nobody asks in porn," he says.
+
+question: What is the best call?
+
+options:
+  - text: Agree. If it's not in porn, it's probably awkward.
+    call: risky
+    why: >-
+      In porn, the agreeing happens off camera, before filming. You never see it, but it is there. Copying
+      what's on screen leaves out the most important part.
+
+  - text: 'Say "I''d rather ask" and leave it.'
+    call: okay
+    why: >-
+      You're right, and saying it out loud helps. Giving the reason might change his mind too.
+
+  - text: Point out that in porn the agreeing happens off camera. In real life, checking in is part of it, and a confident question isn't a mood-killer.
+    call: best
+    why: >-
+      A plain fact, calmly said. It shows him what porn hides, and that asking is normal, not awkward.
+
+principle: >-
+  In porn, consent is agreed off camera, so you never see anyone asking. In real life, asking and checking in
+  are part of it, all the way through.
