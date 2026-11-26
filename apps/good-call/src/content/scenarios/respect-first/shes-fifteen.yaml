@@ -1,0 +1,39 @@
+set: respect-first
+category: consent
+order: 5
+title: She's fifteen
+topic: Age of consent
+draft: false
+
+situation: |
+  You're eighteen. At a party, Mia has been flirting with you all evening. Then a friend mentions that she's fifteen.
+
+question: What is the best call?
+
+options:
+  - text: Carry on. She's mature for her age, and she started it.
+    call: risky
+    why: >-
+      At fifteen she can't legally consent to sexual activity, whatever she says or how mature she seems.
+      As the adult, it is on you to step back.
+
+  - text: Keep it friendly and nothing more. Step back from the flirting, kindly.
+    call: best
+    why: >-
+      The age of consent in England and Wales is 16. Being warm but clear protects her, and you, without
+      making a scene.
+
+  - text: Swap numbers and keep chatting until she turns sixteen.
+    call: risky
+    why: >-
+      An adult building a private relationship with a fifteen-year-old puts her at risk, and sexual messages
+      from an adult to someone under 16 can be a crime.
+
+  - text: Make an excuse and leave the party.
+    call: okay
+    why: >-
+      It ends the flirting, which is right. But you don't need to leave: staying friendly in the group, and
+      nothing more, is fine.
+
+principle: >-
+  Under 16, nobody can consent, whatever they say. If you're the older one, stepping back is on you.

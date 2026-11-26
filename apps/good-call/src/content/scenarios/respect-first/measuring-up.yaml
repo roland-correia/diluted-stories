@@ -1,0 +1,39 @@
+set: respect-first
+category: porn
+order: 1
+title: Measuring up
+topic: Bodies on screen
+draft: false
+
+situation: |
+  After watching porn, you've started worrying that your body, and how long you'd last, won't measure up when you're with someone for real.
+
+question: What is the best call?
+
+options:
+  - text: Watch more, to learn how it's supposed to go.
+    call: risky
+    why: >-
+      More of the same makes the comparison worse. Porn is a performance, picked and edited for the camera,
+      not a guide to real bodies or real sex.
+
+  - text: Remember that bodies and stamina in porn are selected and edited. Real bodies vary, and if the worry keeps nagging, talk to someone you trust or a GP.
+    call: best
+    why: >-
+      Putting porn back in proportion takes the pressure off. A worry that won't go away is worth talking
+      through, and a GP hears this kind of question every day.
+
+  - text: Read honest information from a trusted source, such as the NHS or Brook.
+    call: okay
+    why: >-
+      Good facts help a lot. If the worry is affecting how you feel day to day, talking to someone helps too.
+
+  - text: Buy pills or supplements you've seen advertised online.
+    call: risky
+    why: >-
+      Products sold online can be unsafe and are often not what they claim. A GP is the place to take a real
+      concern.
+
+principle: >-
+  Bodies, stamina and reactions in porn are selected and exaggerated. Real bodies vary, and real sex is not a
+  performance.

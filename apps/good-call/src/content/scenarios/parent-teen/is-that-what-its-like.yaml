@@ -1,12 +1,12 @@
-set: consent
-category: children
-order: 3
+set: parent-teen
+category: growing
+order: 4
 title: Is that what it's like?
 topic: An honest question
 draft: false
 
 situation: |
-  Your brother Jamie is sixteen. You are in your twenties, and he trusts you. While you are driving him home he asks, looking out of the window: "Do girls actually like being choked? It's in pretty much everything I've seen."
+  Your son Jamie is sixteen. While you are driving him home he asks, looking out of the window: "Do girls actually like being choked? It's in pretty much everything I've seen."
 
 question: What is the best call?
 
