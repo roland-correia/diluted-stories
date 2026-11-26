@@ -1,0 +1,33 @@
+set: respect-first
+category: people
+order: 2
+title: Walking home late
+topic: Giving space
+draft: false
+
+situation: |
+  It's 11pm and you're walking home down a quiet street. A woman ahead of you glances back a couple of times and speeds up.
+
+question: What is the best call?
+
+options:
+  - text: Catch her up to reassure her you're not a threat.
+    call: risky
+    why: >-
+      She can't know your intentions, and a man hurrying towards her at night will feel like the very thing
+      she is worried about.
+
+  - text: Cross to the other side of the road, or slow down and let her get well ahead.
+    call: best
+    why: >-
+      A small step from you makes a big difference to how safe she feels, and it costs you nothing.
+
+  - text: Keep walking at your normal pace. You've every right to be there.
+    call: okay
+    why: >-
+      You do, and you've done nothing wrong. But she can't know that, and giving a bit of space would help her
+      feel safe.
+
+principle: >-
+  Give space. Over 70% of UK women surveyed have been harassed in public, so she has good reason to be
+  careful, and you can help.

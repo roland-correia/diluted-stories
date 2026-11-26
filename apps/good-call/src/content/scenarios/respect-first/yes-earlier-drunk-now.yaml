@@ -1,0 +1,32 @@
+set: respect-first
+category: consent
+order: 2
+title: Yes earlier, drunk now
+topic: Capacity
+draft: false
+
+situation: |
+  Earlier in the evening, someone said they'd like to come back to yours. Now they're very drunk and slurring their words.
+
+question: What is the best call?
+
+options:
+  - text: Stay with them somewhere safe until a friend they trust can take over.
+    call: okay
+    why: >-
+      Caring, and it keeps them safe for now. Making sure they get home is even better.
+
+  - text: Go ahead, because they said yes earlier.
+    call: risky
+    why: >-
+      Consent has to be given freely in the moment, by someone able to choose. Someone very drunk may not
+      have the capacity to choose at all, and a yes from earlier does not carry over.
+
+  - text: Make sure they get home safely with a friend or a taxi, and suggest meeting another day.
+    call: best
+    why: >-
+      They may not have the capacity to make a choice right now. Getting them home safe looks after them, and
+      leaves the choice for a day when they can really make it.
+
+principle: >-
+  Someone very drunk or high may not have the capacity to consent, whatever they said before.

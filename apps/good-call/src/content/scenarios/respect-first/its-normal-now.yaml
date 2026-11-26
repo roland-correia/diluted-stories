@@ -1,0 +1,33 @@
+set: respect-first
+category: porn
+order: 2
+title: '"It''s normal now"'
+topic: Rough acts and the law
+draft: false
+
+situation: |
+  Your mate Liam says choking during sex is "normal now", because it's in so much porn.
+
+question: What is the best call?
+
+options:
+  - text: Say that many people don't want it, that it can kill, and that non-fatal strangulation is a crime in England and Wales.
+    call: best
+    why: >-
+      Plain facts, calmly said. Porn makes rough acts look normal and welcome, but in real life many people
+      don't want them, and the law treats strangulation as a serious offence.
+
+  - text: 'Say "not for me" and change the subject.'
+    call: okay
+    why: >-
+      You haven't agreed with him, but he hasn't heard why it matters. One fact could change how he thinks
+      about it.
+
+  - text: Agree. If it's everywhere in porn, it must be what people want.
+    call: risky
+    why: >-
+      Porn shows what sells, not what people want. Believing that could lead someone to hurt a partner badly.
+
+principle: >-
+  What is common in porn is not what people want in real life. Non-fatal strangulation, often called
+  choking, is a specific crime in England and Wales, and it can kill.

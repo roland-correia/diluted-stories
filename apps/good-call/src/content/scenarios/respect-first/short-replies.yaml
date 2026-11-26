@@ -1,0 +1,33 @@
+set: respect-first
+category: signals
+order: 4
+title: Short replies
+topic: Reading messages
+draft: false
+
+situation: |
+  You met Zara at a friend's birthday and you've been messaging. She replies politely, but briefly and usually hours later, often with just a smiley.
+
+question: What is the best call?
+
+options:
+  - text: Keep sending messages until a proper conversation gets going. The smiley means she's keen.
+    call: risky
+    why: >-
+      Short, slow replies are often a polite way of saying "not really". More messages add pressure, and a
+      smiley is good manners, not interest.
+
+  - text: Stop messaging and leave it to her to get in touch.
+    call: okay
+    why: >-
+      Respectful, and it takes the pressure off. A short, friendly sign-off would make it clear there are no
+      hard feelings.
+
+  - text: Ask once whether she'd like to meet up. If the answer is vague or slow, let it go warmly.
+    call: best
+    why: >-
+      One clear question gives her an easy chance to say yes, and a vague or slow answer is your answer for
+      now. Letting it go kindly keeps things friendly.
+
+principle: >-
+  Short answers, slow replies and "maybe" usually mean no for now. Polite is not the same as keen.

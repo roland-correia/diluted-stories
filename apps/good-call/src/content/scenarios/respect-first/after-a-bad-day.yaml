@@ -1,0 +1,33 @@
+set: respect-first
+category: habit
+order: 1
+title: After a bad day
+topic: Riding an urge
+draft: false
+
+situation: |
+  It's midnight, you've had a rough day, and you feel the urge to watch porn, which you're trying to cut down on.
+
+question: What is the best call?
+
+options:
+  - text: Text a friend, or write down how you feel.
+    call: okay
+    why: >-
+      It gets you through the moment, even if the urge lingers. Pairing it with putting your phone away would
+      make it stronger.
+
+  - text: Name the urge, put your phone in another room, and do your swap, such as a shower or a short walk.
+    call: best
+    why: >-
+      Urges peak and pass. Naming it, making it harder to act on, and doing something else straight away is
+      how each one you ride makes the next easier.
+
+  - text: Tell yourself "just this once" while scrolling in bed.
+    call: risky
+    why: >-
+      Stress, late at night and a phone in bed is a classic mix of triggers. "Just this once" is the habit
+      talking.
+
+principle: >-
+  Urges rise and fall. Name the urge, make it harder to act on, and have a swap ready.

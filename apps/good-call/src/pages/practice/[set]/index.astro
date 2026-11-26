@@ -12,10 +12,12 @@ import Base from '../../../layouts/Base.astro';
 import Support from '../../../components/Support.astro';
 import Footer from '../../../components/Footer.astro';
 import QuizCard from '../../../components/QuizCard.astro';
+import Lesson from '../../../components/Lesson.astro';
 import { getLiveSets, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets, type SetId } from '../../../lib/site';
 import { courses, accessories } from '../../../lib/courses';
 import { photoOf } from '../../../lib/photos';
+import { lessonOf } from '../../../lib/lessons';
 import { href } from '../../../lib/paths';
 
 export async function getStaticPaths() {
@@ -76,6 +78,7 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
               data-topic={topic.id}
               aria-label={`${topic.name}. Card ${index + 1} of ${cards.length}`}
             >
+              {topic.scenarios[0] === entry && lessonOf(id, topic.id) && <Lesson lesson={lessonOf(id, topic.id)!} name={topic.name} />}
               <QuizCard entry={entry} label={topic.name} photo={photoOf(id, topic.id)} />
             </section>
           ))
@@ -164,5 +167,17 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
     import '../../../scripts/deck.ts';
     import '../../../scripts/cast.ts';
     import '../../../scripts/listen.ts';
+
+    // "See where to get help" in a module's notes opens the help list and scrolls to it.
+    document.querySelectorAll('[data-open-help]').forEach((link) =>
+      link.addEventListener('click', (event) => {
+        const help = document.getElementById('help') as HTMLDetailsElement | null;
+        if (!help) return;
+        event.preventDefault();
+        help.open = true;
+        help.scrollIntoView({ block: 'start' });
+        help.querySelector('summary')?.focus();
+      }),
+    );
   </script>
 </Base>

@@ -1,0 +1,33 @@
+set: respect-first
+category: people
+order: 1
+title: The group chat
+topic: Rating women
+draft: false
+
+situation: |
+  In your group chat, your mate Tom posts a photo of a woman from his work and asks everyone to rate her.
+
+question: What is the best call?
+
+options:
+  - text: Don't reply, and mute the chat.
+    call: okay
+    why: >-
+      You aren't joining in, but it carries on without anyone saying it isn't OK.
+
+  - text: Join in so you fit in.
+    call: risky
+    why: >-
+      Sharing someone's photo so people can rate her body treats her as an object, and it can do real harm if
+      she ever finds out.
+
+  - text: '"Not cool, she didn''t sign up for this." Then change the subject.'
+    call: best
+    why: >-
+      Short and calm. Most men privately disapprove of this kind of thing, so others in the chat probably feel
+      the same and are glad someone said it.
+
+principle: >-
+  Check your group. Most men think other men are more sexist than they really are, so saying "not cool"
+  usually says what others already think.

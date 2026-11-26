@@ -1,0 +1,33 @@
+set: respect-first
+category: habit
+order: 6
+title: Not cool, mate
+topic: A better norm
+draft: false
+
+situation: |
+  At a party, your friend Ravi makes a nasty comment about a woman who has just turned him down, loud enough for the group to hear.
+
+question: What is the best call?
+
+options:
+  - text: '"Not cool, mate. She just wasn''t interested."'
+    call: best
+    why: >-
+      Direct, short and calm. Most men privately disapprove of comments like that, so you're usually saying
+      what others already think.
+
+  - text: Laugh along so things don't get awkward.
+    call: risky
+    why: >-
+      Laughing tells Ravi, and everyone listening, that it's fine. It also makes the woman's night worse if she
+      hears it.
+
+  - text: Change the subject quickly.
+    call: okay
+    why: >-
+      Distracting can stop the moment safely. Saying something, now or later, would help Ravi see why it
+      wasn't OK.
+
+principle: >-
+  Be part of a better norm. Direct, distract, delegate or delay: there's always a safe way to step in.

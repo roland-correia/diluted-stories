@@ -18,6 +18,7 @@ const scenario = z.object({
   // Which set it belongs to. Must match a live set in src/lib/site.ts.
   set: z.enum([
     'consent',
+    'respect-first',
     'racism',
     'parent-newborn',
     'parent-baby',

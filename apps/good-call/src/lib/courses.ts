@@ -31,7 +31,8 @@ export type Motif =
   | 'calendar'
   | 'headset'
   | 'care'
-  | 'flag';
+  | 'flag'
+  | 'heartcheck';
 
 export interface Cover {
   /** The title as it is set on the cover, one entry per line. */
@@ -181,6 +182,21 @@ const charity = {
     url: 'https://adhduk.co.uk/',
     why: 'Information and support for people with ADHD.',
   },
+  whiteRibbon: {
+    name: 'White Ribbon UK',
+    url: 'https://www.whiteribbon.org.uk/',
+    why: 'Works with men and boys to end violence against women and girls.',
+  },
+  respect: {
+    name: 'Respect',
+    url: 'https://www.respect.uk.net/',
+    why: 'Helps people stop abusive behaviour, and runs the Respect Phoneline.',
+  },
+  lucyFaithfull: {
+    name: 'The Lucy Faithfull Foundation',
+    url: 'https://www.lucyfaithfull.org.uk/',
+    why: 'Works to prevent child sexual abuse, and runs the Stop It Now helpline.',
+  },
   shaw: {
     name: 'Shaw Trust',
     url: 'https://shawtrust.org.uk/',
@@ -195,6 +211,13 @@ export const courses: Record<SetId, Course> = {
     category: 'sex',
     charities: [charity.survivorsTrust, charity.brook, charity.rapeCrisis],
     unlock: 'heart',
+  },
+  'respect-first': {
+    cover: { lines: ['Respect', 'first'], from: '#1f4e5f', to: '#071a20', accent: '#9fe0d0', motif: 'heartcheck' },
+    tagline: 'Swap guessing for asking, and impulse for choice',
+    category: 'sex',
+    charities: [charity.whiteRibbon, charity.respect, charity.lucyFaithfull],
+    unlock: 'badge',
   },
   racism: {
     cover: { lines: ['Race', '& respect'], from: '#8a5a19', to: '#241606', accent: '#f6cf7c', motif: 'circles' },
@@ -310,6 +333,7 @@ export const accessories = {
   glasses: { name: 'Glasses', slot: 'face' },
   bowtie: { name: 'Bow tie', slot: 'neck' },
   headset: { name: 'Headset', slot: 'head' },
+  badge: { name: 'Respect badge', slot: 'detail' },
 } as const;
 
 export type AccessoryId = keyof typeof accessories;

@@ -1,0 +1,32 @@
+set: respect-first
+category: consent
+order: 1
+title: Things go quiet
+topic: Silence is not yes
+draft: false
+
+situation: |
+  You're kissing someone you've been seeing, and they suddenly go quiet and still.
+
+question: What is the best call?
+
+options:
+  - text: Keep going, because they haven't said no.
+    call: risky
+    why: >-
+      Silence and freezing are not consent. Many people freeze when they feel uncomfortable or scared, and
+      can't say no out loud.
+
+  - text: 'Stop and ask, "Are you OK? Want to take a break?" Then follow their lead, including stopping completely.'
+    call: best
+    why: >-
+      Stopping and asking shows you noticed, and makes it easy for them to tell you how they feel. Their
+      answer, whatever it is, decides what happens next.
+
+  - text: Slow down and watch how they respond.
+    call: okay
+    why: >-
+      Better than carrying on, but you are still guessing. A simple question is clearer and kinder.
+
+principle: >-
+  Consent is a choice someone actively makes. If they go quiet or still, stop and ask.

@@ -1,0 +1,33 @@
+set: respect-first
+category: porn
+order: 3
+title: Shown at lunch
+topic: Sharing harmful content
+draft: false
+
+situation: |
+  At college, someone in your group gets out his phone at lunch and starts showing everyone a violent porn clip, laughing.
+
+question: What is the best call?
+
+options:
+  - text: Look away and say nothing.
+    call: okay
+    why: >-
+      You aren't watching or sharing it. But a few words from you might stop it going round the group.
+
+  - text: Watch it and send it on to a few mates.
+    call: risky
+    why: >-
+      Sharing it spreads the harm. If anyone in it is under 18, or isn't consenting, it is illegal to have or
+      share it.
+
+  - text: Say you're not watching it and walk away. If it looks like anyone is under 18 or not consenting, tell a member of staff.
+    call: best
+    why: >-
+      Saying no out loud makes it easier for others to do the same. Content involving anyone under 18, or
+      anyone not consenting, is illegal and harmful, and staff can deal with it.
+
+principle: >-
+  Content involving anyone under 18, or anyone not consenting, is illegal and harmful. Don't watch it,
+  don't share it, and tell someone who can act.

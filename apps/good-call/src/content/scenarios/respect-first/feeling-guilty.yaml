@@ -1,0 +1,33 @@
+set: respect-first
+category: porn
+order: 6
+title: Feeling guilty
+topic: Guilt or a problem
+draft: false
+
+situation: |
+  You watch porn now and then. It doesn't get in the way of your life, but you often feel guilty afterwards.
+
+question: What is the best call?
+
+options:
+  - text: Decide you must be addicted, and hide it from everyone.
+    call: risky
+    why: >-
+      Feeling guilty is not, on its own, a sign of addiction. Shame drives secrecy, and secrecy is what keeps
+      habits going.
+
+  - text: Separate "I feel bad about it" from "I can't control it". Be honest with the self-check, decide what fits your values, and talk to someone if the guilt is heavy.
+    call: best
+    why: >-
+      Telling the two apart helps you choose what to do. If it's about your values, you can change it calmly.
+      If you can't control it, help is there.
+
+  - text: Try to stop through willpower alone.
+    call: okay
+    why: >-
+      Wanting to change is a good start. Habits usually shift through small, practical steps, not willpower or
+      guilt.
+
+principle: >-
+  Feeling guilty about porn is not the same as being addicted. Treat it calmly and honestly, without shame.

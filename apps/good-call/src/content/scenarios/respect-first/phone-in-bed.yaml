@@ -1,0 +1,31 @@
+set: respect-first
+category: habit
+order: 3
+title: Phone in bed
+topic: Making it harder
+draft: false
+
+situation: |
+  You've noticed your urges mostly come late at night, in bed, with your phone.
+
+question: What is the best call?
+
+options:
+  - text: Charge your phone outside the bedroom, and add a content blocker as well.
+    call: best
+    why: >-
+      Changing your surroundings works better than willpower in the moment. Two barriers together make the
+      easy option the one you want.
+
+  - text: Keep your phone by the bed, but promise yourself you won't.
+    call: risky
+    why: >-
+      A promise made in the morning is hard to keep at midnight, tired and alone with your phone.
+
+  - text: Set a screen-time limit on your phone for late at night.
+    call: okay
+    why: >-
+      A good barrier, and easy to set up. It is also easy to switch off, so adding another one helps.
+
+principle: >-
+  Make it harder. Barriers such as blockers and a phone outside the bedroom do the work willpower can't.

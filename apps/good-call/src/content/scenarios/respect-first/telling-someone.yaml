@@ -1,0 +1,31 @@
+set: respect-first
+category: habit
+order: 4
+title: Telling someone
+topic: Not doing it alone
+draft: false
+
+situation: |
+  You're trying to cut down on porn, and you're wondering whether to tell anyone.
+
+question: What is the best call?
+
+options:
+  - text: Keep it to yourself, so nobody judges you.
+    call: risky
+    why: >-
+      Secrecy keeps habits going, and carrying it alone makes slips feel worse.
+
+  - text: Join an online forum about quitting.
+    call: okay
+    why: >-
+      Support can help. Choose a well-moderated one, though: some forums are full of shame or extreme advice.
+
+  - text: Tell one person you trust, such as a friend, partner, mentor or counsellor, what you're working on and how they can help.
+    call: best
+    why: >-
+      Someone who knows can check in, cheer you on and help when it's hard. Most people respect someone
+      working on a habit.
+
+principle: >-
+  Tell someone you trust. Change is easier when you don't have to do it alone.

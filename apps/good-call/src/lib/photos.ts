@@ -29,6 +29,36 @@ export function imageOf(photo: Photo): ImageMetadata {
 
 // Keyed by `${set}/${topic}`, as the topics are named in src/lib/site.ts.
 export const photos: Record<string, Photo> = {
+  'respect-first/signals': {
+    file: 'respect-first-signals.jpg',
+    alt: 'Coffee being poured into a white cup',
+    by: 'Aidan Todd',
+    page: 'https://unsplash.com/photos/white-ceramic-mug-with-stainless-steel-spoon-B6yhymJxpWY',
+  },
+  'respect-first/consent': {
+    file: 'respect-first-consent.jpg',
+    alt: 'Two people sitting on a bench by a lake',
+    by: 'Ilia Bronskiy',
+    page: 'https://unsplash.com/photos/two-people-sit-on-a-bench-by-the-water-BR06m_0krhQ',
+  },
+  'respect-first/people': {
+    file: 'respect-first-people.jpg',
+    alt: 'A quiet street at night, lit by street lamps',
+    by: 'Zoltan Tasi',
+    page: 'https://unsplash.com/photos/turned-on-street-lamps-MzVIlXk0AJg',
+  },
+  'respect-first/porn': {
+    file: 'respect-first-porn.jpg',
+    alt: 'A phone lying switched off on a wooden table',
+    by: 'Olga Nayda',
+    page: 'https://unsplash.com/photos/turned-off-black-and-silver-smartphone-on-brown-wooden-board-cSskyN592g8',
+  },
+  'respect-first/habit': {
+    file: 'respect-first-habit.jpg',
+    alt: 'A path through a field at sunrise',
+    by: 'Jan Huber',
+    page: 'https://unsplash.com/photos/green-grass-field-during-sunset-bY8MY2lIrFg',
+  },
   'consent/touch': {
     file: 'consent-touch.jpg',
     alt: 'Two people shaking hands',

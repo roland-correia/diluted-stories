@@ -1,0 +1,34 @@
+set: respect-first
+category: signals
+order: 6
+title: Her friend steps in
+topic: Noticing no
+draft: false
+
+situation: |
+  At a party you've been talking to Leah for twenty minutes. She's started checking her phone and giving short answers. Then her friend comes over and says they need to go and find someone in the kitchen.
+
+question: What is the best call?
+
+options:
+  - text: Follow them to the kitchen to carry on the conversation.
+    call: risky
+    why: >-
+      Leah has given every signal that she is ready to stop, and her friend has stepped in to help. Following
+      her ignores all of it.
+
+  - text: Quickly ask for her number before she goes.
+    call: okay
+    why: >-
+      It is not following her, but asking as she is being helped away puts her on the spot, and makes "no"
+      harder to say.
+
+  - text: '"Nice to meet you, enjoy your night." Then let her go.'
+    call: best
+    why: >-
+      Short answers, a phone and a friend stepping in are some of the clearest "no for now" signals there are.
+      A warm goodbye shows you noticed them.
+
+principle: >-
+  Notice the no signals: short answers, looking at a phone, turning away, a friend stepping in, leaving.
+  They mean no for now.

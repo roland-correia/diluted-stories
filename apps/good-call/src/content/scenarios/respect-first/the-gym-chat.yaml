@@ -1,0 +1,39 @@
+set: respect-first
+category: signals
+order: 3
+title: The gym chat
+topic: Friendly or interested
+draft: false
+
+situation: |
+  Most weeks, Priya chats with you between sets at the gym and laughs at your jokes. Your mate Dan says she's obviously into you.
+
+question: What is the best call?
+
+options:
+  - text: Keep chatting as normal. If you'd like to know, ask once in a relaxed moment whether she'd like a coffee some time, and make it easy to say no.
+    call: best
+    why: >-
+      Asking is the only way to know, and asking once, lightly, in a place she is comfortable, makes it easy
+      for her to give an honest answer either way.
+
+  - text: Wait for her after class and ask her out in the car park.
+    call: risky
+    why: >-
+      Being approached alone in a car park can feel unsafe, however kindly it is meant. Chatting in a shared
+      space is friendliness, not an invitation to find her somewhere quieter.
+
+  - text: Say nothing and keep it friendly.
+    call: okay
+    why: >-
+      Respectful, and no harm done. You may never know, but nobody is put under pressure.
+
+  - text: Message her late at night saying you can tell she likes you.
+    call: risky
+    why: >-
+      That decides what she feels for her, and a late-night message puts her on the spot. Dan's opinion is
+      not evidence either.
+
+principle: >-
+  Friendly is not the same as interested. If you want to know, ask once, kindly, somewhere she feels at
+  ease, and respect the answer.

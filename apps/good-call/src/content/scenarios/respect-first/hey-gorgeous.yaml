@@ -1,0 +1,34 @@
+set: respect-first
+category: people
+order: 3
+title: Hey gorgeous
+topic: Calling out
+draft: false
+
+situation: |
+  You're sitting outside a café with your friend Josh. As a woman walks past, he calls out, "Hey gorgeous, give us a smile!"
+
+question: What is the best call?
+
+options:
+  - text: Laugh along, it's only a bit of fun.
+    call: risky
+    why: >-
+      Calling out to a stranger is street harassment. It can feel threatening to her, and laughing tells Josh
+      it's fine.
+
+  - text: '"Mate, leave it." Then move the conversation on.'
+    call: best
+    why: >-
+      Calm and short. It tells Josh it isn't OK without making a scene, and the woman sees that not every man
+      at the table agrees.
+
+  - text: Give the woman an apologetic look.
+    call: okay
+    why: >-
+      A kind instinct, and it shows her you don't agree. But Josh doesn't hear anything, so he will probably
+      do it again.
+
+principle: >-
+  Whistling, beeping and calling out are harassment, even when they're meant as compliments. Speak to your
+  friend, not about her.

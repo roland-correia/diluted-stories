@@ -1,0 +1,34 @@
+set: respect-first
+category: porn
+order: 4
+title: More extreme
+topic: Warning signs
+draft: false
+
+situation: |
+  Over the last few months you've noticed that you need more extreme porn than before to feel the same.
+
+question: What is the best call?
+
+options:
+  - text: Take it as a signal. Go through the self-check honestly, try the steps in the next module, and talk to someone if it's hard to cut back.
+    call: best
+    why: >-
+      Needing more extreme content to feel the same is one of the warning signs worth acting on. Small,
+      practical steps work better than worry, and help is there if you need it.
+
+  - text: Take a few days off and see how it goes.
+    call: okay
+    why: >-
+      A break can help, and it tells you something. A plan for what you'll do when the urge comes back will
+      make it last.
+
+  - text: Tell yourself everyone does it, and carry on.
+    call: risky
+    why: >-
+      Shrugging it off lets the habit keep growing. Noticing a change early is the easiest time to turn it
+      around.
+
+principle: >-
+  Needing more extreme content to feel the same is a sign to act on, not to feel ashamed of. Notice it, make
+  a plan, and get support if you need it.
