@@ -19,7 +19,7 @@ export const sets = {
   consent: {
     name: 'Sex, consent and healthy relationships',
     group: 'everyday',
-    blurb: 'Consent, sexuality and respect, in person, online and on screen',
+    blurb: 'Consent, sexuality and healthy relationships, in person, online and on screen',
     intro:
       'Consent is the foundation of every healthy relationship, from a hug to sex. This course covers bodily autonomy, sexual consent, digital boundaries, alcohol and power, and takes a frank, non-judgemental look at pornography: how it shapes expectations and relationships, and how to protect children from it. Throughout, it looks from both sides: respecting other people\'s boundaries, and holding your own.',
     note: 'Covers dating, sex, alcohol and pornography, including children coming across it. Nothing is described in detail. Written for adults.',
@@ -55,7 +55,7 @@ export const sets = {
     live: true,
   },
   racism: {
-    name: 'Race, respect and equality',
+    name: 'Race and equality',
     group: 'everyday',
     blurb: 'Recognising racism and colourism, and responding with confidence',
     intro:

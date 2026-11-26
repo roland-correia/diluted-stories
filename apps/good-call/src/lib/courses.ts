@@ -6,7 +6,7 @@ import type { SetId } from './site';
 // Explore groups courses into categories, shown as tiles at the top of the Explore tab.
 export const categories = {
   sex: { name: 'Sex & relationships', blurb: 'Consent, boundaries and healthy relationships', colour: '#9b2f52' },
-  equality: { name: 'Equality & respect', blurb: 'Racism, prejudice and speaking up', colour: '#b07a1f' },
+  equality: { name: 'Equality & inclusion', blurb: 'Racism, prejudice and speaking up', colour: '#b07a1f' },
   early: { name: 'Early years', blurb: 'From the first weeks to starting school', colour: '#2f6690' },
   growing: { name: 'School & teen years', blurb: 'Friendships, independence and growing up', colour: '#5a3d8c' },
   family: { name: 'Family life', blurb: 'Adoption, kinship and looking after yourself', colour: '#8c3b4a' },
@@ -206,7 +206,7 @@ const charity = {
 
 export const courses: Record<SetId, Course> = {
   consent: {
-    cover: { lines: ['Sex,', 'consent', '& respect'], from: '#7a1f3d', to: '#1f0a14', accent: '#f6b3c6', motif: 'hearts' },
+    cover: { lines: ['Sex', '& consent'], from: '#7a1f3d', to: '#1f0a14', accent: '#f6b3c6', motif: 'hearts' },
     tagline: 'Know where the line is, and hold your own',
     category: 'sex',
     charities: [charity.survivorsTrust, charity.brook, charity.rapeCrisis],
@@ -220,7 +220,7 @@ export const courses: Record<SetId, Course> = {
     unlock: 'badge',
   },
   racism: {
-    cover: { lines: ['Race', '& respect'], from: '#8a5a19', to: '#241606', accent: '#f6cf7c', motif: 'circles' },
+    cover: { lines: ['Race &', 'equality'], from: '#8a5a19', to: '#241606', accent: '#f6cf7c', motif: 'circles' },
     tagline: 'See it, name it, and stand with people',
     category: 'equality',
     charities: [charity.redCard, charity.stopHate, charity.runnymede],
