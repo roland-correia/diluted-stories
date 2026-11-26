@@ -1,0 +1,33 @@
+set: respect-first
+category: consent
+order: 4
+title: Last weekend
+topic: Yes once is not yes always
+draft: false
+
+situation: |
+  Last weekend you and Chloe kissed at a party. Tonight you see her again and lean in to kiss her hello. She turns her head away.
+
+question: What is the best call?
+
+options:
+  - text: 'Step back, say "Sorry, my mistake", and carry on the conversation as normal.'
+    call: best
+    why: >-
+      She has answered, with a turn of her head. A quick, relaxed apology shows the boundary is safe with
+      you, and keeps the evening easy for both of you.
+
+  - text: Laugh and say "Come on, we kissed last week!"
+    call: risky
+    why: >-
+      Yes last week is not yes tonight. Reminding her of it pressures her to explain herself, in front of
+      whoever is around.
+
+  - text: Avoid her for the rest of the night so things aren't awkward.
+    call: okay
+    why: >-
+      It takes the pressure off, but it can feel like a punishment for saying no. Staying friendly is
+      kinder.
+
+principle: >-
+  Yes to one thing, one time, is not yes to anything else. Every time is a new choice.

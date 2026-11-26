@@ -1,0 +1,33 @@
+set: respect-first
+category: people
+order: 5
+title: The photo
+topic: Unwanted images
+draft: false
+
+situation: |
+  You've been messaging Hannah on a dating app and the chat has been flirty. You think about sending her a sexual photo of yourself as a surprise.
+
+question: What is the best call?
+
+options:
+  - text: Send it. She's been flirty, so she'll probably like it.
+    call: risky
+    why: >-
+      Being flirty is not asking. Sending a sexual image someone didn't ask for is cyberflashing, a criminal
+      offence in England and Wales, and it often leaves the person upset or scared.
+
+  - text: Send it, then delete it if she doesn't reply.
+    call: risky
+    why: >-
+      Deleting doesn't undo it. She has already seen it, and the offence is in the sending.
+
+  - text: Don't send it. Keep chatting, and let her lead on what she's comfortable sharing.
+    call: best
+    why: >-
+      Respecting her pace is what builds trust. If she ever wants more from the conversation, she can say so
+      in her own words.
+
+principle: >-
+  Sending a sexual image nobody asked for is cyberflashing, a crime in England and Wales. And any sexual
+  image of someone under 18 is illegal, whoever sends it.

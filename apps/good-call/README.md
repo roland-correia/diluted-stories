@@ -83,6 +83,14 @@ The parenting courses (`parent-newborn` to `parent-teen`, then `parent-adoption`
 are on the home page's "Parenting, age by age" shelf in the order they are written in `site.ts`,
 and share one list of support links in `src/components/Support.astro`.
 
+## Module notes
+
+A topic can open with short teaching before its first question: an opener, tables, key points and one habit
+to practise, with a link to the course's help list. Write them in `src/lib/lessons.ts`, keyed by
+`set/topic`; `src/components/Lesson.astro` shows them, folded open, at the top of the topic's first card
+in the reader. Respect First uses them for all five modules. A topic without notes goes straight to its
+questions. Tables of three or more columns stack into blocks on phones.
+
 ## Photos
 
 Each topic has one photograph, shown on its course's book page and on every card in the topic. They

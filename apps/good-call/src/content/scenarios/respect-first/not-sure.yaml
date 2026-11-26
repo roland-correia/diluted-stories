@@ -1,0 +1,33 @@
+set: respect-first
+category: consent
+order: 6
+title: Not sure
+topic: If unsure, ask
+draft: false
+
+situation: |
+  You and your partner, Grace, are kissing on the sofa. You'd like to go further, but you honestly can't tell whether she wants to.
+
+question: What is the best call?
+
+options:
+  - text: Keep things where they are and wait for her to make a move.
+    call: okay
+    why: >-
+      You aren't pushing, which matters. But you are still guessing what she wants, and a simple question
+      would settle it.
+
+  - text: 'Stop and ask, "Is this OK? We can just chill." Then go with her answer.'
+    call: best
+    why: >-
+      If you're not sure, asking is the answer. A confident, caring question isn't a mood-killer, and it
+      means you both know where you stand.
+
+  - text: Carry on. She'll say if she wants to stop.
+    call: risky
+    why: >-
+      "She didn't say no" is not consent. The law asks whether a belief in consent was reasonable, and what
+      steps were taken to check.
+
+principle: >-
+  If you're unsure, stop and ask. Uncertainty is your answer until they tell you otherwise.

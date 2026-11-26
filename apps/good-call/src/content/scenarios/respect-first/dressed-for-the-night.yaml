@@ -1,0 +1,33 @@
+set: respect-first
+category: signals
+order: 5
+title: Dressed for the night
+topic: Clothes are not signals
+draft: false
+
+situation: |
+  At a bar, your friend Kofi nods at a woman in a tight dress and says she "obviously wants the attention".
+
+question: What is the best call?
+
+options:
+  - text: Go over and comment on her outfit, since she wants the attention.
+    call: risky
+    why: >-
+      What someone wears never makes them available. A stranger commenting on her body can feel threatening,
+      whatever the words.
+
+  - text: Say nothing, and don't join in.
+    call: okay
+    why: >-
+      You haven't added to it, but Kofi's idea goes unchallenged. A few calm words would help more.
+
+  - text: '"She''s dressed for her night out, not for us." Then change the subject.'
+    call: best
+    why: >-
+      Short, calm and true. People dress for comfort, style, confidence or the occasion, and most men agree
+      when someone says so out loud.
+
+principle: >-
+  Clothes are about her, not you. Research shows men misread what women's clothes mean, so treat an outfit
+  as her taste, never as a message.

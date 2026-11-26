@@ -76,6 +76,47 @@ const support: Partial<Record<SetId, { summary: string; lead: string; services: 
       },
     ],
   },
+  'respect-first': {
+    summary: 'Where to get help',
+    lead: 'These UK services are free and confidential. If you or anyone else is in immediate danger, call 999.',
+    services: [
+      {
+        name: '24/7 Rape & Sexual Abuse Support Line',
+        detail: 'Run by Rape Crisis England & Wales, for anyone 16+ affected by sexual violence at any time in their life. 0808 500 2222, or online chat, day or night.',
+        url: 'https://247sexualabusesupport.org.uk/',
+      },
+      {
+        name: 'Childline',
+        detail: 'For children and young people, about anything. 0800 1111.',
+        url: 'https://www.childline.org.uk/',
+      },
+      {
+        name: 'Stop It Now',
+        detail: 'For anyone worried about their own or someone else\'s sexual thoughts or behaviour towards under-18s, including online. Confidential and anonymous: 0808 1000 900.',
+        url: 'https://www.stopitnow.org.uk/',
+      },
+      {
+        name: 'Respect Phoneline',
+        detail: 'For anyone worried about their own abusive behaviour towards a partner. 0808 802 4040.',
+        url: 'https://respectphoneline.org.uk/',
+      },
+      {
+        name: 'Samaritans',
+        detail: 'Someone to talk to, day or night, about anything. 116 123.',
+        url: 'https://www.samaritans.org/',
+      },
+      {
+        name: 'College of Sexual and Relationship Therapists',
+        detail: 'Find a trained therapist for compulsive sexual behaviour, including porn.',
+        url: 'https://www.cosrt.org.uk/',
+      },
+      {
+        name: 'NHS Talking Therapies',
+        detail: 'For low mood, anxiety or stress, including when it is linked to porn. Refer yourself in England, or see your GP.',
+        url: 'https://www.nhs.uk/mental-health/talking-therapies-medicine-treatments/talking-therapies-and-counselling/nhs-talking-therapies/',
+      },
+    ],
+  },
   racism: {
     summary: 'If this has happened to you, or you have seen it',
     lead: 'These UK services are free to use. If you or someone else is in immediate danger, call 999.',
@@ -185,7 +226,7 @@ const entry = support[Astro.props.set] ?? groupSupport[sets[Astro.props.set].gro
 
 {
   entry && (
-    <details class="support">
+    <details class="support" id="help">
       <summary>{entry.summary}</summary>
       <p>{entry.lead}</p>
       <ul>

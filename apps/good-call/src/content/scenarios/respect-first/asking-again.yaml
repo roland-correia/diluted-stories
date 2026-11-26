@@ -1,0 +1,39 @@
+set: respect-first
+category: consent
+order: 3
+title: Asking again
+topic: Pressure
+draft: false
+
+situation: |
+  You've asked your girlfriend, Amira, whether she'd like to stay over tonight. She says she's tired and would rather go home.
+
+question: What is the best call?
+
+options:
+  - text: Keep asking in a jokey way until she gives in.
+    call: risky
+    why: >-
+      Asking again and again is pressure, not persuasion. A yes that comes from wearing someone down is not
+      a free choice.
+
+  - text: Say "OK", but ask her why.
+    call: okay
+    why: >-
+      You accepted her answer, which matters. But asking why can make her feel she has to justify a no, and
+      "I'm tired" is already a complete answer.
+
+  - text: Go quiet and sulk, so she knows you're disappointed.
+    call: risky
+    why: >-
+      Sulking is pressure too. It makes her responsible for your mood, and makes it harder for her to say no
+      next time.
+
+  - text: '"No worries, get some rest. Want me to walk you to the bus?"'
+    call: best
+    why: >-
+      Warm, easy and no pressure. She learns that saying no to you is safe, which is what trust is built on.
+
+principle: >-
+  Pressure cancels consent. Asking again, sulking, guilt-tripping or "you owe me" are pressure, not
+  persuasion.

@@ -1,0 +1,33 @@
+set: respect-first
+category: porn
+order: 5
+title: Something felt wrong
+topic: Illegal content
+draft: false
+
+situation: |
+  You're watching porn and see a video where someone looks very young, or doesn't seem to be agreeing to what's happening.
+
+question: What is the best call?
+
+options:
+  - text: Keep watching. It's probably just acting.
+    call: risky
+    why: >-
+      If anyone in it may be under 18, or not consenting, it is illegal and it records real harm. "Probably"
+      is not good enough.
+
+  - text: Stop straight away and report it to the Internet Watch Foundation, which you can do anonymously. If you're worried about your own urges, contact Stop It Now.
+    call: best
+    why: >-
+      Reporting helps get it taken down and protects whoever is in it. Stop It Now is confidential and
+      anonymous, and there to help anyone worried about what they are looking at.
+
+  - text: Close it and stay away from that site.
+    call: okay
+    why: >-
+      Stopping is right. Reporting it as well could help protect the person in it.
+
+principle: >-
+  If anyone in a video may be under 18, or not consenting, stop watching and report it. Stop It Now gives
+  confidential help to anyone worried about their own viewing.

@@ -126,6 +126,8 @@ function accessory(id: AccessoryId, character: Character): string {
       return '<g fill="none" stroke="#1d2a24" stroke-width="2"><circle cx="51" cy="54" r="6"/><circle cx="69" cy="54" r="6"/><path d="M57 54h6M45 53l-8-2M75 53l8-2"/></g>';
     case 'bowtie':
       return '<path d="M60 84l-9-5v10zM60 84l9-5v10z" fill="#9b2f52"/><circle cx="60" cy="84" r="2.2" fill="#7a2341"/>';
+    case 'badge':
+      return '<circle cx="72" cy="98" r="5.5" fill="#9fe0d0" stroke="#1f4e5f" stroke-width="1.2"/><path d="M69.4 98.2l1.9 1.9 3.6-3.6" fill="none" stroke="#1f4e5f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>';
     case 'headset':
       return '<path d="M34 54c0-20 12-30 26-30s26 10 26 30" fill="none" stroke="#2b2b33" stroke-width="3.5"/><rect x="30" y="50" width="8" height="13" rx="4" fill="#2f6690"/><rect x="82" y="50" width="8" height="13" rx="4" fill="#2f6690"/><path d="M34 62c0 8 6 10 14 10" fill="none" stroke="#2b2b33" stroke-width="2.5"/><circle cx="49" cy="72" r="2.5" fill="#2b2b33"/>';
     default:
@@ -173,14 +175,14 @@ function head(character: Character): { back: string; face: string; worn: string 
     <circle cx="74" cy="61" r="3" fill="#f08a7a" opacity="0.35"/>
     ${moustache}
     <path class="c-mouth" d="M53 63c4 4 10 4 14 0" fill="none" stroke="#7a3b2e" stroke-width="2" stroke-linecap="round"/>`;
-  const onHead = wearing.filter((id) => ['head', 'face', 'detail'].includes(accessories[id].slot) && id !== 'heart');
+  const onHead = wearing.filter((id) => ['head', 'face', 'detail'].includes(accessories[id].slot) && id !== 'heart' && id !== 'badge');
   return { back, face, worn: onHead.map((id) => accessory(id, character)).join('') };
 }
 
-/** Items worn on the clothes: the heart pin, scarf and bow tie. */
+/** Items worn on the clothes: the heart pin, Respect badge, scarf and bow tie. */
 const chestItems = (character: Character) =>
   wornItems(character)
-    .filter((id) => id === 'heart' || accessories[id].slot === 'neck')
+    .filter((id) => id === 'heart' || id === 'badge' || accessories[id].slot === 'neck')
     .map((id) => accessory(id, character))
     .join('');
 

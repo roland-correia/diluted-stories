@@ -35,6 +35,25 @@ export const sets = {
     ],
     live: true,
   },
+  'respect-first': {
+    name: 'Respect First',
+    group: 'everyday',
+    blurb: 'For men and boys: swap guessing for asking, and impulse for choice',
+    intro:
+      'Respect First helps men and older boys swap guessing for asking, and impulse for choice. Its five short modules cover reading signals honestly, consent as the law defines it, seeing people rather than bodies, how porn differs from real life, and how to change a habit that is not working for you. Every answer comes with its reasoning, and nothing here is meant to shame anyone.',
+    note: 'For men and boys aged 13 and over. The last two modules talk about porn directly and are for ages 16 and over. Nothing is described in detail. Where the law is mentioned, it is the law in England and Wales.',
+    rules: [
+      'The only reliable sign of what someone wants is what they tell you, clearly and freely.',
+      'Friendly is not the same as interested. Eye contact, smiles and clothes are not signals.',
+      'The more attracted you are, the more likely you are to misread someone. Feeling sure is not the same as being right.',
+      'Consent means agreeing by choice, with the freedom and capacity to choose. It can stop at any moment.',
+      'If you are unsure, stop and ask. Silence, freezing and "maybe" are not yes.',
+      'Noticing someone is normal. Staring, commenting and following are choices, and they can feel like a threat.',
+      'Porn is a performance, not a guide. Ask the real person what they want.',
+      'Habits change through small, repeated steps, not shame. A slip is information, not failure.',
+    ],
+    live: true,
+  },
   racism: {
     name: 'Race, respect and equality',
     group: 'everyday',
@@ -251,6 +270,13 @@ export const categories: Partial<Record<SetId, Record<string, { name: string; bl
     children: { name: 'Pornography and young people', blurb: 'Protection, early exposure and honest conversations' },
     yourself: { name: 'Pornography and personal wellbeing', blurb: 'Habits, expectations, ethics and consent on screen' },
     relationships: { name: 'Pornography in relationships', blurb: 'Communication, trust and shared decisions' },
+  },
+  'respect-first': {
+    signals: { name: "Ask, don't assume", blurb: 'Reading signals honestly, and checking with a simple question' },
+    consent: { name: 'Consent in practice', blurb: 'Choice, freedom and capacity, as the law defines them' },
+    people: { name: 'Seeing people, not bodies', blurb: 'Staring, comments and harassment, and what to do instead' },
+    porn: { name: 'Porn and real life (16+)', blurb: 'What porn shows, and how real sex and consent work' },
+    habit: { name: 'Changing the habit (16+)', blurb: 'Practical steps to cut back, and when to get help' },
   },
   'parent-newborn': {
     safety: { name: 'Health and safety', blurb: 'Safer sleep, illness and everyday risks in the first weeks' },

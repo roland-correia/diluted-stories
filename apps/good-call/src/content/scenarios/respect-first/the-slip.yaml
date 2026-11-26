@@ -1,0 +1,32 @@
+set: respect-first
+category: habit
+order: 2
+title: The slip
+topic: Slips are information
+draft: false
+
+situation: |
+  You'd gone two weeks without watching porn. Last night you slipped, and this morning you feel like you've failed.
+
+question: What is the best call?
+
+options:
+  - text: Decide you've ruined it and give up on the plan.
+    call: risky
+    why: >-
+      One slip doesn't wipe out two weeks of progress. Giving up turns a single moment into the whole story.
+
+  - text: Start counting again from today.
+    call: okay
+    why: >-
+      Getting back on track is good. Counting days can make a slip feel like losing everything, though, so
+      learning from it matters more than the number.
+
+  - text: Treat it as information. Ask what triggered it, adjust your plan, and carry on without beating yourself up.
+    call: best
+    why: >-
+      Every slip shows you a trigger you can plan for. Adjusting calmly, without shame, is what makes change
+      last.
+
+principle: >-
+  A slip is information, not failure. Ask what triggered it, change one thing, and keep going.

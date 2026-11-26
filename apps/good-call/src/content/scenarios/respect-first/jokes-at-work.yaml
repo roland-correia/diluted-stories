@@ -1,0 +1,31 @@
+set: respect-first
+category: people
+order: 6
+title: Jokes at work
+topic: Harassment at work
+draft: false
+
+situation: |
+  At work, your colleague Marcus keeps making sexual jokes about Ellie, who has just joined the team, whenever she's out of earshot.
+
+question: What is the best call?
+
+options:
+  - text: Don't laugh, and leave the conversation.
+    call: okay
+    why: >-
+      You aren't joining in, which matters. But Marcus may not notice, and the jokes carry on.
+
+  - text: Tell Marcus it's not on. If it carries on, raise it with your manager.
+    call: best
+    why: >-
+      Sexual comments about a colleague can be unlawful harassment under the Equality Act 2010, and they make
+      work feel unsafe. Saying something early often stops it.
+
+  - text: Laugh along to keep things easy.
+    call: risky
+    why: >-
+      Laughing tells Marcus it's fine, and helps make the team a place where Ellie isn't safe or respected.
+
+principle: >-
+  Sexual jokes and comments at work can be harassment. Most colleagues will be glad someone spoke up.

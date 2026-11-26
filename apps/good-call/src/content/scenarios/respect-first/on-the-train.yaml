@@ -1,0 +1,33 @@
+set: respect-first
+category: people
+order: 4
+title: On the train
+topic: Compliments from strangers
+draft: false
+
+situation: |
+  On the train, a woman sitting opposite you is reading a book. You think she looks great, and you'd like to tell her.
+
+question: What is the best call?
+
+options:
+  - text: Leave her to her book. If a conversation starts naturally, talk about what she's reading, not how she looks.
+    call: best
+    why: >-
+      She's busy, and she can't easily move away on a train. Talking to the person, not about her body, is
+      what turns a stranger into a conversation, if she wants one.
+
+  - text: Smile once if your eyes meet, then look away.
+    call: okay
+    why: >-
+      Friendly and harmless. Looking away after is what keeps it that way.
+
+  - text: Tell her she's beautiful and ask which stop she's getting off at.
+    call: risky
+    why: >-
+      A comment about her looks from a stranger, plus a question about where she'll be, can feel threatening,
+      even when it's meant kindly. She's stuck in her seat.
+
+principle: >-
+  Noticing someone is normal. Comments about a stranger's body, even "compliments", can feel like a threat,
+  because she can't know what you'll do next.

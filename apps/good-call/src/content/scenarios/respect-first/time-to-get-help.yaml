@@ -1,0 +1,32 @@
+set: respect-first
+category: habit
+order: 5
+title: Time to get help
+topic: Professional help
+draft: false
+
+situation: |
+  You've been trying to cut down for months, and you can't. It's affecting your sleep and your mood.
+
+question: What is the best call?
+
+options:
+  - text: See your GP, or refer yourself to NHS Talking Therapies, or find a trained therapist through the College of Sexual and Relationship Therapists.
+    call: best
+    why: >-
+      When you've tried and can't cut down, or it's harming your life or mood, that is exactly what
+      professional help is for. Asking for it is a strong step, not a weak one.
+
+  - text: Try another blocker or app on your own.
+    call: okay
+    why: >-
+      Worth doing, but on its own it may not be enough when sleep and mood are already suffering.
+
+  - text: Wait and see if it gets worse.
+    call: risky
+    why: >-
+      Waiting usually makes it harder. Low mood and a habit you can't control are worth getting help for now.
+
+principle: >-
+  Get professional help if you've tried and can't cut down, if it's harming your life, or if it's tied to
+  low mood, anxiety or loneliness.

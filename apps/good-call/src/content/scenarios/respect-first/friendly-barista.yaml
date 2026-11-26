@@ -1,0 +1,34 @@
+set: respect-first
+category: signals
+order: 1
+title: The friendly barista
+topic: Friendliness at work
+draft: false
+
+situation: |
+  The woman serving you coffee, Maya, smiles, remembers your order and chats with you for a minute while she makes it.
+
+question: What is the best call?
+
+options:
+  - text: Ask for her number while she's making your drink.
+    call: risky
+    why: >-
+      Maya is at work. She may feel she has to stay polite to keep her job, and she can't easily walk away
+      from a customer, so her answer would not be truly free.
+
+  - text: Thank her, enjoy the chat and leave it there.
+    call: best
+    why: >-
+      Friendliness is part of her job, and it is not a sign of interest. Enjoying a pleasant chat for what
+      it is keeps it pleasant for both of you.
+
+  - text: Leave a kind review naming her great service.
+    call: okay
+    why: >-
+      Positive, and it puts no pressure on her. Just check she would be happy to be named: some people
+      would rather not be.
+
+principle: >-
+  Friendly is not the same as interested. People at work are paid to be pleasant, and they can't leave the
+  conversation.

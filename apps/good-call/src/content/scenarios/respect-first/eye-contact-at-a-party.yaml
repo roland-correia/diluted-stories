@@ -1,0 +1,33 @@
+set: respect-first
+category: signals
+order: 2
+title: Eye contact at a party
+topic: Reading looks
+draft: false
+
+situation: |
+  At a party, a woman in a short dress keeps catching your eye across the room.
+
+question: What is the best call?
+
+options:
+  - text: Smile back and carry on with your evening.
+    call: okay
+    why: >-
+      No harm done either way. You stay friendly and leave the next step to her, though you may never find
+      out whether she wanted to talk.
+
+  - text: Assume she's interested because of the dress and the looks, and move in close.
+    call: risky
+    why: >-
+      Neither a dress nor eye contact is a signal. Research shows that the more attracted men are, the more
+      they misread both, and getting physically close uninvited can feel threatening.
+
+  - text: If you'd like to talk, go over, say hi and have a normal conversation.
+    call: best
+    why: >-
+      A normal conversation lets her show interest, or not, in her own words. That is the only reliable sign
+      you will get.
+
+principle: >-
+  Looks and clothes tell you nothing about what someone wants. Talking, and listening, does.

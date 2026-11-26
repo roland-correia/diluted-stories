@@ -1,0 +1,34 @@
+set: respect-first
+category: porn
+order: 1
+title: Is that what she wants?
+topic: Porn scripts
+draft: false
+
+situation: |
+  You've been seeing Sophie for a few months. Something you've seen in porn makes you wonder whether she'd be into it too.
+
+question: What is the best call?
+
+options:
+  - text: Try it without asking. She'll tell you if she doesn't like it.
+    call: risky
+    why: >-
+      That puts the job of stopping you on her, in the moment, when saying no is hardest. What porn shows
+      is a performance, not what she wants.
+
+  - text: Wait and see if she ever brings it up.
+    call: okay
+    why: >-
+      Nobody is pressured, which matters. But you are still guessing, and an open conversation would tell
+      you more.
+
+  - text: Don't assume. If you want to know, talk about it at a relaxed time, and accept any answer, including no.
+    call: best
+    why: >-
+      Talking when you're both relaxed, not in the moment, makes it easy for her to be honest. Taking no
+      warmly shows her she's safe with you.
+
+principle: >-
+  Porn is a performance, not a guide. When a thought about sex comes from porn, ask the real person what
+  they actually want.
