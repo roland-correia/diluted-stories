@@ -10,6 +10,8 @@ import Chat from './Chat.astro';
 import { slugOf, type Scenario } from '../lib/scenarios';
 import { calls } from '../lib/site';
 import { sceneFor } from '../lib/scene-map';
+import { questionNarration } from '../lib/narration';
+import { say } from '../lib/voice-clips';
 
 interface Props {
   entry: Scenario;
@@ -26,9 +28,19 @@ const paragraphs = scenario.situation.trim().split(/\n\s*\n/);
 const Title = as === 'page' ? 'h1' : 'h2';
 const Takeaway = as === 'page' ? 'h2' : 'h3';
 const scene = sceneFor(entry.id, scenario.set, scenario.category, scenario.scene);
+// What Listen says, as clips made in advance: before the call, and after it for each answer.
+const narration = questionNarration(entry);
 ---
 
-<article class="quiz" data-scenario data-id={entry.id}>
+<article
+  class="quiz"
+  data-scenario
+  data-id={entry.id}
+  data-say-base={say(narration.base) || undefined}
+  data-say-options={say(narration.options) || undefined}
+  data-say-good={say(narration.good) || undefined}
+  data-say-takeaway={say(narration.takeaway) || undefined}
+>
   <header class="quiz-head">
     <p class="kicker">{label}</p>
     <Title class="quiz-title" tabindex="-1">{scenario.title}</Title>
@@ -45,7 +57,13 @@ const scene = sceneFor(entry.id, scenario.set, scenario.category, scenario.scene
       <legend data-question={scenario.question}>{scenario.question}</legend>
       {
         scenario.options.map((option, index) => (
-          <div class="opt" data-option data-call={option.call}>
+          <div
+            class="opt"
+            data-option
+            data-call={option.call}
+            data-say-chosen={say(narration.chosen[index]) || undefined}
+            data-say-other={say(narration.other[index]) || undefined}
+          >
             <label>
               <input type="radio" name={`answer-${slug}`} value={index} />
               <span>

@@ -125,6 +125,31 @@ text for what the messages do not say.
 
 Scenes and chats are decoration for sighted readers, so everything they show must also be in the text.
 
+## Read aloud
+
+Listen reads each step aloud, like a friendly sidekick talking you through it: "New module!", the
+lesson cards, each question and its options, then "Nice one, good call! That's 10 points." and the
+reasons. The script is in `src/lib/narration.ts`. It only adds framing, never new facts, and keeps
+verdicts on a poor call kind.
+
+- **The natural voice is recorded in advance** with [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M)
+  (an open model, Apache 2.0), voice `af_heart`, one MP3 per sentence in `public/voice/clips/`. They
+  are served from this site, so Listen starts at once, works on any phone, and nothing is made on the
+  device or sent anywhere. Each clip's name is a hash of the voice settings and the exact spoken text
+  (`src/lib/voice-clips.ts`), so changing a sentence asks for a new clip and nothing is recorded twice.
+- **The build writes the ids of each step's clips into the page.** A step with any clip missing gets
+  none, and is read by the device's own voice instead, so nothing is ever half in one voice. The build
+  says how many clips are missing, and lists every sentence in `dist/voice/corpus.json`.
+- **To record new or changed sentences**, after editing content: `npm run build`, then in
+  `tools/voice/`: `npm install` (once) and `npm run generate`. Then build again and commit the new
+  clips. `npm run generate -- --prune` also deletes clips nothing uses any more. The tools are not
+  part of the app and CI never installs them. Recording runs at about a quarter of real time on an
+  Apple silicon Mac.
+- **Pronunciation** for speech only (acronyms such as CEOP and GP, phone numbers digit by digit,
+  times) is in `src/lib/speech.ts`.
+- **Device voice** is an option under Aa, for anyone who prefers their phone's own voice. It reads the
+  same script, and can say the visitor's name.
+
 ## Opening screen and name
 
 Arriving from outside Good Call shows the opening screen: the mark draws itself, the speech
@@ -188,12 +213,15 @@ src/lib/game.ts          character options, points, achievements, streak and tim
 src/lib/modules.ts       each module's idea and habit, and the moments a habit can be tied to
 src/lib/lessons.ts       lessons: cards to tap through before a module's questions
 src/lib/scenes.ts        the illustrated scenes; scene-map.ts says which scene each scenario uses
+src/lib/narration.ts     what Listen says; speech.ts (pronunciation), voice-clips.ts (the recorded clips)
+tools/voice/             records the read-aloud clips (run locally, never in CI)
 src/pages/               home (shelves), explore (search), profile and the character builder, a course's
                          book page, its reader, one scenario, about (the brand page)
 src/layouts/Base.astro   the page shell: app bar with streak and points, tab bar, footer, the opening screen,
                          or a bare page for reading
 src/components/          book covers, books, the tab bar, quiz card, settings dialog, support links
-src/scripts/             splash.ts (the opening screen, which asks for a name), scenario.ts (make the call), deck.ts (the reader), listen.ts (read aloud),
+src/scripts/             splash.ts (the opening screen, which asks for a name), scenario.ts (make the call), deck.ts (the reader),
+                         listen.ts, narrate.ts and voice.ts (read aloud),
                          scene.ts (draws scenes), habits.ts (habit plans and the check-in), ics.ts (calendar reminders),
                          cast.ts (the visitor's name in each question), progress.ts (saved answers),
                          store.ts (profile and stats), activity.ts (time, streak, toasts), books.ts,

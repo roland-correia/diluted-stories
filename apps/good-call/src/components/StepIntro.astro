@@ -4,6 +4,7 @@
 // The course's first module also says, once, how the questions work.
 import Scene from './Scene.astro';
 import type { SceneSpec } from '../lib/scenes';
+import { minutesFor } from '../lib/course-narration';
 
 interface Props {
   name: string;
@@ -19,7 +20,7 @@ interface Props {
 }
 
 const { name, lead, questions, scene, seed, first, help } = Astro.props;
-const minutes = Math.max(2, Math.round(questions * 0.75));
+const minutes = minutesFor(questions);
 const [big, ...rest] = lead;
 ---
 

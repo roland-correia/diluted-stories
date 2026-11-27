@@ -48,12 +48,18 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </a>
       <p style="flex:1;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{set.name}</p>
+      <button type="button" class="iconbtn round listen" data-listen aria-pressed="false" aria-label="Listen to this scenario" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="play" d="M8 5.5v13l10.5-6.5z"></path>
+          <path class="stop" d="M8 6v12M16 6v12"></path>
+        </svg>
+      </button>
       <button type="button" class="iconbtn round" data-open-settings aria-haspopup="dialog" aria-label="Reading settings">Aa</button>
     </div>
   </header>
   {scenario.draft && <p class="notice">Draft. This scenario is not published yet.</p>}
 
-  <div class="deck-card" style="margin-top:0.6rem">
+  <div class="deck-card" style="margin-top:0.6rem" data-listen-root>
   <QuizCard entry={entry} label={label} as="page">
     <nav class="stepper" aria-label="Module" slot="after">
       <a class="btn block" href={quizPath}>Continue {set.name}</a>
@@ -71,5 +77,6 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
     import '../../../scripts/scenario.ts';
     import '../../../scripts/scene.ts';
     import '../../../scripts/cast.ts';
+    import '../../../scripts/listen.ts';
   </script>
 </Base>

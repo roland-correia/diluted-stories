@@ -1,0 +1,9 @@
+Good Call's read-aloud voice
+============================
+
+The clips in clips/ were recorded in advance with Kokoro-82M
+(https://huggingface.co/hexgrad/Kokoro-82M), an open text-to-speech model
+licensed under the Apache License 2.0, using the voice "af_heart", through
+kokoro-js (https://github.com/hexgrad/kokoro/tree/main/kokoro.js, Apache 2.0).
+How they are made is in apps/good-call/tools/voice/ in the Diluted Stories
+repository. They are served from this site; nothing is made or sent at runtime.
