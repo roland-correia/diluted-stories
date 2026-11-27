@@ -1,0 +1,32 @@
+set: online
+category: snap
+order: 2
+title: "The streak"
+topic: "Streak pressure"
+draft: false
+chat:
+  app: snap
+  with: "Mia"
+  messages:
+    - from: "them"
+      text: "400 DAYS 😭"
+    - from: "them"
+      text: "gone. just like that"
+    - from: "them"
+      text: "do you even care??"
+situation: "You took a week off your phone before exams, and a 400-day streak with your best friend, Mia, ended. She's not happy."
+question: "What is the best call?"
+options:
+  - text: "Apologise and promise it will never happen again."
+    call: okay
+    why: "Kind, but it makes a promise to an app's counter rather than to her. Your break was a good decision, not something to say sorry for."
+  - text: "Explain you needed a break, say she matters more than a number, and suggest meeting up."
+    call: best
+    why: "It is honest and warm, and it puts the friendship back where it lives: with the two of you, not the app."
+  - text: "Tell her streaks are pathetic."
+    call: risky
+    why: "She is upset about feeling forgotten, not really about the number. Mocking it makes her feel worse, and pushes you apart."
+  - text: "Leave her on read until she calms down."
+    call: okay
+    why: "Giving it time can help, but silence after she says she feels unimportant can confirm that feeling."
+principle: "A friendship is not a number. Talk to the person, not the streak."

@@ -124,7 +124,7 @@ function celebrate() {
 let answeredSoFar = facts().answered;
 document.addEventListener(PROGRESS_EVENT, () => {
   const answered = facts().answered;
-  if (answered > answeredSoFar) markAnsweredToday();
+  if (answered > answeredSoFar) markAnsweredToday(answered - answeredSoFar);
   answeredSoFar = answered;
   renderCounters();
   celebrate();

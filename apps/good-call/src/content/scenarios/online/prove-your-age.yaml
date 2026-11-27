@@ -1,0 +1,20 @@
+set: online
+category: adult-sites
+order: 2
+title: "\"Prove your age\""
+topic: "Scams"
+draft: false
+scene: desk:0
+situation: "A site you've never heard of shows a pop-up: \"To verify you are over 18, enter your card details. You will not be charged.\""
+question: "What is the best call?"
+options:
+  - text: "Enter the card details. It says you won't be charged."
+    call: risky
+    why: "Fake age checks are a common scam. Card details typed into an unknown site can be used to take money, often in small amounts that are easy to miss."
+  - text: "Close the tab. If you already typed your card details in, call your bank straight away."
+    call: best
+    why: "Banks can block a card within minutes and dispute payments. The quicker you call, the less is lost. You can also report the site to Report Fraud."
+  - text: "Use a friend's card instead."
+    call: risky
+    why: "It puts your friend's money at risk instead of yours, without them agreeing to it."
+principle: "Never type card details into a pop-up on an unknown site. If you already did, call your bank straight away."

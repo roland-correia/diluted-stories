@@ -1,0 +1,20 @@
+set: online
+category: adult-sites
+order: 1
+title: "The age check"
+topic: "Age verification"
+draft: false
+scene: desk:0
+situation: "You're nineteen. A well-known adult site now asks you to prove your age before it lets you in. It offers a face scan or an ID upload through a separate age-check company."
+question: "What is the best call?"
+options:
+  - text: "Use a VPN to skip the check."
+    call: okay
+    why: "It isn't a crime, but it routes you to versions of sites that don't follow UK rules, and many free VPNs collect and sell your data. You swap one privacy worry for a bigger one."
+  - text: "Read what the checking company keeps, then choose the option that shares least, such as a face age estimate."
+    call: best
+    why: "The checks have been the law since July 2025. Choosing a method that keeps little or nothing, from a company that says so plainly, protects your privacy."
+  - text: "Upload your passport to the first site that asks, without looking."
+    call: risky
+    why: "Identity documents are valuable to criminals. Only share them with services you have checked, and prefer methods that don't need them."
+principle: "Age checks are the law now. Before you agree, check who is checking and what they keep."

@@ -28,18 +28,19 @@ if (page) {
     const pill = page!.querySelector<HTMLElement>('[data-book-progress]')!;
     pill.style.setProperty('--p', String(percent));
     pill.querySelector<HTMLElement>('[data-book-percent]')!.textContent =
-      state.answered === 0 ? plural(state.total, 'question') : state.complete ? 'Finished' : `${percent}% read`;
+      state.answered === 0 ? plural(state.total, 'question') : state.complete ? 'Finished' : `${percent}% done`;
 
-    const first = state.course.ids.findIndex((qid) => !progress[qid]);
+    // The reader itself opens where the visitor left off, so Start and Continue
+    // both go to it without naming a step.
     if (state.answered === 0) {
-      start.textContent = 'Start reading';
+      start.textContent = 'Start the course';
       start.href = readerPath;
     } else if (!state.complete) {
-      start.textContent = 'Continue reading';
-      start.href = `${readerPath}#card=${first + 1}`;
+      start.textContent = 'Continue';
+      start.href = readerPath;
     } else {
       start.textContent = 'See your results';
-      start.href = `${readerPath}#card=done`;
+      start.href = `${readerPath}#step=done`;
     }
 
     // Each topic: how much of it is answered.
@@ -48,7 +49,7 @@ if (page) {
       const done = ids.filter((qid) => progress[qid]).length;
       card.classList.toggle('done', done === ids.length);
       card.querySelector<HTMLElement>('[data-topic-status]')!.textContent =
-        done === 0 ? plural(ids.length, 'question') : done === ids.length ? 'Finished' : `${done} of ${ids.length} answered`;
+        done === 0 ? plural(ids.length, 'question') : done === ids.length ? 'Finished' : `${done} of ${ids.length} done`;
     });
 
     // The bookmark.

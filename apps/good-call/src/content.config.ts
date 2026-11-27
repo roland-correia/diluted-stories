@@ -19,6 +19,7 @@ const scenario = z.object({
   set: z.enum([
     'consent',
     'respect-first',
+    'online',
     'racism',
     'parent-newborn',
     'parent-baby',
@@ -54,6 +55,22 @@ const scenario = z.object({
 
   // The idea to take away, shown once the best answer is found.
   principle: z.string(),
+
+  // Optional. Where it happens, drawn as an illustration: 'setting:cast', such as
+  // 'cafe:1'. Without it, the topic's scene is used (src/lib/scene-map.ts).
+  scene: z.string().regex(/^[a-z]+:(0|1|2|child|baby|teen)$/).optional(),
+
+  // Optional. For a scenario that happens in messages: the conversation, shown on a
+  // phone screen in place of the scene. `from` is 'me', 'them' (the person named in
+  // `with`), 'system' (a notice from the app) or, in a group chat, a name.
+  chat: z
+    .object({
+      app: z.enum(['text', 'group', 'snap', 'dating', 'dm']),
+      with: z.string(),
+      status: z.string().optional(),
+      messages: z.array(z.object({ from: z.string(), text: z.string(), time: z.string().optional() })).min(1),
+    })
+    .optional(),
 
   // New scenarios start as drafts. Drafts show in `npm run dev` but are left out of the live site.
   draft: z.boolean().default(true),

@@ -1,0 +1,29 @@
+set: online
+category: nudes
+order: 1
+title: "If you trusted me"
+topic: "Pressure"
+draft: false
+chat:
+  app: text
+  with: "Leo"
+  messages:
+    - from: "them"
+      text: "just one pic, nobody else will see it"
+    - from: "them"
+      text: "if you trusted me you would"
+    - from: "them"
+      text: "everyone else's girlfriend does 🙄"
+situation: "You're seventeen and have been going out with Leo for three months. He's been asking for a nude for a week."
+question: "What is the best call?"
+options:
+  - text: "Send one, but with your face out of shot."
+    call: risky
+    why: "You are both under 18, so it would be illegal to make and to send, face or no face. Bodies, rooms and tattoos are recognisable, and once sent, you lose control of it."
+  - text: "Say no, clearly, and notice how he takes it."
+    call: best
+    why: "\"No\" is a full answer. Someone who cares about you accepts it. If he sulks, guilt-trips or keeps asking, that is pressure, and Childline can help you think it through."
+  - text: "Change the subject and hope he stops asking."
+    call: okay
+    why: "It avoids sending, but pressure usually comes back. A clear no is kinder to you, and tells you more about him."
+principle: "You never owe anyone a nude. Pressure is a red flag, and under eighteen it is also illegal."

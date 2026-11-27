@@ -1,0 +1,20 @@
+set: online
+category: apps
+order: 3
+title: "Dinner at mine"
+topic: "First dates"
+draft: false
+scene: cafe:1
+situation: "Your match, Sam, has had a video call with you and seems lovely. Sam suggests a first date: \"I'll cook for you at my flat. Saturday at eight?\""
+question: "What is the best call?"
+options:
+  - text: "Go. It's a sweet offer and you've already spoken on video."
+    call: risky
+    why: "A video call shows Sam is real, not that Sam is safe. A private flat on a first date means nobody else is around if you want to leave or something goes wrong."
+  - text: "Suggest a drink or a coffee somewhere busy first, and text a friend the plan."
+    call: best
+    why: "Kind, normal and safe. Most people are happy to meet in public first; anyone who pushes back hard on that has told you something useful."
+  - text: "Go, but share your live location with a friend."
+    call: okay
+    why: "Sharing your location is a good habit, but it doesn't help much if you are already behind a closed door. Meeting in public first is safer."
+principle: "First dates happen in public, with a friend who knows where you are."

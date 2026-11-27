@@ -1,0 +1,20 @@
+set: online
+category: apps
+order: 6
+title: "Just say eighteen"
+topic: "Age and apps"
+draft: false
+scene: school:2
+situation: "You're seventeen. Your friends are on dating apps and say you should be too: \"Just put eighteen. Nobody checks.\""
+question: "What is the best call?"
+options:
+  - text: "Sign up saying you're eighteen."
+    call: risky
+    why: "Dating apps are 18+ because they connect you with adults. Pretending to be older means adults may approach you believing you are 18, and the app's protections stop working for you."
+  - text: "Wait until you're eighteen, and meet people through friends, college and things you enjoy for now."
+    call: best
+    why: "You can see who people really are when you meet them in real life. There is plenty of time for apps, and nothing to catch up on."
+  - text: "Sign up, but only talk to people who say they're seventeen too."
+    call: risky
+    why: "Anyone can type seventeen. Adults who want to contact teenagers lie about their age, and this is exactly where they do it."
+principle: "Dating apps are for adults. Under eighteen, meet people where you can see who they really are."

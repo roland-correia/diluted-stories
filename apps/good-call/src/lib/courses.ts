@@ -32,7 +32,8 @@ export type Motif =
   | 'headset'
   | 'care'
   | 'flag'
-  | 'heartcheck';
+  | 'heartcheck'
+  | 'phone';
 
 export interface Cover {
   /** The title as it is set on the cover, one entry per line. */
@@ -197,6 +198,21 @@ const charity = {
     url: 'https://www.lucyfaithfull.org.uk/',
     why: 'Works to prevent child sexual abuse, and runs the Stop It Now helpline.',
   },
+  swgfl: {
+    name: 'SWGfL',
+    url: 'https://swgfl.org.uk/',
+    why: 'Online safety charity that runs the Revenge Porn Helpline and StopNCII.org.',
+  },
+  suzyLamplugh: {
+    name: 'Suzy Lamplugh Trust',
+    url: 'https://www.suzylamplugh.org/',
+    why: 'Personal safety advice, including for online dating, and the National Stalking Helpline.',
+  },
+  iwf: {
+    name: 'Internet Watch Foundation',
+    url: 'https://www.iwf.org.uk/',
+    why: 'Finds and removes images of child sexual abuse online, and runs Report Remove with Childline.',
+  },
   shaw: {
     name: 'Shaw Trust',
     url: 'https://shawtrust.org.uk/',
@@ -218,6 +234,13 @@ export const courses: Record<SetId, Course> = {
     category: 'sex',
     charities: [charity.whiteRibbon, charity.respect, charity.lucyFaithfull],
     unlock: 'badge',
+  },
+  online: {
+    cover: { lines: ['Online', 'life'], sub: 'Dating, apps & more', from: '#5a2f8c', to: '#170a26', accent: '#f2b8e0', motif: 'phone' },
+    tagline: 'Swipe, snap and scroll on your own terms',
+    category: 'sex',
+    charities: [charity.swgfl, charity.suzyLamplugh, charity.iwf],
+    unlock: 'shades',
   },
   racism: {
     cover: { lines: ['Race &', 'equality'], from: '#8a5a19', to: '#241606', accent: '#f6cf7c', motif: 'circles' },
@@ -334,6 +357,7 @@ export const accessories = {
   bowtie: { name: 'Bow tie', slot: 'neck' },
   headset: { name: 'Headset', slot: 'head' },
   badge: { name: 'Respect badge', slot: 'detail' },
+  shades: { name: 'Sunglasses', slot: 'face' },
 } as const;
 
 export type AccessoryId = keyof typeof accessories;

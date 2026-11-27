@@ -1,5 +1,5 @@
-// The visitor's own record: their character, saved courses, time
-// spent and learning days. Kept in this browser's localStorage only, under two
+// The visitor's own record: their character, saved courses, habit plans, time
+// spent, learning days and questions answered each day. Kept in this browser's localStorage only, under two
 // keys, and listed on the Diluted Stories cookies page (src/data/storage.ts in the
 // root of this repository). Nothing is sent anywhere.
 //
@@ -35,6 +35,22 @@ export interface Profile {
   seen: string[];
   /** The course opened most recently, for "Continue learning". */
   lastCourse?: string;
+  /** Habits planned at the end of modules (src/scripts/habits.ts), newest last. */
+  plans: Plan[];
+}
+
+/** A habit the visitor planned to try: "When [cue], I'll try [name]." */
+export interface Plan {
+  /** The module it came from: `${set}/${topic}`. */
+  key: string;
+  name: string;
+  cue: string;
+  /** The day it was planned, YYYY-MM-DD. */
+  made: string;
+  /** How it went, once they have said: tried it, or not for them. */
+  status?: 'done' | 'skipped';
+  /** "Not yet": ask again after this day. */
+  snoozed?: string;
 }
 
 export interface Stats {
@@ -44,6 +60,8 @@ export interface Stats {
   days: Record<string, number>;
   /** Days on which at least one question was answered. */
   answeredDays: string[];
+  /** How many questions were answered each day, keyed YYYY-MM-DD, for the daily goal. */
+  counts: Record<string, number>;
 }
 
 const emptyProfile = (): Profile => ({
@@ -51,9 +69,10 @@ const emptyProfile = (): Profile => ({
   customised: false,
   saved: [],
   seen: [],
+  plans: [],
 });
 
-const emptyStats = (): Stats => ({ seconds: 0, days: {}, answeredDays: [] });
+const emptyStats = (): Stats => ({ seconds: 0, days: {}, answeredDays: [], counts: {} });
 
 function read<T extends object>(key: string, empty: () => T): T {
   try {
@@ -144,13 +163,16 @@ export function learningDays(stats = readStats()): Set<string> {
   return days;
 }
 
-/** Every point earned: one amount per answer, plus a bonus for each finished course. */
-export function pointsEarned(progress = readProgress()): number {
+/** Every point earned: one amount per answer, a bonus for each finished course, and one for each habit tried. */
+export function pointsEarned(progress = readProgress(), profile = readProfile()): number {
   let points = 0;
   for (const answer of Object.values(progress)) points += POINTS[answer.call];
   for (const state of courseStates(progress)) if (state.complete) points += POINTS.courseComplete;
+  points += habitsDone(profile) * POINTS.followThrough;
   return points;
 }
+
+export const habitsDone = (profile = readProfile()) => profile.plans.filter((plan) => plan.status === 'done').length;
 
 export function facts(): Facts {
   const progress = readProgress();
@@ -167,8 +189,9 @@ export function facts(): Facts {
     seconds: stats.seconds,
     streak: currentStreak(days),
     bestStreak: longestStreak(days),
-    points: pointsEarned(progress),
+    points: pointsEarned(progress, profile),
     customised: profile.customised,
+    habitsDone: habitsDone(profile),
   };
 }
 
@@ -183,10 +206,11 @@ export function unlockedItems(states = courseStates()): Set<AccessoryId> {
   return items;
 }
 
-export function markAnsweredToday() {
+/** Counts `count` new answers towards today: a learning day, and the daily goal. */
+export function markAnsweredToday(count = 1) {
   const stats = readStats();
   const today = dayKey();
-  if (stats.answeredDays.includes(today)) return;
-  stats.answeredDays.push(today);
+  if (!stats.answeredDays.includes(today)) stats.answeredDays.push(today);
+  stats.counts[today] = (stats.counts[today] ?? 0) + count;
   writeStats(stats);
 }

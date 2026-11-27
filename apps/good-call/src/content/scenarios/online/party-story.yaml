@@ -1,0 +1,20 @@
+set: online
+category: snap
+order: 4
+title: "Posting the party"
+topic: "Location and stories"
+draft: false
+scene: party:2
+situation: "You're at a house party and it's a great night. You film a quick video of everyone dancing and are about to post it to your public story, location tag and all."
+question: "What is the best call?"
+options:
+  - text: "Post it now, location and all."
+    call: risky
+    why: "It tells everyone, including strangers, exactly where you are and that you're out. And not everyone in the video chose to be in it."
+  - text: "Wait until you've left, post it to close friends, and keep in only people who are happy to be there."
+    call: best
+    why: "You still share the night, without broadcasting where you are, and everyone in it got a say."
+  - text: "Post it, but take the location tag off."
+    call: okay
+    why: "Better, but the people dancing didn't agree to be on your story, and the room may still give away where you are."
+principle: "Post after you've left, to people you know, with only the people who are happy to be in it."

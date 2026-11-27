@@ -44,29 +44,37 @@ Every scenario needs these fields, and the build **fails with a clear message** 
 | `situation` | What is happening. Leave a blank line between paragraphs. |
 | `question` | Optional. Defaults to "What is the best call?". Interview questions use "Which answer works best?". |
 | `options` | Three or four. Each has `text`, `call` and `why`. Exactly one must be `call: best`. |
-| `principle` | The idea to take away, shown once the best answer is found. |
+| `principle` | The key takeaway, shown once the call is made. |
+| `scene` | Optional. Where it happens, drawn as an illustration: `setting:cast`, such as `cafe:1`. See "Scenes" below. |
+| `chat` | Optional. For a scenario that happens in messages: the conversation, shown on a phone screen instead of a scene. See "Scenes" below. |
 | `draft` | Whether it is still a draft. |
 
 `call` is the verdict: `best` (Good call), `okay` (Could be better) or `risky` (Not the best call).
 `why` is the feedback, and every option must have one, including the best. Vary which position the
 best answer sits in.
 
-Each set (a course) is split into topics, listed in `categories` in `src/lib/site.ts`, in the order
+Each set (a course) is split into modules, listed in `categories` in `src/lib/site.ts`, in the order
 shown. Every course has two pages:
 
-- **The book page**, `/courses/<set>/`: the cover, progress, what it covers, a card per topic with
-  its photograph, the character item it unlocks, the charities connected to it, and a Start
-  (or Continue) button.
-- **The reader**, `/practice/<set>/`: one continuous deck of cards through every topic in turn
-  (`src/scripts/deck.ts`). It opens on the first unanswered card, with round Back and Next buttons
-  and a Listen button (read aloud by the browser) at the bottom of the screen, swiping on touch
-  screens and arrow keys. The bar at the top has one segment per topic. After the last card, a
-  summary shows every answer by topic, the points earned and the item unlocked, then the next book.
+- **The book page**, `/courses/<set>/`: the cover, progress, what it covers, a card per module with
+  its scene, the character item it unlocks, the charities connected to it, and a Start (or
+  Continue) button.
+- **The reader**, `/practice/<set>/`: short steps, one screen at a time (`src/scripts/deck.ts`).
+  Each module runs: an intro with one idea, its lesson as cards to tap through (if it has one), its
+  questions, then a wrap-up with how the module went and one habit to plan. After the last module, a
+  summary shows the results, the points earned and the item unlocked. One big button at the bottom
+  always says what happens next ("Let's go", "Next", "Try it", "Make the call", "Continue", "Next
+  module", "My results"), with Back beside it and Listen (read aloud by the browser). Swiping and the
+  arrow keys work too. The bar at the top has one segment per module, the current one wider. It
+  opens where the visitor left off, and the address keeps the step (`#step=<scenario>`,
+  `#step=intro-<module>`, `#step=done`); older `#card=3` links still work. A break is offered after
+  every five calls.
 
 Each question also has a page of its own at `/practice/<set>/<scenario>/`, for direct links. The old
-topic pages at `/practice/<set>/topics/<topic>/` redirect to that topic's first card, and the old
-`/parenting/` and `/work/` pages to their shelves on the home page. To add a topic, add a line to
-`categories`, use its name in a scenario's `category`, and give it a photo (see below).
+topic pages at `/practice/<set>/topics/<topic>/` redirect to that module's intro, and the old
+`/parenting/` and `/work/` pages to their shelves on the home page. To add a module, add a line to
+`categories`, use its name in a scenario's `category`, give it a brief or a lesson, and a default
+scene (see below).
 
 ## Add a set, a role or a parenting module
 
@@ -77,38 +85,51 @@ topic pages at `/practice/<set>/topics/<topic>/` redirect to that topic's first 
    on its book page, its Explore category, its charities and the character item it unlocks.
 3. Add its name to the `set` list in `src/content.config.ts`.
 4. Create `src/content/scenarios/<set>/` and add scenarios to it.
-5. Add a photo for each of its topics (see below).
+5. Give each module a lesson or a brief, and a default scene (see below).
 
 The parenting courses (`parent-newborn` to `parent-teen`, then `parent-adoption` and `parent-you`)
 are on the home page's "Parenting, age by age" shelf in the order they are written in `site.ts`,
 and share one list of support links in `src/components/Support.astro`.
 
-## Module notes
+## Lessons, briefs and habits
 
-A topic can open with short teaching before its first question: an opener, tables, key points and one habit
-to practise, with a link to the course's help list. Write them in `src/lib/lessons.ts`, keyed by
-`set/topic`; `src/components/Lesson.astro` shows them, folded open, at the top of the topic's first card
-in the reader. Respect First uses them for all five modules. A topic without notes goes straight to its
-questions. Tables of three or more columns stack into blocks on phones.
+Every module starts with one idea and ends with one habit (`src/lib/modules.ts`).
 
-## Photos
+- **A brief** (`briefs` in `src/lib/modules.ts`) is the minimum: the idea for the intro, and a habit
+  with a short name and a sentence on what to do.
+- **A lesson** (`src/lib/lessons.ts`) adds cards to tap through between the intro and the questions.
+  Each section becomes one card, so keep them short. A two-column table becomes flip cards, a wider
+  table and `points` become cards that open, quoted phrases become speech bubbles, and `ordered`
+  items become a self-check with boxes to tick. Respect First and Dating, apps and online life have
+  lessons; the other courses have briefs.
+- **Habits** are planned at the end of each module: the visitor picks when ("Next time I'm out", or
+  their own words), can add a calendar reminder (an `.ics` file made on the device), and Home asks
+  "Did you try it?" from the next day (`src/scripts/habits.ts`). Trying it earns points and the
+  Follow-through achievement. Plans are listed on the Profile tab.
 
-Each topic has one photograph, shown on its course's book page and on every card in the topic. They
-are in `src/assets/photos/` and listed, with alt text and credits, in `src/lib/photos.ts`. Astro
-resizes them and serves WebP at the right size. Rules:
+Why it works this way, with sources: [docs/learning-science.md](docs/learning-science.md).
 
-- Only photos under the [Unsplash Licence](https://unsplash.com/license), downloaded from
-  `images.unsplash.com`. Never Unsplash+ photos, which need a paid licence.
-- Look at every photo before using it. On sensitive topics (sex, pornography, abuse, racism) prefer
-  hands, objects or places to identifiable faces, and never show a child next to a sensitive topic.
-- Write alt text that says what the photo shows, and credit the photographer. Credits appear on each
-  card and on the About page.
+## Scenes
+
+Every question shows where it happens, drawn as a flat illustration with the visitor's own character
+in it (`src/lib/scenes.ts`, drawn in the browser by `src/scripts/scene.ts`). There are 20 settings,
+such as `cafe`, `bar`, `party`, `street`, `busstop`, `bedroom`, `office`, `nursery` and `clinic`, and a
+cast: `0` (nobody else), `1`, `2`, `child`, `baby` or `teen`. The other people are made from the
+scenario's id, so they look the same on every visit. A scene is chosen by, in order: the scenario's own
+`scene:`, an entry in `src/lib/scene-map.ts`, the module's default there, then the course's.
+
+A scenario that happens in messages can have a `chat:` instead: `app` (`text`, `group`, `snap`,
+`dating` or `dm`), `with` (the other person), an optional `status`, and `messages`, each `from` `me`,
+`them`, `system` or a name. They show on a phone screen and pop in one by one. Keep the situation
+text for what the messages do not say.
+
+Scenes and chats are decoration for sighted readers, so everything they show must also be in the text.
 
 ## Opening screen and name
 
 Arriving from outside Good Call shows the opening screen: the mark draws itself, the speech
 bubble then the tick. Until a visitor has given a name, it also asks "What should we call you?",
-and that name is used throughout ("Hi, Sam", "Playing as Sam"). Moving between Good Call's own
+and that name is used throughout ("Good morning, Sam", "What is the best call, Sam?"). Moving between Good Call's own
 pages does not show it again. The decision is made by a small inline script in `Base.astro`
 before the page paints, so it never flashes. Without JavaScript it never appears.
 
@@ -118,14 +139,16 @@ before the page paints, so it never flashes. Without JavaScript it never appears
   opens a pop-up using the browser's popover; `src/scripts/info.ts` covers older browsers.
 - Saved courses are on Explore: the bookmark beside the title opens a half-screen sheet
   (`src/scripts/saved.ts`) with one sideways-scrolling shelf.
-- About, Disclaimer and Privacy are separate pages, linked from the footer with Cookies. Their text is
-  justified, and About's Donate button is a placeholder until a payment link exists.
+- About, Disclaimer and Privacy are separate pages, linked from the footer with Cookies. About's
+  Donate button is a placeholder until a payment link exists.
 
 ## Text and spacing
 
 Every font size comes from one scale, the `--t-*` tokens at the top of `src/styles/global.css`
-(xs, sm, base, md, lg, xl, 2xl). Use a token rather than a new size, so text that plays the same
-part looks the same everywhere. Long-form pages (About, Disclaimer) use `.longform` and
+(xs, sm, base, md, lg, xl, 2xl, and 3xl for a module's intro title). Use a token rather than a new
+size, so text that plays the same part looks the same everywhere. Text is ranged left by default,
+as the British Dyslexia Association recommends; "Justified" is an option in the reading settings
+(`html[data-align]`). Long-form pages (About, Disclaimer) use `.longform` and
 `.page-section`: plain text, no cards, with space and a hairline between sections.
 
 ## Character, points, streaks and achievements
@@ -162,14 +185,17 @@ src/content/scenarios/   the scenarios, one YAML file each, in a folder per set
 src/lib/site.ts          the sets, their categories (topics) and the three verdicts
 src/lib/courses.ts       each course as a book: cover, Explore category, charities and unlockable item
 src/lib/game.ts          character options, points, achievements, streak and time rules
-src/lib/photos.ts        the photo for each topic, with alt text and credit
+src/lib/modules.ts       each module's idea and habit, and the moments a habit can be tied to
+src/lib/lessons.ts       lessons: cards to tap through before a module's questions
+src/lib/scenes.ts        the illustrated scenes; scene-map.ts says which scene each scenario uses
 src/pages/               home (shelves), explore (search), profile and the character builder, a course's
                          book page, its reader, one scenario, about (the brand page)
 src/layouts/Base.astro   the page shell: app bar with streak and points, tab bar, footer, the opening screen,
                          or a bare page for reading
 src/components/          book covers, books, the tab bar, quiz card, settings dialog, support links
-src/scripts/             splash.ts (the opening screen, which asks for a name), scenario.ts (lock in an answer), deck.ts (the reader), listen.ts (read aloud),
-                         cast.ts (the visitor's character in each card), progress.ts (saved answers),
+src/scripts/             splash.ts (the opening screen, which asks for a name), scenario.ts (make the call), deck.ts (the reader), listen.ts (read aloud),
+                         scene.ts (draws scenes), habits.ts (habit plans and the check-in), ics.ts (calendar reminders),
+                         cast.ts (the visitor's name in each question), progress.ts (saved answers),
                          store.ts (profile and stats), activity.ts (time, streak, toasts), books.ts,
                          book.ts, explore.ts, profile.ts, character.ts, avatar.ts, settings.ts
 src/styles/global.css    colours, type and layout, all in one place
@@ -177,15 +203,15 @@ src/styles/global.css    colours, type and layout, all in one place
 
 Choices worth knowing about:
 
-- **No timer, but one go.** Visitors can take as long as they like, then lock in an answer. A locked
-  answer cannot be changed, on that visit or a later one, so it is their real first judgement.
-  They can still read the reasons for the other answers afterwards.
+- **No timer, but the first answer counts.** Visitors can take as long as they like, then make the
+  call. It cannot be changed, on that visit or a later one, so it is their real first judgement.
+  They can still compare the reasons for the other answers afterwards.
 - **Three verdicts, not right and wrong.** Each has a label and a mark, so it never depends on colour.
 - **The quiz is progressive enhancement.** Without JavaScript every reason is on the page, so each
   scenario reads as a worked example.
 - **Nothing leaves the browser.** Answers, the character, time and reading settings are kept in
-  `localStorage`. There is no account, no analytics and no third-party request: photos and fonts
-  are served from this site.
+  `localStorage`. There is no account, no analytics and no third-party request: scenes are drawn in
+  the browser and fonts are served from this site. Calendar reminders are files made on the device.
 - **Progress is saved and shown** on every book and book page. "Clear my answers and start again" at
   the end of a course is the only way to answer again, and "Delete all my Good Call data" on the
   Profile tab removes everything.
@@ -197,7 +223,11 @@ Choices worth knowing about:
 The scenarios are first versions. The Disclaimer page (`/disclaimer/`) says so. They have not been reviewed by a consent
 educator, a lawyer or a recruiter. The legal points (capacity to consent, sleep, agreed conditions,
 sending and sharing intimate images, reporting a data breach) describe the law in England and Wales
-and should be re-checked before each is relied on.
+and should be re-checked before each is relied on. Dating, apps and online life also relies on: sexual
+images of under-18s (including AI-made ones), cyberflashing and threats to share intimate images (in
+force from 31 January 2024), age checks on porn services under the Online Safety Act (from 25 July
+2025), the NCA's sextortion advice, and free emergency contraception at pharmacies in England (from
+October 2025).
 
 ## How it deploys
 

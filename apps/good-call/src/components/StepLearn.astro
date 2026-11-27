@@ -1,0 +1,126 @@
+---
+// One card of a module's lesson (src/lib/lessons.ts), made to be tapped rather
+// than read as a wall of text:
+// - a two-column table becomes cards that flip from what you notice to what it means,
+// - a wider table becomes cards that open to show each part,
+// - points become cards that open to show the detail,
+// - quoted phrases become speech bubbles,
+// - a self-check becomes boxes to tick (kept on this screen only, never saved),
+// - a plain list stays a list.
+// Everything is built from <details> and checkboxes, so it works with a keyboard,
+// a screen reader and without JavaScript. With JavaScript, tapping the back of a
+// flip card turns it over again (src/scripts/deck.ts).
+import type { LessonSection } from '../lib/lessons';
+
+interface Props {
+  section: LessonSection;
+}
+
+const { section } = Astro.props;
+const table = section.table;
+const twoColumn = table && table.head.length === 2;
+const quotes = section.items && !section.ordered && section.items.every((item) => /^["“]/.test(item));
+const selfCheck = section.items && section.ordered;
+---
+
+<div class="step-learn">
+  <h2 tabindex="-1">{section.heading}</h2>
+  {section.text && <p class="learn-text">{section.text}</p>}
+
+  {
+    table && twoColumn && (
+      <>
+        <ul class="flips">
+          {table.rows.map(([front, back]) => (
+            <li>
+              <details class="flip">
+                <summary>
+                  <small>{table.head[0]}</small>
+                  <span>{front}</span>
+                </summary>
+                <p>
+                  <small>{table.head[1]}</small>
+                  {back}
+                </p>
+              </details>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  {
+    table && !twoColumn && (
+      <ul class="opens">
+        {table.rows.map(([first, ...rest]) => (
+          <li>
+            <details class="open-card">
+              <summary>{first}</summary>
+              <dl>
+                {rest.map((cell, i) => (
+                  <div>
+                    <dt>{table.head[i + 1]}</dt>
+                    <dd>{cell}</dd>
+                  </div>
+                ))}
+              </dl>
+            </details>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    section.points && (
+      <ul class="opens">
+        {section.points.map((point) => (
+          <li>
+            <details class="open-card">
+              <summary>{point.term}</summary>
+              <p>{point.text}</p>
+            </details>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    quotes && (
+      <ul class="bubbles">
+        {section.items!.map((item) => (
+          <li>{item.replace(/^["“]|["”]$/g, '')}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    selfCheck && (
+      <ul class="checks">
+        {section.items!.map((item) => (
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>{item}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    section.items && !quotes && !selfCheck && (
+      <ul class="ticks">
+        {section.items.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  {section.after && <p class="learn-after">{section.after}</p>}
+</div>

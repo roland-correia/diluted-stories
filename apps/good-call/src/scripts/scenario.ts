@@ -1,15 +1,26 @@
-// Each scenario: choose an answer, lock it in, read why.
+// Each scenario: pick an answer, make the call, see why.
 //
-// An answer is final. Once it is locked in it cannot be changed, on this visit or
-// a later one, so the result is the visitor's real first judgement. There is still
-// no timer: they can take as long as they like before locking in.
+// The first answer is the one that counts, so the result is the visitor's real
+// judgement: once made, a call cannot be changed, on this visit or a later one.
+// There is no timer.
 //
-// Progressive enhancement: without JavaScript the reason for every answer is on
-// the page, so the scenario still reads as a worked example.
+// After the call:
+// - the reason for their answer opens, headed by the verdict (Good call, Could be
+//   better, Not the best call) and the points it earned, and the visitor's
+//   character reacts in the scene,
+// - the good call's reason opens too, if it was another answer,
+// - the other reasons are one tap away ("Compare the other answers"),
+// - the key takeaway appears underneath.
+//
+// Progressive enhancement: without JavaScript every reason is on the page, so the
+// scenario still reads as a worked example.
 
-import { readProgress, recordAnswer, type Call } from './progress';
+import { readProgress, recordAnswer, CALL_EVENT, type Call } from './progress';
+import { POINTS } from '../lib/game';
 
-// A module's page holds every scenario in it, so each one is set up on its own.
+const labels: Record<Call, string> = { best: 'Good call', okay: 'Could be better', risky: 'Not the best call' };
+
+// A course's reader holds every scenario in it, so each one is set up on its own.
 document.querySelectorAll<HTMLElement>('[data-scenario]').forEach(setUp);
 
 function setUp(root: HTMLElement) {
@@ -17,28 +28,36 @@ function setUp(root: HTMLElement) {
   const form = root.querySelector<HTMLFormElement>('[data-quiz]')!;
   const options = Array.from(root.querySelectorAll<HTMLElement>('[data-option]'));
   const check = root.querySelector<HTMLButtonElement>('[data-check]')!;
-  const once = root.querySelector<HTMLElement>('[data-once]')!;
-  const locked = root.querySelector<HTMLElement>('[data-locked]')!;
   const showAll = root.querySelector<HTMLButtonElement>('[data-show-all]')!;
   const hint = root.querySelector<HTMLElement>('[data-hint]')!;
   const after = root.querySelector<HTMLElement>('[data-after]')!;
+  const verdict = root.querySelector<HTMLElement>('[data-verdict]')!;
 
   const whyOf = (option: HTMLElement) => option.querySelector<HTMLElement>('[data-why]')!;
   const inputOf = (option: HTMLElement) => option.querySelector<HTMLInputElement>('input')!;
 
   options.forEach((option) => (whyOf(option).hidden = true));
   after.hidden = true;
-  check.hidden = once.hidden = false;
+  check.hidden = false;
   root.classList.add('js-quiz');
 
-  function reveal(option: HTMLElement) {
-    whyOf(option).hidden = false;
+  const reveal = (option: HTMLElement) => (whyOf(option).hidden = false);
+
+  // The verdict is the chosen answer's own heading: it pops in with the points it
+  // earned, and is announced to screen readers.
+  function showVerdict(chosen: HTMLElement | undefined, call: Call | undefined, fresh: boolean) {
+    if (!chosen || !call) return;
+    const points = chosen.querySelector<HTMLElement>('[data-why-points]')!;
+    points.hidden = false;
+    points.textContent = `+${POINTS[call]} points`;
+    whyOf(chosen).classList.toggle('fresh', fresh);
+    if (fresh) verdict.textContent = `${labels[call]}. ${POINTS[call]} points.`;
   }
 
-  // Shows a locked answer: the choice is marked and can no longer be changed, its
-  // reason and the best answer's reason are shown, and the rest are one tap away.
+  // Shows a call that has been made: the choice is marked and can no longer be changed,
+  // its reason and the good call's reason are shown, and the rest are one tap away.
   // `choice` is -1 when an older saved answer did not record which option it was.
-  function lock(choice: number) {
+  function lock(choice: number, call: Call | undefined, fresh: boolean) {
     const chosen = options[choice];
 
     for (const option of options) {
@@ -57,9 +76,10 @@ function setUp(root: HTMLElement) {
       options.forEach(reveal);
     }
 
-    check.hidden = once.hidden = hint.hidden = true;
-    locked.hidden = after.hidden = false;
+    check.hidden = hint.hidden = true;
+    after.hidden = false;
     showAll.hidden = options.every((option) => !whyOf(option).hidden);
+    showVerdict(chosen, call ?? (chosen?.dataset.call as Call | undefined), fresh);
   }
 
   form.addEventListener('submit', (event) => {
@@ -69,13 +89,20 @@ function setUp(root: HTMLElement) {
 
     const choice = options.findIndex((option) => inputOf(option).checked);
     hint.hidden = choice > -1;
-    if (choice === -1) return;
+    if (choice === -1) {
+      if (!hint.hidden) hint.animate?.([{ transform: 'translateX(-4px)' }, { transform: 'translateX(4px)' }, { transform: 'none' }], 240);
+      return;
+    }
 
-    recordAnswer(id, { call: options[choice].dataset.call as Call, choice });
-    lock(choice);
+    const call = options[choice].dataset.call as Call;
+    recordAnswer(id, { call, choice });
+    lock(choice, call, true);
+    root.dispatchEvent(new CustomEvent(CALL_EVENT, { bubbles: true, detail: { call } }));
 
     // Move to the reason so it is read next, by eye or by screen reader.
-    whyOf(options[choice]).focus();
+    const why = whyOf(options[choice]);
+    why.focus({ preventScroll: true });
+    why.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 
   form.addEventListener('change', () => (hint.hidden = true));
@@ -87,7 +114,7 @@ function setUp(root: HTMLElement) {
     if (firstNew) whyOf(firstNew).focus();
   });
 
-  // Coming back to a scenario that was already answered shows it locked.
+  // Coming back to a scenario that was already answered shows it as it was left.
   const saved = readProgress()[id];
-  if (saved) lock(saved.choice);
+  if (saved) lock(saved.choice, saved.call, false);
 }

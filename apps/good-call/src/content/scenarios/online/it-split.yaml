@@ -1,0 +1,20 @@
+set: online
+category: hooking-up
+order: 3
+title: "It split"
+topic: "Emergency contraception"
+draft: false
+scene: shop:1
+situation: "This morning you realise the condom split last night."
+question: "What is the best call?"
+options:
+  - text: "Wait and see what happens."
+    call: risky
+    why: "Emergency contraception works best the sooner it is taken. Waiting makes it less likely to work."
+  - text: "Go to a pharmacy today for the morning-after pill, and book an STI test for about two weeks' time."
+    call: best
+    why: "In England it is free at most pharmacies, with no appointment. Some STIs only show up on a test after a couple of weeks."
+  - text: "Search online, and order something to arrive in a few days."
+    call: okay
+    why: "Better than nothing, but a pharmacy today is faster, free in England, and comes with advice."
+principle: "Split condom? Morning-after pill as soon as you can, free at most pharmacies in England, and an STI test in two weeks."

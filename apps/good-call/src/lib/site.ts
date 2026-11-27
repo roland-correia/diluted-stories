@@ -1,7 +1,7 @@
 export const SITE_NAME = 'Good Call';
 export const TAGLINE = 'Practise the call before it counts.';
 export const DESCRIPTION =
-  'Short, realistic scenarios on consent, racism, parenting and judgement at work. Choose what you would do, then see why each choice helps or harms. No timer and no account.';
+  'Short, realistic scenarios on consent, online life, racism, parenting and judgement at work. Choose what you would do, then see why each choice helps or harms. No timer and no account.';
 
 // Where sets are listed. 'everyday' sets sit on the home page itself; the others
 // each have their own page, reached from a tile on the home page.
@@ -50,6 +50,25 @@ export const sets = {
       'Noticing someone is normal. Staring, commenting and following are choices, and they can feel like a threat.',
       'Porn is a performance, not a guide. Ask the real person what they want.',
       'Habits change through small, repeated steps, not shame. A slip is information, not failure.',
+    ],
+    live: true,
+  },
+  online: {
+    name: 'Dating, apps and online life',
+    group: 'everyday',
+    blurb: 'Dating apps, Snapchat, nudes, adult sites and the pressure of the feed',
+    intro:
+      'Most relationships now start, grow and sometimes go wrong on a phone. This course covers dating apps and meeting up safely, Snapchat and sharing your location, nudes, sexting and sextortion, adult sites and the new age checks, hooking up and sexual health, and the pressure of feeds and influencers. It is frank, practical and written for life in the UK.',
+    note: 'For ages 16 and over. Covers sex, nude images, porn sites and online blackmail. Nothing is described in detail. Where the law is mentioned, it is the law in England and Wales unless it says otherwise.',
+    rules: [
+      'You never owe anyone a photo, a reply, a meeting or anything else.',
+      'Meet new people somewhere public, tell a friend where you will be, and keep your own way home.',
+      'Share your location only with people you know and trust in real life.',
+      'A sexual image of anyone under 18 is illegal to make, share or keep, even of yourself, and even if everyone agreed.',
+      'If someone threatens to share your images, do not pay. Stop replying, keep the evidence and get help. It is not your fault.',
+      'Sharing, or threatening to share, someone\'s intimate image without their consent is a crime.',
+      'Condoms, STI tests and the morning-after pill are free from NHS services in England.',
+      'Feeds are built to keep you scrolling. You choose who you follow and when you stop.',
     ],
     live: true,
   },
@@ -279,6 +298,14 @@ export const categories: Partial<Record<SetId, Record<string, { name: string; bl
     people: { name: 'Seeing people, not bodies', blurb: 'Staring, comments and harassment, and what to do instead' },
     porn: { name: 'Porn and real life (16+)', blurb: 'What porn shows, and how real sex and consent work' },
     habit: { name: 'Changing the habit (16+)', blurb: 'Practical steps to cut back, and when to get help' },
+  },
+  online: {
+    apps: { name: 'Dating apps and meeting up', blurb: 'Profiles, catfishing, first dates and getting home safely' },
+    snap: { name: 'Snapchat, streaks and location', blurb: 'Snap Map, streak pressure, strangers and screenshots' },
+    nudes: { name: 'Nudes, sexting and sextortion', blurb: 'Pressure, the law under 18, threats and getting images removed' },
+    'adult-sites': { name: 'Adult sites and age checks', blurb: 'Age checks, scams, and content that should never exist' },
+    'hooking-up': { name: 'Hooking up and sexual health', blurb: 'Consent, condoms, STI tests and the morning after' },
+    feeds: { name: 'Feeds, influencers and pressure', blurb: 'Comparison, misogyny for clicks, pile-ons and switching off' },
   },
   'parent-newborn': {
     safety: { name: 'Health and safety', blurb: 'Safer sleep, illness and everyday risks in the first weeks' },

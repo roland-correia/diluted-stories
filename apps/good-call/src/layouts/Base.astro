@@ -31,7 +31,7 @@ const canonical = absolute(path);
 ---
 
 <!doctype html>
-<html lang="en-GB" data-size="md" data-space="normal" data-bg="auto" data-chrome={chrome}>
+<html lang="en-GB" data-size="md" data-space="normal" data-align="left" data-bg="auto" data-chrome={chrome}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -55,6 +55,7 @@ const canonical = absolute(path);
         var allowed = {
           size: ['sm', 'md', 'lg'],
           space: ['normal', 'roomy'],
+          align: ['left', 'justify'],
           bg: ['auto', 'soft', 'cream', 'dark'],
         };
         for (var key in allowed) {

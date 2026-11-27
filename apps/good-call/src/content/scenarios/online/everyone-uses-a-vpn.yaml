@@ -1,0 +1,20 @@
+set: online
+category: adult-sites
+order: 5
+title: "Everyone uses a VPN"
+topic: "Curiosity"
+draft: false
+scene: school:1
+situation: "You're sixteen. At lunch, your mate Ryan shows you how he uses a VPN to get round the age checks on porn sites. \"Everyone does it,\" he says."
+question: "What is the best call?"
+options:
+  - text: "Try it tonight."
+    call: risky
+    why: "Using a VPN isn't a crime, but it takes you to sites that ignore UK rules on age, content and scams. What you find there can be extreme, and it shapes what you expect from sex."
+  - text: "Say you're not bothered. If you're curious about sex, look at Brook or the NHS instead."
+    call: best
+    why: "You don't need to lecture him. Curiosity about sex is normal, and those sites give honest answers without the scams and extreme content."
+  - text: "Report Ryan to the school."
+    call: okay
+    why: "He hasn't hurt anyone, so a report is out of proportion. If you are worried about him, a conversation will do more."
+principle: "Age checks are there because porn is not made for teenagers. Curious about sex? Brook and the NHS have honest answers."

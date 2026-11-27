@@ -1,0 +1,32 @@
+set: online
+category: nudes
+order: 2
+title: "The new follower"
+topic: "Sextortion"
+draft: false
+chat:
+  app: dm
+  with: "Ellie"
+  messages:
+    - from: "them"
+      text: "I've got your pic and a list of your followers"
+    - from: "them"
+      text: "Pay £500 in the next hour or I send it to all of them"
+    - from: "them"
+      text: "Your mum and your school too"
+situation: "You're seventeen. A girl called Ellie followed you last week and the chat got flirty fast. You swapped pictures. Ten minutes ago, everything changed."
+question: "What is the best call?"
+options:
+  - text: "Pay, to make it go away."
+    call: risky
+    why: "Paying rarely ends it: blackmailers usually ask for more. The National Crime Agency's advice is clear: don't pay."
+  - text: "Stop replying, screenshot everything, block her, and tell a trusted adult or CEOP. Use Report Remove to get the image taken down."
+    call: best
+    why: "This is sextortion, a crime, and it is not your fault. Evidence helps the police, and Report Remove, from Childline and the Internet Watch Foundation, works to get images of under-18s removed."
+  - text: "Delete your account and hope it stops."
+    call: okay
+    why: "Getting away from them is right, but deleting can lose evidence, and the threats can follow you elsewhere. Keep the evidence first, then get help."
+  - text: "Beg her not to send it."
+    call: risky
+    why: "Pleading shows them the threat is working, and keeps you talking to them. Stop replying and get help instead."
+principle: "If someone threatens to share your images: don't pay, stop replying, keep the evidence and get help. It is not your fault."

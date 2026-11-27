@@ -1,0 +1,20 @@
+set: online
+category: adult-sites
+order: 3
+title: "\"Your device is infected\""
+topic: "Scareware"
+draft: false
+scene: desk:0
+situation: "A page suddenly fills the screen with flashing red warnings and a loud alarm: \"Viruses detected from adult content! Call Support now.\" It won't close."
+question: "What is the best call?"
+options:
+  - text: "Call the number to get it fixed."
+    call: risky
+    why: "Real security warnings never come with a number to call. The \"support\" team will ask for money, or for access to your device."
+  - text: "Close the browser. If it won't close, restart the device, then clear your browsing history."
+    call: best
+    why: "These pages are designed to panic you. Closing or restarting ends them, and nothing was actually installed."
+  - text: "Ask someone you trust to look at it."
+    call: okay
+    why: "A second opinion is a good instinct, and it stops you acting in a panic. Closing the browser is the first step either way."
+principle: "Real security warnings never come with a phone number to call. Close it, and restart if you need to."

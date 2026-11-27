@@ -1,4 +1,4 @@
-// Reading settings: text size, spacing and background.
+// Reading settings: text size, spacing, text alignment and background.
 // Saved in this browser's localStorage. The tiny inline script in Base.astro
 // applies them before first paint; this file wires up the dialog and saves changes.
 
@@ -7,6 +7,7 @@ const KEY = 'gc-settings';
 const allowed = {
   size: ['sm', 'md', 'lg'],
   space: ['normal', 'roomy'],
+  align: ['left', 'justify'],
   bg: ['auto', 'soft', 'cream', 'dark'],
 } as const;
 

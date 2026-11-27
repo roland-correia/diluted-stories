@@ -6,6 +6,9 @@ const KEY = 'gc-progress';
 // Sent on `document` whenever an answer is saved or cleared, so progress bars can redraw.
 export const PROGRESS_EVENT = 'gc:progress';
 
+/** Sent on a scenario's element when a call is made there, with { call } as its detail. */
+export const CALL_EVENT = 'gc:call';
+
 export type Call = 'best' | 'okay' | 'risky';
 
 export interface Answer {

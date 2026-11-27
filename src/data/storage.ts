@@ -8,7 +8,7 @@
 //
 // Keys come from: src/scripts/settings.ts, apps/good-call/src/scripts/{settings,progress,store}.ts,
 // apps/5-minute-mandarin/src/scripts/{settings,progress}.ts and apps/5-minute-mandarin/src/app/store.ts.
-export const STORAGE_UPDATED = '14 November 2026';
+export const STORAGE_UPDATED = '27 November 2026';
 
 export const storage = [
   {
@@ -18,7 +18,7 @@ export const storage = [
   },
   {
     key: 'gc-settings',
-    what: 'The same reading settings, for Good Call.',
+    what: 'The same reading settings, for Good Call, plus text alignment.',
     where: 'Good Call',
   },
   {
@@ -28,12 +28,12 @@ export const storage = [
   },
   {
     key: 'gc-profile',
-    what: 'Your character (its name, look and the items it wears), the courses you saved, the course you read last, and which achievements you have already been shown.',
+    what: 'Your character (its name, look and the items it wears), the courses you saved, the course you read last, the habits you planned at the end of modules and how they went, and which achievements you have already been shown.',
     where: 'Good Call',
   },
   {
     key: 'gc-stats',
-    what: 'How long you have spent learning in total and on each day, and the days you answered a question, for your time and streak.',
+    what: 'How long you have spent learning in total and on each day, the days you answered a question and how many, for your time, streak and daily goal.',
     where: 'Good Call',
   },
   {

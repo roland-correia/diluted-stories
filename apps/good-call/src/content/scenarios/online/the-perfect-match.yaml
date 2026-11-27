@@ -1,0 +1,35 @@
+set: online
+category: apps
+order: 1
+title: "The perfect match"
+topic: "Catfishing"
+draft: false
+chat:
+  app: dating
+  with: "Jordan"
+  status: "Matched 2 weeks ago"
+  messages:
+    - from: "them"
+      text: "Can't video tonight, my camera's broken 😅"
+    - from: "them"
+      text: "But honestly I feel like I've known you forever"
+    - from: "me"
+      text: "Same! Quick call tomorrow then?"
+    - from: "them"
+      text: "Let's just meet Saturday instead x"
+situation: "You matched with Jordan two weeks ago and you talk every day. Jordan is funny, gorgeous and says all the right things. Every time you suggest a video call, there is a reason it can't happen."
+question: "What is the best call?"
+options:
+  - text: "Meet on Saturday. You get on so well that a call doesn't matter."
+    call: risky
+    why: "Refusing every call is the most common sign of a catfish. Meeting someone you can't confirm is real puts you at risk, and you lose nothing by waiting a day."
+  - text: "Reverse image search their photos first, then decide."
+    call: okay
+    why: "A smart check, and worth doing. But a clean result proves little: photos can be new, or stolen privately. A live call is the real test."
+  - text: "Say you'd love to meet once you've had a quick video call, even two minutes."
+    call: best
+    why: "A short call is a normal, easy ask, and someone genuine will manage it. If the excuses keep coming, you have your answer without ever being in danger."
+  - text: "Unmatch without saying anything."
+    call: okay
+    why: "Safe, and you owe nobody an explanation. But cameras do break; one clear ask gives a real person a fair chance."
+principle: "A real person can manage a short video call. Until they have, don't meet."

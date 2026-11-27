@@ -1,0 +1,20 @@
+set: online
+category: feeds
+order: 2
+title: "The shred stack"
+topic: "Body image"
+draft: false
+scene: gym:1
+situation: "Your feed is full of gym influencers with perfect bodies. One is selling a \"shred stack\" of supplements. After a week of watching, you feel worse about how you look than ever."
+question: "What is the best call?"
+options:
+  - text: "Buy the shred stack."
+    call: risky
+    why: "Supplements like these are often unproven, and some contain banned or unsafe ingredients. The influencer earns from every sale."
+  - text: "Mute or unfollow those accounts, follow some realistic ones, and talk to your GP if it's affecting how you eat."
+    call: best
+    why: "Feeds show the best angle on the best day, often edited. Changing what you see changes how you feel, and a GP can help if it goes deeper."
+  - text: "Train twice a day until you look like them."
+    call: okay
+    why: "Exercise is good, but chasing an edited body leads to injury and burnout. Their bodies may not even be real."
+principle: "Feeds show the best angle of the best day. Curate yours for how you want to feel."

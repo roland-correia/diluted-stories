@@ -1,0 +1,20 @@
+set: online
+category: adult-sites
+order: 6
+title: "The subscriptions"
+topic: "Spending"
+draft: false
+scene: bedroom:0
+situation: "You're twenty-two. Adding it up, you've spent nearly £200 a month on adult creator subscriptions and tips, and you're short on rent."
+question: "What is the best call?"
+options:
+  - text: "Carry on. It's your money."
+    call: risky
+    why: "It is your money, but it is now hurting your home and your plans. Platforms are designed to make spending feel small and easy."
+  - text: "Cancel the subscriptions, set a monthly limit, and talk to someone if stopping is hard."
+    call: best
+    why: "Cancelling breaks the automatic payments, and a limit makes the choice visible. If you can't stop, a GP or a helpline can help without judging."
+  - text: "Borrow to cover the rent and sort it out next month."
+    call: risky
+    why: "It pushes the problem into debt, which usually makes it harder to stop."
+principle: "If spending on adult content is hurting your money or plans, cancel, set limits, and get support if stopping is hard."

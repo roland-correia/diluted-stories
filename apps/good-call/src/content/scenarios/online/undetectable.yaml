@@ -1,0 +1,20 @@
+set: online
+category: hooking-up
+order: 6
+title: "Undetectable"
+topic: "HIV and trust"
+draft: false
+scene: cafe:1
+situation: "You've been seeing Femi for a few weeks. Before things go further, Femi tells you they're living with HIV, take daily treatment and have an undetectable viral load."
+question: "What is the best call?"
+options:
+  - text: "End it straight away, without saying why."
+    call: risky
+    why: "Fear is understandable, but HIV that is undetectable on treatment cannot be passed on through sex. Leaving in silence punishes honesty."
+  - text: "Thank Femi for telling you, ask your questions, and look up U=U. A sexual health clinic can also talk to you about PrEP."
+    call: best
+    why: "Undetectable means untransmittable. Femi trusted you with something personal; respect and good information are the right response."
+  - text: "Ask a friend what they think, so you're not deciding alone."
+    call: risky
+    why: "Someone's HIV status is theirs to share. Telling others without their permission breaks their trust and can cause real harm."
+principle: "Undetectable means untransmittable. Thank them for trusting you, and keep it private."

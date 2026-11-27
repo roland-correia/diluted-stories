@@ -1,0 +1,23 @@
+set: interview
+category: tricky
+order: 5
+title: "The video interview"
+topic: "Video interviews"
+draft: false
+scene: desk:0
+situation: "Ten minutes into a video interview, your connection drops. When you get back in, you have missed the end of a question, and you are flustered."
+question: "What is the best call?"
+options:
+  - text: "Carry on as if nothing happened, and guess what the question was."
+    call: risky
+    why: "Guessing risks answering the wrong question, which looks worse than the dropout. Interviewers expect technical problems on video calls."
+  - text: "Apologise briefly, say you lost the end of the question, and ask them to repeat it."
+    call: best
+    why: "Calm and practical. It shows you handle problems without fuss, which is exactly what employers want to see."
+  - text: "Apologise at length for the connection and your setup."
+    call: okay
+    why: "Owning it is fine, but a long apology keeps the focus on the problem. One sentence, then back to the interview."
+  - text: "Turn your camera off for the rest of it, in case it happens again."
+    call: risky
+    why: "Interviewers want to see you. Unless they suggest it, keep your camera on and test your setup before the next one."
+principle: "Technical problems happen. Say what you missed, ask for it again, and carry on calmly."

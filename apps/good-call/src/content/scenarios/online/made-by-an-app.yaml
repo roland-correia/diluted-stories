@@ -1,0 +1,20 @@
+set: online
+category: nudes
+order: 5
+title: "Made by an app"
+topic: "AI nudes"
+draft: false
+scene: school:2
+situation: "You're sixteen. Someone in your year has used an app to make a fake nude of a girl called Aisha from her Instagram photo. It's being passed around."
+question: "What is the best call?"
+options:
+  - text: "Laugh it off. Everyone knows it's fake."
+    call: risky
+    why: "It is a real person's face, and the harm is real. A sexual image of someone under 18 is illegal even when it is made by a computer, and sharing it spreads that harm."
+  - text: "Don't pass it on, and tell the school's safeguarding lead. Aisha can use Report Remove to get it taken down."
+    call: best
+    why: "Schools have a named person for exactly this. Not passing it on stops it growing, and Report Remove works for fake images too."
+  - text: "Message Aisha to let her know."
+    call: okay
+    why: "Kind, and she may want to know. But finding out alone can be overwhelming. Telling a trusted adult first means help is ready when she hears."
+principle: "A fake nude of a real person causes real harm. Never share it, and tell someone who can get it removed."

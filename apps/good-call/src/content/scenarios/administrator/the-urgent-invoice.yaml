@@ -1,0 +1,23 @@
+set: administrator
+category: trust
+order: 5
+title: "The urgent invoice"
+topic: "Phishing"
+draft: false
+scene: office:0
+situation: "An email from your director's name says: \"Urgent. I'm in meetings all day. Please pay this supplier invoice today and don't call, just email me back.\" The bank details are new."
+question: "What is the best call?"
+options:
+  - text: "Pay it. It's from the director, and it's urgent."
+    call: risky
+    why: "Urgency, secrecy and new bank details are the three signs of payment fraud. Criminals often copy a senior person's name."
+  - text: "Don't pay. Check with the director by phone or in person, using a number you already have, and tell IT or finance."
+    call: best
+    why: "Checking through a different route is the standard defence against this fraud. A real director will be glad you checked."
+  - text: "Reply to the email and ask if it's genuine."
+    call: okay
+    why: "If the email is fake, the reply goes straight to the criminal, who will say yes. Check another way."
+  - text: "Forward it to the whole office as a warning."
+    call: risky
+    why: "Warning colleagues is kind, but forwarding a phishing email spreads its links. Report it to IT, who can warn everyone safely."
+principle: "Urgent, secret and new bank details: check another way before any money moves."
