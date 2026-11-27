@@ -1,0 +1,30 @@
+set: online
+category: snap
+order: 3
+title: "Quick Add"
+topic: "Strangers"
+draft: false
+chat:
+  app: snap
+  with: "Jay"
+  status: "Added you by Quick Add"
+  messages:
+    - from: "them"
+      text: "hey u look cute"
+    - from: "them"
+      text: "wat school u go to"
+    - from: "them"
+      text: "send a pic of u now"
+situation: "Someone called Jay added you through Quick Add. You have twelve friends in common. Within minutes, the messages start."
+question: "What is the best call?"
+options:
+  - text: "Answer. You have twelve friends in common."
+    call: risky
+    why: "Mutual friends don't mean anyone knows Jay. People who target teenagers add lots of people from one school, so the numbers look reassuring."
+  - text: "Don't answer. Block and report the account."
+    call: best
+    why: "Asking where you go to school, then for a photo \"now\", straight away, is a pattern to take seriously. Blocking and reporting protects you and others."
+  - text: "Ask Jay to prove who they are first."
+    call: okay
+    why: "It shows you are careful, but anyone can send a fake photo or name. You don't owe a stranger a conversation at all."
+principle: "Mutual friends don't make someone safe. If they rush to private questions or pictures, block and report."

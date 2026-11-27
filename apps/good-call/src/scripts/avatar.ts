@@ -128,6 +128,8 @@ function accessory(id: AccessoryId, character: Character): string {
       return '<path d="M60 84l-9-5v10zM60 84l9-5v10z" fill="#9b2f52"/><circle cx="60" cy="84" r="2.2" fill="#7a2341"/>';
     case 'badge':
       return '<circle cx="72" cy="98" r="5.5" fill="#9fe0d0" stroke="#1f4e5f" stroke-width="1.2"/><path d="M69.4 98.2l1.9 1.9 3.6-3.6" fill="none" stroke="#1f4e5f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>';
+    case 'shades':
+      return '<rect x="41" y="48" width="16" height="11" rx="4" fill="#1f1f24"/><rect x="63" y="48" width="16" height="11" rx="4" fill="#1f1f24"/><path d="M57 52h6M41 51l-6-2M79 51l6-2" stroke="#1f1f24" stroke-width="2" stroke-linecap="round"/><rect x="44" y="50" width="5" height="2.5" rx="1.2" fill="#fff" opacity="0.35"/><rect x="66" y="50" width="5" height="2.5" rx="1.2" fill="#fff" opacity="0.35"/>';
     case 'headset':
       return '<path d="M34 54c0-20 12-30 26-30s26 10 26 30" fill="none" stroke="#2b2b33" stroke-width="3.5"/><rect x="30" y="50" width="8" height="13" rx="4" fill="#2f6690"/><rect x="82" y="50" width="8" height="13" rx="4" fill="#2f6690"/><path d="M34 62c0 8 6 10 14 10" fill="none" stroke="#2b2b33" stroke-width="2.5"/><circle cx="49" cy="72" r="2.5" fill="#2b2b33"/>';
     default:

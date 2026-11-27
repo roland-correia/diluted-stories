@@ -1,6 +1,9 @@
-// Module notes: short teaching shown at the start of a topic in the reader,
-// before its first question (src/components/Lesson.astro). A topic without an
-// entry here goes straight to its questions.
+// Lessons: short teaching at the start of a module in the reader, after its intro
+// and before its questions, shown as cards to tap through (src/components/StepLearn.astro).
+// Each section becomes one card, so keep sections short: a table of two columns
+// becomes flip cards, points become cards that open, quoted phrases become speech
+// bubbles, and numbered items become a self-check with boxes to tick.
+// A module without a lesson has a brief instead (src/lib/modules.ts).
 //
 // Keyed by `${set}/${topic}`, as the topics are named in src/lib/site.ts.
 // Keep every claim to what the evidence or the law supports, and describe nothing
@@ -14,7 +17,7 @@ export interface LessonSection {
   /** Points with a bold lead-in: "Your brain is biased." then the rest. */
   points?: { term: string; text: string }[];
   items?: string[];
-  /** Number the items (a self-check or a sequence of steps) rather than ticking them. */
+  /** A self-check: the items get boxes to tick, kept on screen only. (With `points`, it changes nothing.) */
   ordered?: boolean;
   /** A line after the list. */
   after?: string;
@@ -24,7 +27,7 @@ export interface Lesson {
   /** The opener: one fact or idea to carry through the module. */
   opener: string[];
   sections: LessonSection[];
-  /** One habit to practise this week. */
+  /** One habit to try, planned at the end of the module. */
   habit: { name: string; text: string };
 }
 
@@ -277,6 +280,228 @@ export const lessons: Record<string, Lesson> = {
     habit: {
       name: 'Your plan',
       text: 'Write down one trigger, one barrier, one swap and one person you will tell. Keep it somewhere private, such as a note on your phone.',
+    },
+  },
+
+  // ---------------------------------------------------------------- dating, apps and online life
+  'online/apps': {
+    opener: [
+      'Dating apps are a normal way to meet people. A few habits keep them fun: take your time, check people are real, and keep your own way home.',
+    ],
+    sections: [
+      {
+        heading: 'Spotting a fake profile',
+        table: {
+          head: ['What you notice', 'What it might mean'],
+          rows: [
+            ['A few photos, all very polished', 'They may be someone else\'s. A reverse image search can show where they came from.'],
+            ['Never able to video call', 'The most common sign of a catfish. A real person can manage a two-minute call.'],
+            ['"I love you" within days', 'Love-bombing. Real feelings take time to grow.'],
+            ['Asks for money, gift cards or crypto', 'A romance scam, every time. Stop, and report the profile.'],
+            ['Wants to leave the app straight away', 'Apps can ban scammers; private chats cannot. Stay on the app until you have met.'],
+          ],
+        },
+      },
+      {
+        heading: 'Before a first date',
+        items: [
+          'Video call first, so you know they are who they say they are.',
+          'Meet somewhere public and busy, in the daytime if you can.',
+          'Tell a friend who you are meeting, where, and when to expect a message.',
+          'Get there and home under your own steam.',
+          'Keep your drink with you, and leave whenever you want. You owe nobody the rest of the evening.',
+        ],
+      },
+    ],
+    habit: {
+      name: 'The friend text',
+      text: 'Before any first meet-up, text a friend who, where and when, and agree a time to check in.',
+    },
+  },
+
+  'online/snap': {
+    opener: [
+      'Snapchat feels private because messages disappear. But screenshots, screen recordings and location sharing mean that what you send, and where you are, can last.',
+    ],
+    sections: [
+      {
+        heading: 'Myths and facts',
+        table: {
+          head: ['Myth', 'Fact'],
+          rows: [
+            ['Snaps disappear, so they are safe', 'Anyone can screenshot, save it in chat, or film it with another phone. Assume it can last.'],
+            ['Only my friends can see me on the map', 'Check who your "friends" are. People you have never met could see where you live, study and sleep.'],
+            ['Breaking a streak means I don\'t care', 'Streaks are designed to bring you back every day. A friendship is not a number.'],
+            ['Quick Add only suggests people I know', 'It suggests people with friends in common, including strangers who have added lots of people your age.'],
+          ],
+        },
+      },
+      {
+        heading: 'Your two-minute settings check',
+        ordered: true,
+        items: [
+          'Map: who can see my location? Ghost Mode, or a few close friends only.',
+          'Contact: only friends can message or call me.',
+          'Friends: I have removed anyone I have never met in real life.',
+          'Quick Add: I am not suggested to strangers.',
+        ],
+        after: 'Settings move around after updates, so look again every few months.',
+      },
+    ],
+    habit: {
+      name: 'Map check',
+      text: 'Open your map settings and check exactly who can see where you are. Ghost Mode, or close friends only.',
+    },
+  },
+
+  'online/nudes': {
+    opener: [
+      'Sending nudes is common, and so is being pressured to. You never owe anyone a picture. If one is shared or used against you, it is not your fault, and help works.',
+    ],
+    sections: [
+      {
+        heading: 'What the law says',
+        text: 'In England and Wales:',
+        points: [
+          {
+            term: 'Under 18.',
+            text: 'Making, sending, asking for or keeping a sexual image of anyone under 18 is illegal, even of yourself, and even if everyone agreed. Between young people, the police usually focus on keeping everyone safe.',
+          },
+          {
+            term: 'Sharing without consent.',
+            text: 'Sharing, or threatening to share, an intimate image of anyone without their consent is a crime, at any age. That includes fake images made to look real.',
+          },
+          {
+            term: 'Pictures nobody asked for.',
+            text: 'Sending a picture of genitals to someone who did not ask for it can be cyberflashing, a crime since 2024.',
+          },
+        ],
+      },
+      {
+        heading: 'If someone threatens to share your images',
+        points: [
+          { term: "Don't pay.", text: 'Paying rarely ends it. Blackmailers usually come back for more.' },
+          { term: 'Stop replying.', text: "Block them, but don't delete the chat yet." },
+          { term: 'Keep the evidence.', text: 'Screenshot the messages, their profile and any payment details they gave.' },
+          {
+            term: 'Get it taken down.',
+            text: 'Under 18: Report Remove, from Childline and the Internet Watch Foundation. 18 or over: StopNCII.org and the Revenge Porn Helpline.',
+          },
+          { term: 'Tell someone.', text: 'A trusted adult, the police, or CEOP if you are under 18. You will not be in trouble.' },
+        ],
+      },
+    ],
+    habit: {
+      name: 'Your no, ready',
+      text: 'Choose a line for when someone asks for a nude, such as "Not my thing, but I\'m enjoying chatting", so you never have to find one under pressure.',
+    },
+  },
+
+  'online/adult-sites': {
+    opener: [
+      'Since July 2025, UK sites and apps that allow porn must check that users are 18 or over. The checks exist because porn is not made for under-18s, and they have changed what is safe to click.',
+    ],
+    sections: [
+      {
+        heading: 'Real checks and fake ones',
+        table: {
+          head: ['What you see', 'What to know'],
+          rows: [
+            ['A face scan or ID check on a big, well-known site', 'This is how the law is meant to work. Read what the checking company keeps before you agree.'],
+            ['A pop-up asking for card details to "prove your age"', 'Often a scam. A card number typed into an unknown site can be used to take money.'],
+            ['A link promising "no checks"', 'Sites that skip the checks skip other rules too, on content, scams and malware.'],
+            ['A warning that your device is infected, with a number to call', 'A scam. Close the tab. Never call the number or pay.'],
+          ],
+        },
+      },
+      {
+        heading: 'Content that should never exist',
+        points: [
+          {
+            term: 'Anyone who looks under 18.',
+            text: "Close it, and report the link to the Internet Watch Foundation. You can do it anonymously. Don't download or share it, even to report it.",
+          },
+          {
+            term: 'Anyone who did not agree.',
+            text: 'Hidden cameras, leaked videos and revenge porn. Watching and sharing them adds to real harm. Report them to the site.',
+          },
+          {
+            term: 'Fake nudes of real people.',
+            text: 'Deepfakes made without consent hurt real people, and sharing them is a crime.',
+          },
+        ],
+      },
+    ],
+    habit: {
+      name: 'Close the tab',
+      text: 'If a site asks for card details, says your device is infected, or shows anything that looks non-consensual or underage: close it, and report what should never exist.',
+    },
+  },
+
+  'online/hooking-up': {
+    opener: [
+      'Good sex starts with a clear yes and ends with everyone feeling OK. Protection, testing and the morning after are part of looking after each other, and in England they are free.',
+    ],
+    sections: [
+      {
+        heading: 'Free on the NHS in England',
+        points: [
+          { term: 'Condoms.', text: 'Free from sexual health clinics, and from C-Card schemes for young people in many areas.' },
+          { term: 'STI tests.', text: 'Free and confidential at sexual health clinics. Many areas post free test kits to your home.' },
+          {
+            term: 'The morning-after pill.',
+            text: 'Free at most pharmacies since October 2025, with no GP appointment. The sooner it is taken, the better it works.',
+          },
+          {
+            term: 'Advice.',
+            text: 'From your GP, a sexual health clinic or Brook. It is confidential for under-16s too, unless someone is at risk of serious harm.',
+          },
+        ],
+      },
+      {
+        heading: 'Checking in, naturally',
+        items: ['"Do you want to?"', '"Have you got a condom, or shall I grab one?"', '"Still good?"'],
+        after: 'Then listen to the answer. A clear, happy yes is the only green light.',
+      },
+    ],
+    habit: {
+      name: 'Test as routine',
+      text: 'Book a sexual health check with each new partner, or every few months if you are having sex. Treat it like the dentist.',
+    },
+  },
+
+  'online/feeds': {
+    opener: [
+      'Feeds are built to keep you scrolling, and anger and envy keep people scrolling longest. You can choose what you feed yourself.',
+    ],
+    sections: [
+      {
+        heading: 'What the feed shows you, and what you can do',
+        table: {
+          head: ['It shows you', 'Try this'],
+          rows: [
+            ['Bodies, money and lives that look effortless', 'It is edited and chosen. Unfollow accounts that leave you feeling worse.'],
+            ['Influencers saying women are worth less, or men must dominate', 'Outrage is how they earn. Ask who profits, then mute or scroll past.'],
+            ['A pile-on, everyone attacking one person', "Don't add to it. A report, or a private message of support, does more."],
+            ['More of whatever you lingered on', 'Tap "Not interested", and reset your feed when it turns dark.'],
+          ],
+        },
+      },
+      {
+        heading: 'Time for a break? A quick check',
+        ordered: true,
+        items: [
+          'I reach for my phone without deciding to.',
+          'I feel worse about my body, money or life after scrolling.',
+          'I lose sleep to it.',
+          'I feel angry or anxious most times I open the app.',
+        ],
+        after: 'If two or more are true, try one change this week, such as the phone out of the bedroom, or a time limit on one app.',
+      },
+    ],
+    habit: {
+      name: 'One unfollow a day',
+      text: 'Each day, unfollow or mute one account that leaves you feeling worse, and notice how your feed changes.',
     },
   },
 };

@@ -1,0 +1,33 @@
+set: online
+category: apps
+order: 2
+title: "The flight home"
+topic: "Romance scams"
+draft: false
+chat:
+  app: dating
+  with: "Alex"
+  status: "Matched 3 weeks ago"
+  messages:
+    - from: "them"
+      text: "I miss you so much. I can finally come and see you 🥺"
+    - from: "them"
+      text: "But my bank card is blocked while I'm abroad"
+    - from: "them"
+      text: "Could you lend me £300 for the flight? I'll pay you back the day I land ❤️"
+situation: "You have been talking to Alex for three weeks. Alex works abroad and has promised to visit as soon as possible. Today the messages are different."
+question: "What is the best call?"
+options:
+  - text: "Send half, to show you trust them."
+    call: risky
+    why: "This is how romance scams work: trust is built for weeks, then there is an emergency. Any money sent is almost always lost, and more requests follow."
+  - text: "Ask for proof, such as a photo of the ticket."
+    call: okay
+    why: "Better than paying, but tickets and documents are easy to fake, and it keeps the conversation going with someone who may be a scammer."
+  - text: "Don't send anything. Stop replying, and report the profile to the app."
+    call: best
+    why: "Anyone you have only met online who asks for money is a scammer, however real it feels. Reporting helps the app remove them before they reach someone else."
+  - text: "Offer to pay them back when they arrive."
+    call: risky
+    why: "Offering to pay later still keeps the money on the table. The visit is very unlikely to happen at all."
+principle: "Someone you have only met online who asks for money is a scam, however real it feels."

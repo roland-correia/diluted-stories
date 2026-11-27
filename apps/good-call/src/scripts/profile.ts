@@ -1,12 +1,12 @@
-// The Profile tab: the character on its stage, the stats, unfinished courses and
-// achievements, all from this browser's storage (see src/scripts/store.ts), and
+// The Profile tab: the character on its stage, the stats, unfinished courses, the
+// habits planned at the end of modules, and achievements, all from this browser's storage (see src/scripts/store.ts), and
 // the "Delete all my Good Call data" confirmation.
 
 import { PROGRESS_EVENT } from './progress';
 import { pointsEarned, courseStates, facts, PROFILE_EVENT, readProfile, unlockedAchievements } from './store';
 import { backgroundColour } from './avatar';
 import { mountStage, type Stage } from './stage';
-import { formatDuration } from '../lib/game';
+import { formatDuration, POINTS } from '../lib/game';
 
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
@@ -50,6 +50,33 @@ function render() {
   const reading = new Set(courseStates().filter((s) => s.answered > 0 && !s.complete).map((s) => s.course.id));
   document.querySelectorAll<HTMLElement>('[data-reading]').forEach((item) => (item.hidden = !reading.has(item.dataset.reading!)));
   document.querySelector<HTMLElement>('[data-reading-section]')!.hidden = reading.size === 0;
+
+  // Habits planned at the end of modules, newest first, and how each went.
+  const habitList = document.querySelector<HTMLElement>('[data-habit-list]');
+  if (habitList) {
+    const plans = [...profile.plans].reverse();
+    document.querySelector<HTMLElement>('[data-habits-section]')!.hidden = plans.length === 0;
+    habitList.replaceChildren(
+      ...plans.map((plan) => {
+        const item = document.createElement('li');
+        item.className = `habit-item ${plan.status ?? 'open'}`;
+        const mark = document.createElement('span');
+        mark.className = 'habit-mark';
+        mark.setAttribute('aria-hidden', 'true');
+        mark.textContent = plan.status === 'done' ? '✓' : plan.status === 'skipped' ? '–' : '…';
+        const text = document.createElement('span');
+        const name = document.createElement('b');
+        name.textContent = plan.name;
+        const detail = document.createElement('small');
+        const cue = plan.cue.charAt(0).toUpperCase() + plan.cue.slice(1);
+        detail.textContent =
+          plan.status === 'done' ? `Tried it. +${POINTS.followThrough} points` : plan.status === 'skipped' ? 'Not for you' : `Planned: ${cue}`;
+        text.append(name, detail);
+        item.append(mark, text);
+        return item;
+      }),
+    );
+  }
 
   // Achievements.
   const unlocked = unlockedAchievements(f);

@@ -1,0 +1,30 @@
+set: online
+category: apps
+order: 5
+title: "Not a match"
+topic: "Rejection"
+draft: false
+chat:
+  app: dating
+  with: "Priya"
+  messages:
+    - from: "them"
+      text: "Hey! Thanks for the last two nights out, I had fun"
+    - from: "them"
+      text: "I don't think we're a match though, so I'm going to call it here. Good luck with everything x"
+situation: "You've been on two dates with Priya, and you really liked her. This morning she messages you."
+question: "What is the best call?"
+options:
+  - text: "Ask what you did wrong, and how you could change."
+    call: okay
+    why: "Understandable, but it asks her to justify a feeling she has already been honest about. It can turn a kind ending into an uncomfortable one."
+  - text: "Reply \"No worries, thanks for being honest. Take care.\" and leave it there."
+    call: best
+    why: "She was clear and kind, and this matches it. Letting go well is attractive, and it leaves you free to meet someone who is into you."
+  - text: "Tell her she led you on."
+    call: risky
+    why: "Two dates are not a promise. Blaming her turns your disappointment into pressure, and that is how rejection becomes harassment."
+  - text: "Keep watching her stories in case she changes her mind."
+    call: risky
+    why: "It keeps you stuck and can feel unsettling to her. Muting her for a while is kinder to both of you."
+principle: "A clear no is a kindness. Reply once, warmly, and let it go."

@@ -1,0 +1,20 @@
+set: online
+category: nudes
+order: 4
+title: "After the break-up"
+topic: "Images you were sent"
+draft: false
+scene: bedroom:0
+situation: "You and your ex, both adults, sent each other photos while you were together. It ended a few weeks ago. You notice the pictures are still in your phone."
+question: "What is the best call?"
+options:
+  - text: "Keep them. They were sent to you."
+    call: risky
+    why: "They were shared for the relationship, not for keeping. Holding on to them, even without sharing, is a risk to someone who trusted you."
+  - text: "Delete them, including from backups and hidden folders, and tell your ex you have."
+    call: best
+    why: "It respects the trust they gave you, and telling them takes away a worry they may well have."
+  - text: "Delete them, but say nothing."
+    call: okay
+    why: "Deleting is the important part. Telling them is a small kindness that can give them real peace of mind."
+principle: "Pictures shared in a relationship belong to that relationship. When it ends, delete them."

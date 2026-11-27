@@ -1,0 +1,20 @@
+set: online
+category: adult-sites
+order: 4
+title: "Looks too young"
+topic: "Illegal content"
+draft: false
+scene: desk:0
+situation: "You're on an adult site and a video starts playing. The person in it looks under 18, even though the site says everyone is an adult."
+question: "What is the best call?"
+options:
+  - text: "Carry on. The site says they're all adults."
+    call: risky
+    why: "A site's label proves nothing. If someone looks under 18, it may be child sexual abuse material, and watching it fuels real harm."
+  - text: "Close it, and report the link to the Internet Watch Foundation. You can do it anonymously."
+    call: best
+    why: "The IWF works to get these images and videos removed. Reporting the link, not the video, is the safe and right way to do it."
+  - text: "Download it, to send to the police as proof."
+    call: risky
+    why: "Downloading or sharing it is itself a crime, even with good intentions. Report the link instead."
+principle: "If anyone looks under 18, stop, don't copy it, and report the link to the Internet Watch Foundation."

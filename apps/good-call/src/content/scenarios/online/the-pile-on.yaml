@@ -1,0 +1,20 @@
+set: online
+category: feeds
+order: 3
+title: "The pile-on"
+topic: "Online cruelty"
+draft: false
+scene: desk:0
+situation: "Someone in your year posted a video of themselves singing. The comments have turned nasty, and your mates want you to add one."
+question: "What is the best call?"
+options:
+  - text: "Add a joke. Everyone else is."
+    call: risky
+    why: "Each comment feels small, but together they can be crushing. Adding one makes you part of it."
+  - text: "Don't join in. Report the worst comments, and send them a kind message privately."
+    call: best
+    why: "A pile-on works because people stay quiet or join in. A report and a private message can change how the day feels for them."
+  - text: "Screenshot it into your group chat."
+    call: risky
+    why: "It spreads the cruelty further, to people who wouldn't have seen it."
+principle: "Don't add to a pile-on. One kind message is worth more than a hundred likes."

@@ -1,0 +1,20 @@
+---
+// A place for an illustrated scene (src/lib/scenes.ts). It is drawn in the browser
+// by src/scripts/scene.ts, with the visitor's own character in it, so the page
+// only carries a short description. The box keeps its shape before it is drawn,
+// so nothing jumps. Decorative: what the scene shows is also in the text.
+import type { SceneSpec } from '../lib/scenes';
+import { specText } from '../lib/scene-map';
+
+interface Props {
+  spec: SceneSpec;
+  /** Keeps the other people in the scene the same on every visit. */
+  seed: string;
+  /** 'wide' for a question (shorter), 'tall' for an intro, 'thumb' for a small tile. */
+  size?: 'wide' | 'tall' | 'thumb';
+}
+
+const { spec, seed, size = 'wide' } = Astro.props;
+---
+
+<div class:list={['scene', `scene-${size}`, `scene-at-${spec.setting}`]} data-scene={specText(spec)} data-seed={seed} aria-hidden="true"></div>

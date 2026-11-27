@@ -1,0 +1,53 @@
+---
+// A conversation on a phone screen, for scenarios that happen in messages: a text
+// thread, a group chat, a disappearing-message app or a dating app. The messages
+// pop in one after another (not for people who ask for reduced motion).
+// It is real text, read by screen readers and by the Listen button, so the
+// situation underneath does not need to repeat it.
+// Styled after no particular app: the scenario's text names the app if it matters.
+import type { ChatSpec } from '../lib/scenarios';
+
+interface Props {
+  chat: ChatSpec;
+}
+
+const { chat } = Astro.props;
+const appName = {
+  text: 'Messages',
+  group: 'Group chat',
+  snap: 'Disappearing messages',
+  dating: 'Dating app match',
+  dm: 'Direct messages',
+}[chat.app];
+const initials = chat.with
+  .split(/\s+/)
+  .map((word) => word[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<figure class:list={['chat', `chat-${chat.app}`]} aria-label={`${appName} with ${chat.with}`}>
+  <div class="chat-head">
+    <span class="chat-face" aria-hidden="true">{initials}</span>
+    <span>
+      <b>{chat.with}</b>
+      <small>{chat.status ?? appName}</small>
+    </span>
+  </div>
+  <ol class="chat-thread">
+    {
+      chat.messages.map((message, i) => {
+        const mine = message.from === 'me';
+        return (
+          <li class:list={['chat-msg', mine ? 'mine' : 'theirs', { system: message.from === 'system' }]} style={`--i: ${i}`}>
+            {!mine && message.from !== 'them' && message.from !== 'system' && <b class="chat-name">{message.from}</b>}
+            <span class="visually-hidden">{mine ? 'You: ' : message.from === 'system' ? '' : `${message.from === 'them' ? chat.with : message.from}: `}</span>
+            {message.text}
+            {message.time && <small class="chat-time">{message.time}</small>}
+          </li>
+        );
+      })
+    }
+  </ol>
+</figure>

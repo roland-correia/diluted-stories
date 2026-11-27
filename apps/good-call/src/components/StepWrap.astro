@@ -1,0 +1,72 @@
+---
+// The last step of a module in the reader: how the module went, then one habit to
+// try, planned as "When ..., I will ...". Planning the moment makes following
+// through far more likely (see docs/learning-science.md). The plan is saved in this
+// browser only, a calendar reminder can be added, and on the next visit Home asks
+// how it went (src/scripts/habits.ts).
+// Without JavaScript the habit is shown, and the planning part is not.
+import type { Habit } from '../lib/modules';
+
+interface Props {
+  /** `${set}/${topic}`: which module this habit belongs to. */
+  moduleKey: string;
+  name: string;
+  habit: Habit;
+  /** Moments to tie the habit to. */
+  cues: string[];
+  /** The question ids in this module, to show how it went. */
+  ids: string[];
+}
+
+const { moduleKey, name, habit, cues, ids } = Astro.props;
+const group = `cue-${moduleKey.replace(/[^a-z0-9]/gi, '-')}`;
+---
+
+<div class="step-wrap" data-wrap={moduleKey} data-ids={ids.join(',')}>
+  <p class="kicker" data-wrap-kicker>Module wrap-up</p>
+  <h2 tabindex="-1">{name}</h2>
+  <ol class="wrap-marks" data-wrap-marks aria-hidden="true">
+    {ids.map((id) => <li data-id={id} />)}
+  </ol>
+  <p class="wrap-score" data-wrap-score></p>
+
+  <section class="habit-card" aria-labelledby={`${group}-title`}>
+    <p class="kicker">Try this</p>
+    <h3 id={`${group}-title`}>{habit.name}</h3>
+    <p>{habit.text}</p>
+
+    <form class="plan" data-plan hidden>
+      <fieldset>
+        <legend>When will you try it?</legend>
+        <div class="cue-chips">
+          {
+            cues.map((cue, i) => (
+              <label>
+                <input type="radio" name={group} value={cue} checked={i === 0} />
+                <span>{cue}</span>
+              </label>
+            ))
+          }
+          <label>
+            <input type="radio" name={group} value="" data-own-cue />
+            <span>Another time</span>
+          </label>
+        </div>
+        <label class="own-cue" data-own-cue-field hidden>
+          <span>When?</span>
+          <input type="text" maxlength="80" placeholder="For example: when I get home on Friday" data-own-cue-text />
+        </label>
+      </fieldset>
+      <button class="btn block" data-commit>I'll try it</button>
+    </form>
+
+    <div class="planned" data-planned hidden>
+      <p class="planned-line">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+        <span><b data-planned-cue></b>, I'll try this. We'll ask how it went next time.</span>
+      </p>
+      <button type="button" class="btn ghost block" data-remind>Add a reminder to my calendar</button>
+      <button type="button" class="textbtn" data-replan>Change the plan</button>
+    </div>
+  </section>
+</div>

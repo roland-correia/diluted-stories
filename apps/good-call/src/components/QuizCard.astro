@@ -1,55 +1,40 @@
 ---
-// One scenario as a quiz: the situation, the answers, and the reason for each.
-// Used as a card in a course's reader, and on a scenario's own page.
-// src/scripts/scenario.ts makes each one work, and src/scripts/cast.ts puts the
-// visitor's own character into it.
-import { Image } from 'astro:assets';
+// One scenario as a question: where it happens (an illustrated scene, or the
+// conversation on a phone screen), the situation, the choices, and the reason for
+// each. Used as a step in a course's reader, and on a scenario's own page.
+// src/scripts/scenario.ts makes it work, src/scripts/scene.ts draws the scene with
+// the visitor's own character in it, and src/scripts/cast.ts puts their name in
+// the question.
+import Scene from './Scene.astro';
+import Chat from './Chat.astro';
 import { slugOf, type Scenario } from '../lib/scenarios';
 import { calls } from '../lib/site';
-import { imageOf, type Photo } from '../lib/photos';
+import { sceneFor } from '../lib/scene-map';
 
 interface Props {
   entry: Scenario;
-  /** The small line above the title, such as the scenario's theme. */
+  /** The small line above the title, such as the module's name. */
   label: string;
   /** 'page' when the scenario has a page to itself, so its title is the page heading. */
   as?: 'page' | 'card';
-  /** The photograph for this scenario's topic, if it has one. */
-  photo?: Photo;
 }
 
-const { entry, label, as = 'card', photo } = Astro.props;
+const { entry, label, as = 'card' } = Astro.props;
 const scenario = entry.data;
 const slug = slugOf(entry);
 const paragraphs = scenario.situation.trim().split(/\n\s*\n/);
 const Title = as === 'page' ? 'h1' : 'h2';
-const Principle = as === 'page' ? 'h2' : 'h3';
+const Takeaway = as === 'page' ? 'h2' : 'h3';
+const scene = sceneFor(entry.id, scenario.set, scenario.category, scenario.scene);
 ---
 
 <article class="quiz" data-scenario data-id={entry.id}>
-  <header class="group">
+  <header class="quiz-head">
     <p class="kicker">{label}</p>
     <Title class="quiz-title" tabindex="-1">{scenario.title}</Title>
   </header>
 
-  {
-    photo && (
-      <figure class="scene-photo">
-        <Image src={imageOf(photo)} alt={photo.alt} widths={[480, 720, 1000]} sizes="(min-width: 36rem) 32rem, 92vw" loading="lazy" />
-        <figcaption>
-          Photo by{' '}
-          <a href={photo.page} target="_blank" rel="noopener">
-            {photo.by} on Unsplash
-          </a>
-        </figcaption>
-      </figure>
-    )
-  }
-
-  <p class="cast" data-cast hidden>
-    <span class="avatar-slot" data-cast-avatar aria-hidden="true"></span>
-    <span>Playing as <b data-cast-name></b></span>
-  </p>
+  {scenario.chat ? <Chat chat={scenario.chat} /> : <Scene spec={scene} seed={entry.id} />}
 
   <div class="prose situation">
     {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
@@ -66,13 +51,15 @@ const Principle = as === 'page' ? 'h2' : 'h3';
               <span>
                 {option.text}
                 <em class="yours" data-yours hidden>
-                  Your answer
+                  Your call
                 </em>
               </span>
             </label>
             <div class="why" data-why data-call={option.call} tabindex="-1">
-              <b>
-                <span aria-hidden="true">{calls[option.call].mark}</span> {calls[option.call].label}
+              <b class="why-head">
+                <span class="why-mark" aria-hidden="true">{calls[option.call].mark}</span>
+                <span>{calls[option.call].label}</span>
+                <small class="why-points" data-why-points hidden></small>
               </b>
               <p>{option.why}</p>
             </div>
@@ -81,18 +68,20 @@ const Principle = as === 'page' ? 'h2' : 'h3';
       }
     </fieldset>
 
-    <p class="hint" data-hint role="alert" hidden>Choose an answer first. There is no time limit.</p>
-    <button class="btn block" data-check hidden>Lock in my answer</button>
-    <p class="fine" data-once hidden>You get one go. Once you lock in an answer, you cannot change it.</p>
-    <p class="fine" data-locked hidden>Your answer is locked in and cannot be changed.</p>
-    <button type="button" class="btn ghost block" data-show-all hidden>Show the reasons for the other answers</button>
+    <p class="hint" data-hint role="alert" hidden>Pick the answer closest to what you would do.</p>
+    <button class="btn block" data-check hidden>Make the call</button>
+    <button type="button" class="btn ghost block" data-show-all hidden>Compare the other answers</button>
   </form>
+
+  <p class="visually-hidden" data-verdict role="status"></p>
 
   <div data-after>
     <section class="principle">
-      <Principle>The principle</Principle>
-      <p>{scenario.principle}</p>
+      <Takeaway>Key takeaway</Takeaway>
+      <p><mark class="hl">{scenario.principle}</mark></p>
     </section>
     <slot name="after" />
   </div>
+
+  <button type="button" class="textbtn skip" data-skip hidden>Skip for now</button>
 </article>

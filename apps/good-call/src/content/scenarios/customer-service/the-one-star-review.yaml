@@ -1,0 +1,23 @@
+set: customer-service
+category: complaints
+order: 4
+title: "The one-star review"
+topic: "Public complaints"
+draft: false
+scene: shop:1
+situation: "A customer has posted a one-star review on your shop's social media page, saying a member of staff was rude to them. Your manager asks you to reply."
+question: "What is the best call?"
+options:
+  - text: "Reply that the customer was rude first."
+    call: risky
+    why: "Arguing in public looks defensive to everyone reading, whoever was right. It rarely changes the reviewer's mind and makes the business look worse."
+  - text: "Thank them, say you are sorry it happened, and invite them to message you privately so you can look into it."
+    call: best
+    why: "A short, calm public reply shows other customers you take complaints seriously. The details are then handled privately, where they belong."
+  - text: "Delete the review and say nothing."
+    call: okay
+    why: "Many platforms do not allow it, and customers notice when complaints disappear. A calm reply does more."
+  - text: "Name the member of staff and say they will be dealt with."
+    call: risky
+    why: "It shares a colleague's details and a disciplinary matter in public, which is unfair and can break data protection rules."
+principle: "Answer public complaints briefly and calmly in public, then sort out the details in private."

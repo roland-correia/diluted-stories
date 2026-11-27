@@ -1,0 +1,20 @@
+set: online
+category: hooking-up
+order: 1
+title: "\"It feels better without\""
+topic: "Condoms"
+draft: false
+scene: bedroom:1
+situation: "You're back at someone's place after a night out. Things are going well, until they say, \"Let's not bother with a condom. It feels better without.\""
+question: "What is the best call?"
+options:
+  - text: "Go along with it, so you don't spoil the mood."
+    call: risky
+    why: "Condoms protect against STIs and pregnancy. Giving in to pressure about it is not really a free choice, and you deserve to feel safe."
+  - text: "Say it's a condom or nothing, and mean it."
+    call: best
+    why: "Clear, fair and confident. Anyone who respects you will agree; anyone who argues has shown you something important."
+  - text: "Go ahead, and get the morning-after pill tomorrow."
+    call: okay
+    why: "The morning-after pill helps prevent pregnancy, but it does nothing against STIs, and it isn't meant for regular use."
+principle: "A condom is the deal. Anyone who argues about it is telling you something."

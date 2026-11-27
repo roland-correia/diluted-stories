@@ -2,11 +2,13 @@
 // - each book's progress, read out to screen readers ([data-book-status] inside [data-book]),
 // - the visitor's character wherever there is a [data-avatar] slot, and a greeting
 //   by the time of day with their name in [data-hello] ("Good morning, Sam"),
-// - the "Continue learning" card on the home page.
+// - the "Continue learning" card on the home page,
+// - today's goal on the home page: a ring that fills as questions are answered.
 // Used on Home, Explore and Profile. Redraws when an answer or the profile changes.
 
-import { PROGRESS_EVENT } from './progress';
-import { courseStates, PROFILE_EVENT, readProfile, type CourseState } from './store';
+import { PROGRESS_EVENT, readProgress } from './progress';
+import { courseStates, PROFILE_EVENT, readProfile, readStats, type CourseState } from './store';
+import { DAILY_GOAL, dayKey } from '../lib/game';
 import { avatarSvg } from './avatar';
 
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
@@ -48,6 +50,17 @@ function render() {
     hello.textContent = name ? `${greeting()}, ${name}` : greeting();
   });
 
+  // Today's goal. Shown from the first visit, so there is something to aim for.
+  const today = document.querySelector<HTMLElement>('[data-today]');
+  if (today) {
+    const count = readStats().counts?.[dayKey()] ?? 0;
+    today.hidden = false;
+    today.classList.toggle('met', count >= DAILY_GOAL);
+    today.querySelector<HTMLElement>('[data-today-ring]')!.style.setProperty('--p', String(Math.min(100, (count / DAILY_GOAL) * 100)));
+    today.querySelector<HTMLElement>('[data-today-count]')!.textContent = count >= DAILY_GOAL ? `${count} done` : `${count} of ${DAILY_GOAL}`;
+    today.setAttribute('aria-label', count >= DAILY_GOAL ? `Daily goal met: ${count} questions today` : `Today: ${count} of ${DAILY_GOAL} questions`);
+  }
+
   // Continue learning: the course read most recently, if it is unfinished;
   // otherwise any course that is started and unfinished.
   const section = document.querySelector<HTMLElement>('[data-continue-section]');
@@ -60,9 +73,22 @@ function render() {
       const show = card.dataset.continue === pick?.course.id;
       card.hidden = !show;
       if (!show || !pick) return;
-      card.querySelector<HTMLElement>('[data-continue-detail]')!.textContent = describe(pick);
-      card.querySelector<HTMLElement>('[data-continue-fill]')!.style.width = `${percentOf(pick)}%`;
+      // One segment per module, and the first module not yet finished named as next.
+      const progress = readProgress();
+      let nextName = '';
+      card.querySelectorAll<HTMLElement>('[data-mod-ids]').forEach((mod) => {
+        const ids = mod.dataset.modIds!.split(',');
+        const done = ids.filter((qid) => progress[qid]).length;
+        mod.querySelector('i')!.style.width = `${(done / ids.length) * 100}%`;
+        const complete = done === ids.length;
+        mod.classList.toggle('complete', complete);
+        const isNext = !complete && !nextName;
+        mod.classList.toggle('next', isNext);
+        if (isNext) nextName = mod.dataset.modName!;
+      });
+      card.querySelector<HTMLElement>('[data-continue-detail]')!.textContent = nextName ? `Next: ${nextName}` : describe(pick);
       card.querySelector<HTMLElement>('[data-continue-percent]')!.textContent = `${percentOf(pick)}%`;
+      card.setAttribute('aria-label', `Continue ${pick.course.name}. ${describe(pick)}.${nextName ? ` Next: ${nextName}.` : ''}`);
     });
   }
 }

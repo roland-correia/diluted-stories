@@ -1,0 +1,29 @@
+set: online
+category: nudes
+order: 6
+title: "Ask before you send"
+topic: "Consent online"
+draft: false
+chat:
+  app: text
+  with: "Chris"
+  messages:
+    - from: "them"
+      text: "Tonight's been fun 😏"
+    - from: "me"
+      text: "It really has"
+    - from: "them"
+      text: "What are you up to now?"
+situation: "You're twenty-three and have been seeing Chris for a month. The messages have been flirty all evening, and you're thinking of sending a sexy photo."
+question: "What is the best call?"
+options:
+  - text: "Send it as a surprise."
+    call: risky
+    why: "A sexual picture nobody asked for can feel intrusive, not flattering, and sending an image of genitals without consent can be the crime of cyberflashing."
+  - text: "Ask first, and respect the answer."
+    call: best
+    why: "Asking makes it something you both want. If the answer is yes, great; if not, nothing is lost, and you both know where you stand."
+  - text: "Drop a hint, and send it if Chris doesn't object."
+    call: okay
+    why: "Better than a surprise, but silence is not a yes. A clear question gets a clear answer."
+principle: "Ask before you send. A picture nobody asked for is not a gift, and it can be a crime."

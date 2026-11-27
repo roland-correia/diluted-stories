@@ -1,0 +1,20 @@
+set: online
+category: hooking-up
+order: 2
+title: "No symptoms"
+topic: "STI testing"
+draft: false
+scene: clinic:1
+situation: "You have a new partner and you're both thinking about not using condoms. Neither of you has any symptoms."
+question: "What is the best call?"
+options:
+  - text: "No need to test. Neither of you has symptoms."
+    call: risky
+    why: "Many STIs, including chlamydia, often have no symptoms at all. Without a test, there is no way to know."
+  - text: "Both get tested first: free and confidential at a sexual health clinic, or with a kit by post."
+    call: best
+    why: "Testing together is caring and normal. Results come quickly, and anything found is usually easy to treat."
+  - text: "Ask if they're \"clean\"."
+    call: okay
+    why: "Talking about it is good. But the word suggests that having an STI is dirty, and nobody can know without a test."
+principle: "Most STIs have no symptoms. Test with each new partner: it's free and confidential."

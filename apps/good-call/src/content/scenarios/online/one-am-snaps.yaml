@@ -1,0 +1,20 @@
+set: online
+category: snap
+order: 6
+title: "1am snaps"
+topic: "Sleep"
+draft: false
+scene: bedroom:0
+situation: "It's 1am and you have a test at nine. Your phone keeps lighting up with snaps from the group, and every time you put it down, another one comes in."
+question: "What is the best call?"
+options:
+  - text: "Keep replying. You'll be fine on six hours."
+    call: risky
+    why: "Each notification wakes your brain a little more, and the six hours usually becomes four. Tiredness hits memory and mood the next day."
+  - text: "Tell the group you're off till morning, turn on Do Not Disturb, and put your phone across the room."
+    call: best
+    why: "One message stops anyone wondering, and distance makes it easy to sleep. Friends who matter will be there in the morning."
+  - text: "Mute the chat but keep the phone next to your bed."
+    call: okay
+    why: "It helps, but the phone within reach is a pull of its own. Out of reach works far better than willpower."
+principle: "Notifications can wait till morning. Friends who matter will too."

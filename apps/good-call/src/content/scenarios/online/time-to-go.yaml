@@ -1,0 +1,23 @@
+set: online
+category: apps
+order: 4
+title: "Time to go"
+topic: "Leaving a date"
+draft: false
+scene: bar:1
+situation: "You are on a first date in a bar. It's not going well: your date keeps topping up your drink and is getting closer than you'd like. They say, \"Let's go back to mine, it's quieter.\""
+question: "What is the best call?"
+options:
+  - text: "Stay for one more, so it doesn't feel rude."
+    call: risky
+    why: "You owe nobody your time, and staying when you feel uneasy, with drinks being pushed, puts you at more risk. Politeness is not a reason to stay."
+  - text: "Say you're heading home, and book your own taxi."
+    call: best
+    why: "You can end any date at any time, without an excuse. Booking your own ride means you decide where you go and who knows."
+  - text: "Say a friend has an emergency, and leave."
+    call: okay
+    why: "It gets you out safely, which is what matters, and it can feel easier. Just know you never need an excuse to leave."
+  - text: "Let them walk you home so it ends nicely."
+    call: risky
+    why: "It hands over the one thing you need to keep: control of where you go, and who knows where you live."
+principle: "You can leave any date at any time. You don't need an excuse, and you get yourself home."

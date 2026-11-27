@@ -1,0 +1,20 @@
+set: online
+category: feeds
+order: 6
+title: "Seven hours"
+topic: "Screen time"
+draft: false
+scene: bedroom:0
+situation: "Your phone's weekly report says you averaged seven hours of screen time a day. You'd like it to be less."
+question: "What is the best call?"
+options:
+  - text: "Delete every app tonight."
+    call: okay
+    why: "It can work for a while, but big cuts often bounce back. A smaller, specific change is easier to keep."
+  - text: "Pick one change: a daily limit on your most-used app, or the phone out of the bedroom."
+    call: best
+    why: "Small, specific changes are the ones that stick. When one is easy, add the next."
+  - text: "Feel guilty, and carry on."
+    call: risky
+    why: "Guilt rarely changes a habit. A plan does."
+principle: "Small, specific changes beat big promises. Start with one app or one room."

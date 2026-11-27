@@ -1,0 +1,20 @@
+set: parent-teen
+category: values
+order: 3
+title: "The influencer"
+topic: "Misogyny online"
+draft: false
+scene: kitchen:teen
+situation: "Your daughter tells you her brother Kian, thirteen, has started saying girls are \"worth less\" and quoting an influencer he watches every night."
+question: "What is the best call?"
+options:
+  - text: "Ban his phone until he stops."
+    call: risky
+    why: "It may stop the videos for now, but it doesn't change his thinking, and it can make the influencer's message, that he is misunderstood, feel true."
+  - text: "Ask him to show you one of the videos, watch it together, ask what he thinks, then share your view calmly."
+    call: best
+    why: "Watching with him shows you are interested, not attacking. Many boys are drawn in by the confidence and money, not the hate; talking it through side by side helps him question it for himself."
+  - text: "Tell him you're disappointed in him."
+    call: okay
+    why: "Your values matter, and he should hear them. But leading with disappointment can end the conversation before it starts."
+principle: "Stay curious and keep talking. Shame pushes boys towards the people who say only they understand them."

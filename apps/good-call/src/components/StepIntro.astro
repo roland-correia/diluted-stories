@@ -1,0 +1,67 @@
+---
+// The first step of a module in the reader: its name, one idea to carry through
+// it, a scene, and how long it takes. Deliberately short, so starting feels easy.
+// The course's first module also says, once, how the questions work.
+import Scene from './Scene.astro';
+import type { SceneSpec } from '../lib/scenes';
+
+interface Props {
+  name: string;
+  /** The idea to carry through the module: the first line is shown large. */
+  lead: string[];
+  questions: number;
+  scene: SceneSpec;
+  seed: string;
+  /** True for the course's first module: say how the questions work. */
+  first: boolean;
+  /** Show a quiet link to the help list, for courses that can bring things up. */
+  help: boolean;
+}
+
+const { name, lead, questions, scene, seed, first, help } = Astro.props;
+const minutes = Math.max(2, Math.round(questions * 0.75));
+const [big, ...rest] = lead;
+---
+
+<div class="step-intro">
+  <Scene spec={scene} seed={seed} size="tall" />
+  <p class="kicker">New module</p>
+  <h2 class="display" tabindex="-1">{name}</h2>
+  <ul class="facts" aria-label="This module">
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+      {questions} {questions === 1 ? 'question' : 'questions'}
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+      {minutes} min
+    </li>
+  </ul>
+  {big && <p class="lead-big">{big}</p>}
+  {rest.map((line) => <p class="lead-more">{line}</p>)}
+  {
+    first && (
+      <ul class="how" aria-label="How it works">
+        <li>
+          <b>No timer.</b> Take as long as you like.
+        </li>
+        <li>
+          <b>Your first answer counts.</b> Pick what you would really do.
+        </li>
+        <li>
+          <b>Every answer is explained,</b> right or wrong.
+        </li>
+      </ul>
+    )
+  }
+  {
+    help && (
+      <p class="intro-help">
+        Hard topic?{' '}
+        <a href="#help" data-open-help>
+          Find support any time
+        </a>
+      </p>
+    )
+  }
+</div>

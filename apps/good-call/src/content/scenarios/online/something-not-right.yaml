@@ -1,0 +1,20 @@
+set: online
+category: hooking-up
+order: 4
+title: "Something not right"
+topic: "Symptoms"
+draft: false
+scene: clinic:1
+situation: "You've noticed it stings when you pee, and you've had sex with two people in the last month. You feel embarrassed."
+question: "What is the best call?"
+options:
+  - text: "Ignore it and hope it goes."
+    call: risky
+    why: "Many STIs don't clear up on their own, and some can cause lasting harm, including to fertility, if left untreated."
+  - text: "Search online and buy something from the shop."
+    call: okay
+    why: "It may ease the symptoms, but it won't treat an infection, and partners may still need to know."
+  - text: "Book a sexual health clinic. It's confidential, and they can tell partners for you without naming you."
+    call: best
+    why: "Clinic staff see this every day and don't judge. Treatment is usually quick, and telling partners protects everyone."
+principle: "Symptoms? Go to a sexual health clinic. It's confidential, nobody judges, and partners need to know."

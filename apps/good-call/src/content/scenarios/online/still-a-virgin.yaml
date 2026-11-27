@@ -1,0 +1,20 @@
+set: online
+category: hooking-up
+order: 5
+title: "\"Still a virgin?\""
+topic: "Pressure"
+draft: false
+scene: party:2
+situation: "You're nineteen. At pre-drinks, your mates find out you haven't had sex yet and won't let it go."
+question: "What is the best call?"
+options:
+  - text: "Hook up with someone tonight to shut them up."
+    call: risky
+    why: "Sex to prove a point to other people isn't really your choice. It can leave you feeling worse, and it treats the other person as a tool."
+  - text: "Laugh it off: \"When I want to, with someone I want to. Not on your schedule.\""
+    call: best
+    why: "Confident and true. There is no deadline for sex, and plenty of people your age haven't had it either."
+  - text: "Make something up so they stop."
+    call: okay
+    why: "It ends the teasing, but it suggests there was something to be ashamed of. There wasn't."
+principle: "There's no deadline for sex. The right time is when you want to, with someone who wants to too."

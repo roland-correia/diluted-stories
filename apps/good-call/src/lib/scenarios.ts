@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { sets, categories, type SetId } from './site';
 
 export type Scenario = CollectionEntry<'scenarios'>;
+export type ChatSpec = NonNullable<Scenario['data']['chat']>;
 
 // Drafts appear while you work (`npm run dev`) and in a preview built with
 // PUBLIC_SHOW_DRAFTS=true. A normal build for the live site leaves them out.
@@ -29,7 +30,6 @@ export function sectionsOf(set: SetId, scenarios: Scenario[]): Section[] {
     .map(([id, category]) => ({ id, ...category, scenarios: scenarios.filter((s) => s.data.category === id) }))
     .filter((section) => section.scenarios.length > 0);
 }
-
 
 // The sets that have a page: marked live and with at least one scenario to show.
 export async function getLiveSets(): Promise<{ id: SetId; scenarios: Scenario[] }[]> {

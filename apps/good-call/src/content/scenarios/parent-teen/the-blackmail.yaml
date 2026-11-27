@@ -1,0 +1,23 @@
+set: parent-teen
+category: safety
+order: 7
+title: "The blackmail"
+topic: "Sextortion"
+draft: false
+scene: kitchen:teen
+situation: "Your son Theo is fifteen. Late at night he comes to you, shaking. Someone he met online has a picture he sent, and is demanding £300 or they will send it to his friends."
+question: "What is the best call?"
+options:
+  - text: "Pay, to make it stop."
+    call: risky
+    why: "Paying rarely ends it; blackmailers usually ask for more. The National Crime Agency's advice is clear: don't pay."
+  - text: "Tell him he did the right thing, that he is not in trouble, and help him stop replying, keep the evidence, report it to CEOP and use Report Remove."
+    call: best
+    why: "This is sextortion, a crime against him. Your calm reaction is what makes him keep telling you. CEOP is specialist police, and Report Remove, from Childline and the Internet Watch Foundation, gets images of under-18s taken down."
+  - text: "Tell him he was stupid to send it."
+    call: risky
+    why: "He came to you at his most frightened. Shame now teaches him to hide things next time, and offenders rely on that silence."
+  - text: "Delete his accounts so they can't reach him."
+    call: okay
+    why: "Getting him away from them makes sense, but deleting can lose the evidence the police need. Keep it first, then report."
+principle: "If your child is being blackmailed: don't pay, praise them for telling you, keep the evidence and report it. It is not their fault."

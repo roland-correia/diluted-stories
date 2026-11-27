@@ -1,17 +1,16 @@
 ---
-// Topics used to have pages of their own. Each module is now one deck, so these
-// addresses send people to the first card of that topic in its module's deck.
-import { getLiveSets, sectionsOf, type Scenario } from '../../../../lib/scenarios';
+// Topics used to have pages of their own. Each course is now one reader, so these
+// addresses send people to the intro of that module in its course's reader.
+import { getLiveSets, sectionsOf } from '../../../../lib/scenarios';
 import { href } from '../../../../lib/paths';
 
 export async function getStaticPaths() {
   const liveSets = await getLiveSets();
   return liveSets.flatMap(({ id, scenarios }) => {
     const topics = sectionsOf(id, scenarios);
-    const order: Scenario[] = topics.flatMap((topic) => topic.scenarios);
     return topics.map((topic) => ({
       params: { set: id, topic: topic.id },
-      props: { target: `${href(`/practice/${id}/`)}#card=${order.indexOf(topic.scenarios[0]) + 1}` },
+      props: { target: `${href(`/practice/${id}/`)}#step=intro-${topic.id}` },
     }));
   });
 }

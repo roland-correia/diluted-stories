@@ -1,0 +1,20 @@
+set: online
+category: feeds
+order: 4
+title: "Rage bait"
+topic: "Anger online"
+draft: false
+scene: bedroom:0
+situation: "A video pops up mocking something you care about. You're furious, and you've half typed an angry reply."
+question: "What is the best call?"
+options:
+  - text: "Post the reply, and the angriest quote you can find."
+    call: risky
+    why: "That's exactly what the video wanted. Anger means engagement, and engagement means money for whoever posted it."
+  - text: "Close the app, take a breath, and decide later if it's worth replying."
+    call: best
+    why: "Anger fades, and a later decision is usually a better one. Not feeding it is the most effective response."
+  - text: "Send it to your mates to vent."
+    call: okay
+    why: "Talking it through can help, but it also spreads the video further."
+principle: "Anger is what keeps you scrolling. Notice it before you post."

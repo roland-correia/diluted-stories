@@ -71,7 +71,10 @@ export const FALLBACK_NAME = 'You';
 // Points are earned by answering and by finishing courses, and for now they are
 // simply collected. Turning them into real donations to charities is planned but
 // not released: until it is, nothing on the site may suggest that points are donated.
-export const POINTS = { best: 10, okay: 5, risky: 2, courseComplete: 50 } as const;
+export const POINTS = { best: 10, okay: 5, risky: 2, courseComplete: 50, followThrough: 15 } as const;
+
+/** Questions a day that count as a good session: about five minutes. */
+export const DAILY_GOAL = 5;
 
 // ---------------------------------------------------------------- achievements
 
@@ -87,6 +90,8 @@ export interface Facts {
   /** Every point earned so far. */
   points: number;
   customised: boolean;
+  /** Habits the visitor planned and then said they tried. */
+  habitsDone: number;
 }
 
 export interface Achievement {
@@ -97,7 +102,7 @@ export interface Achievement {
   /** Shown once it is unlocked. */
   praise: string;
   /** A small picture, drawn in the badge. */
-  icon: 'spark' | 'target' | 'eye' | 'book' | 'books' | 'clock' | 'hourglass' | 'flame' | 'fire' | 'heart' | 'person' | 'compass';
+  icon: 'spark' | 'target' | 'eye' | 'book' | 'books' | 'clock' | 'hourglass' | 'flame' | 'fire' | 'heart' | 'person' | 'compass' | 'check';
   test: (facts: Facts) => boolean;
 }
 
@@ -189,6 +194,14 @@ export const achievements: Achievement[] = [
     praise: 'Five hundred points, and counting.',
     icon: 'heart',
     test: (f) => f.points >= 500,
+  },
+  {
+    id: 'follow-through',
+    name: 'Follow-through',
+    goal: 'Plan a habit at the end of a module, then try it.',
+    praise: 'You turned a good call into something you did.',
+    icon: 'check',
+    test: (f) => f.habitsDone >= 1,
   },
   {
     id: 'make-it-yours',

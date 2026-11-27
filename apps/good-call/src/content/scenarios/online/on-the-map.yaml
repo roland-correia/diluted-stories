@@ -1,0 +1,20 @@
+set: online
+category: snap
+order: 1
+title: "On the map"
+topic: "Snap Map"
+draft: false
+scene: bedroom:0
+situation: "You open the map and see a friend's avatar outside your house. Then you realise: if you can see them, they can see you. Some of your Snapchat friends are people you met once, at a party last year."
+question: "What is the best call?"
+options:
+  - text: "Leave it. They're only friends."
+    call: risky
+    why: "\"Friends\" includes people you barely know. Anyone on that list can see where you live, study and sleep, and when you are home alone."
+  - text: "Switch to Ghost Mode, or share only with a few close friends, and tidy your friends list."
+    call: best
+    why: "Location sharing is useful with people you trust, and risky with anyone else. Two minutes in settings fixes it."
+  - text: "Delete Snapchat altogether."
+    call: okay
+    why: "It works, but it costs you the friends you do want to talk to. Changing who can see you keeps the good part."
+principle: "Share your location only with people you know and trust in real life."

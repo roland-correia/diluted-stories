@@ -1,0 +1,23 @@
+set: racism
+category: online
+order: 5
+title: "In the lobby"
+topic: "Gaming"
+draft: false
+scene: desk:0
+situation: "You're playing an online game with voice chat. A player on your team starts using racist slurs at another player, who goes quiet."
+question: "What is the best call?"
+options:
+  - text: "Mute them and carry on playing."
+    call: risky
+    why: "It protects you, but the player being targeted is still hearing it, and the abuser learns nobody will object."
+  - text: "Say \"Not OK, leave it\", report the player in the game, and check in with the person targeted."
+    call: best
+    why: "A short challenge, a report and a word to the person targeted all count. Games have reporting tools for exactly this, and abuse in voice chat can be a crime."
+  - text: "Leave the match."
+    call: okay
+    why: "Leaving is a fair choice if it gets nasty, but a report takes seconds and helps stop it happening to the next person."
+  - text: "Laugh along, so you don't become the next target."
+    call: risky
+    why: "Laughing tells everyone it's acceptable, including the person targeted, who now thinks the whole team agrees."
+principle: "In a game lobby or anywhere online: challenge it if you can, report it, and check in with the person targeted."

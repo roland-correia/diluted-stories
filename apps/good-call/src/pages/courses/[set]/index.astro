@@ -1,18 +1,18 @@
 ---
-// A course's book page: the cover, progress, what the course covers, its topics
-// with a photograph each, the character item it unlocks, and the charities
+// A course's book page: the cover, progress, what the course covers, its modules
+// with an illustration each, the character item it unlocks, and the charities
 // connected to it. The button at the bottom opens the reader on the first
 // unanswered question. src/scripts/book.ts fills in everything that depends on
 // this visitor.
-import { Image } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
 import BookCover from '../../../components/BookCover.astro';
 import Support from '../../../components/Support.astro';
 import Footer from '../../../components/Footer.astro';
+import Scene from '../../../components/Scene.astro';
 import { getLiveSets, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets, type SetId } from '../../../lib/site';
 import { courses, categories, accessories } from '../../../lib/courses';
-import { photoOf, imageOf } from '../../../lib/photos';
+import { sceneForTopic } from '../../../lib/scene-map';
 import { href } from '../../../lib/paths';
 
 export async function getStaticPaths() {
@@ -25,7 +25,6 @@ const set = sets[id] as Extract<(typeof sets)[SetId], { live: true }>;
 const course = courses[id];
 const sectioned = sectionsOf(id, scenarios);
 const topics: Section[] = sectioned.length > 0 ? sectioned : [{ id, name: set.name, blurb: set.blurb, scenarios }];
-const order = topics.flatMap((topic) => topic.scenarios);
 const minutes = Math.max(5, Math.round((scenarios.length * 1.5) / 5) * 5);
 const reader = href(`/practice/${id}/`);
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
@@ -57,7 +56,7 @@ const isWork = set.group === 'work';
       <h1>{set.name}</h1>
       <p class="book-by">{course.tagline}</p>
       <p class="meta">
-        <b>Good Call</b> · {plural(topics.length, 'topic')} · about {minutes} min
+        <b>Good Call</b> · {plural(topics.length, 'module')} · about {minutes} min
       </p>
       <a class="badge" href={href(`/explore/?category=${course.category}`)}>{categories[course.category].name}</a>
     </div>
@@ -69,15 +68,14 @@ const isWork = set.group === 'work';
     </section>
 
     <section class="group" aria-labelledby="topics-title">
-      <h2 id="topics-title">Topics</h2>
+      <h2 id="topics-title">Modules</h2>
       <ul class="topic-cards">
         {
           topics.map((topic) => {
-            const photo = photoOf(id, topic.id);
             return (
               <li>
-                <a class="topic-card" href={`${reader}#card=${order.indexOf(topic.scenarios[0]) + 1}`} data-topic-card data-ids={topic.scenarios.map((s) => s.id).join(',')}>
-                  {photo && <Image src={imageOf(photo)} alt="" widths={[336, 504]} sizes="168px" loading="lazy" />}
+                <a class="topic-card" href={`${reader}#step=intro-${topic.id}`} data-topic-card data-ids={topic.scenarios.map((s) => s.id).join(',')}>
+                  <Scene spec={sceneForTopic(id, topic.id)} seed={`${id}/${topic.id}`} size="thumb" />
                   <span>
                     <b>{topic.name}</b>
                     <small data-topic-status>{plural(topic.scenarios.length, 'question')}</small>
@@ -143,10 +141,11 @@ const isWork = set.group === 'work';
   </div>
 
   <div class="cta-bar">
-    <a class="btn" href={reader} data-start>Start reading</a>
+    <a class="btn" href={reader} data-start>Start the course</a>
   </div>
 
   <script>
     import '../../../scripts/book.ts';
+    import '../../../scripts/scene.ts';
   </script>
 </Base>

@@ -1,0 +1,20 @@
+set: online
+category: feeds
+order: 1
+title: "High-value men"
+topic: "Misogyny online"
+draft: false
+scene: living:teen
+situation: "Your younger brother, fourteen, keeps quoting an influencer: women should obey men, and \"high-value men\" don't do housework."
+question: "What is the best call?"
+options:
+  - text: "Laugh at him and call him an idiot."
+    call: risky
+    why: "Mocking him pushes him towards the influencer, who tells him he's misunderstood. Shame shuts the conversation down."
+  - text: "Ask what he likes about the videos, listen, then talk about who makes money from the anger."
+    call: best
+    why: "Curiosity keeps him talking. Many boys are drawn in by the confidence and the money, not the hate, and asking who profits shows the business behind it."
+  - text: "Tell your parents to take his phone."
+    call: okay
+    why: "They may need to know, but taking the phone doesn't change his thinking. A conversation does more."
+principle: "Curious questions beat lectures. Ask what draws them in, then talk about who profits from the anger."

@@ -1,0 +1,27 @@
+set: online
+category: nudes
+order: 3
+title: "\"I still have your pics\""
+topic: "Threats to share"
+draft: false
+chat:
+  app: text
+  with: "Dan"
+  messages:
+    - from: "them"
+      text: "Don't forget I've still got your pics"
+    - from: "them"
+      text: "Be a shame if your new mates saw them"
+situation: "You're twenty-two. You broke up with your ex, Dan, a month ago. Tonight, in an argument over text, he sends this."
+question: "What is the best call?"
+options:
+  - text: "Beg him to delete them."
+    call: okay
+    why: "Understandable, but it gives him the reaction he was after. What helps is keeping the evidence and getting support."
+  - text: "Screenshot the threat, stop replying, and contact the Revenge Porn Helpline. StopNCII.org can help stop the images being posted."
+    call: best
+    why: "Threatening to share intimate images is a crime. The helpline is specialist and free, and StopNCII creates a fingerprint of the image on your own phone, so taking-part platforms can block it."
+  - text: "Threaten him back with something of his."
+    call: risky
+    why: "It escalates things, and could put you on the wrong side of the law too. Keep the evidence and let the experts help."
+principle: "Threatening to share intimate images is a crime. Keep the evidence and get specialist help."

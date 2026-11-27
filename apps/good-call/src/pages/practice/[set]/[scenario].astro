@@ -1,43 +1,37 @@
 ---
 // A single scenario on a page of its own, for links that point straight to it.
-// The usual way through is its course's reader, one card at a time.
+// The usual way through is its course's reader, one step at a time.
 import Base from '../../../layouts/Base.astro';
 import Support from '../../../components/Support.astro';
 import Footer from '../../../components/Footer.astro';
 import QuizCard from '../../../components/QuizCard.astro';
 import { getLiveSets, pathOf, slugOf, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets } from '../../../lib/site';
-import { photoOf } from '../../../lib/photos';
 import { href } from '../../../lib/paths';
 
 export async function getStaticPaths() {
   const liveSets = await getLiveSets();
   return liveSets.flatMap(({ id, scenarios }) => {
     const sections = sectionsOf(id, scenarios);
-    // The order of cards in the module's deck: topic after topic.
-    const deck = sections.length > 0 ? sections.flatMap((section) => section.scenarios) : scenarios;
     return scenarios.map((entry) => ({
       params: { set: id, scenario: slugOf(entry) },
       props: {
         entry,
-        card: deck.indexOf(entry) + 1,
         chapter: sections.find((section) => section.id === entry.data.category),
       },
     }));
   });
 }
 
-const { entry, card, chapter } = Astro.props as {
+const { entry, chapter } = Astro.props as {
   entry: Scenario;
-  /** This scenario's place in its module's deck, counting from 1. */
-  card: number;
   chapter?: Section;
 };
 const scenario = entry.data;
 const set = sets[scenario.set];
 const setPath = href(`/practice/${scenario.set}/`);
-// Back, and the button after answering, return to this card in its module's deck.
-const quizPath = `${setPath}#card=${card}`;
+// Back, and the button after answering, return to this question in its course's reader.
+const quizPath = `${setPath}#step=${slugOf(entry)}`;
 const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
 ---
 
@@ -50,7 +44,7 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
   <div class="reader">
   <header class="reader-top">
     <div class="reader-bar">
-      <a class="iconbtn round" href={quizPath} aria-label={`Close, and go to this card in ${set.name}`}>
+      <a class="iconbtn round" href={quizPath} aria-label={`Close, and go to this question in ${set.name}`}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </a>
       <p style="flex:1;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{set.name}</p>
@@ -60,7 +54,7 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
   {scenario.draft && <p class="notice">Draft. This scenario is not published yet.</p>}
 
   <div class="deck-card" style="margin-top:0.6rem">
-  <QuizCard entry={entry} label={label} as="page" photo={chapter ? photoOf(scenario.set, chapter.id) : undefined}>
+  <QuizCard entry={entry} label={label} as="page">
     <nav class="stepper" aria-label="Module" slot="after">
       <a class="btn block" href={quizPath}>Continue {set.name}</a>
     </nav>
@@ -75,6 +69,7 @@ const label = chapter ? `${chapter.name}. ${scenario.topic}` : scenario.topic;
 
   <script>
     import '../../../scripts/scenario.ts';
+    import '../../../scripts/scene.ts';
     import '../../../scripts/cast.ts';
   </script>
 </Base>

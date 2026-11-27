@@ -1,16 +1,13 @@
 ---
 // About: the brand page, opened by the floating Good Call mark at the end of the
-// tab bar. It reads like the opening pages of a book: no cards, justified text, a
-// large initial letter, and chapters marked by a short rule. The disclaimer and
+// tab bar. It reads like the opening pages of a book: no cards, a large initial
+// letter, and chapters marked by a short rule. The disclaimer and
 // the privacy notice each have a page of their own.
 import Base from '../layouts/Base.astro';
 import { calls } from '../lib/site';
 import { POINTS } from '../lib/game';
-import { photos } from '../lib/photos';
 import { href } from '../lib/paths';
 
-// Every photographer, once, however many photos of theirs are used.
-const credits = [...new Map(Object.values(photos).map((photo) => [photo.by, photo])).values()];
 const values = [
   { term: 'Respect', text: "Every scenario starts from everyone's right to be treated with dignity." },
   { term: 'Honesty', text: 'Real situations, plainly told, without shaming anyone for not knowing yet.' },
@@ -22,7 +19,7 @@ const values = [
 
 <Base
   title="About"
-  description="What Good Call is and stands for, how it works, how answers are judged, points, supporting Good Call, and photo credits."
+  description="What Good Call is and stands for, how it works, how answers are judged, points and supporting Good Call."
   path="/about/"
   tab="about"
 >
@@ -64,11 +61,11 @@ const values = [
     <section class="page-section" id="how" aria-labelledby="how-title">
       <h2 id="how-title">How it works</h2>
       <ul class="ticks">
-        <li>Every course is a book. Open one to see its topics, then start reading.</li>
-        <li>No timer. Take as long as you need.</li>
-        <li>Every answer comes with its reason, the good ones too.</li>
-        <li>One go at each scenario. Once you lock in an answer, it stays.</li>
-        <li>Your character plays the main part. Finish a course to unlock something new for them to wear.</li>
+        <li>Every course is a book, in short modules: an intro, a few cards to tap through, then the questions.</li>
+        <li>One screen at a time, with a break offered after every five questions. Five a day is plenty.</li>
+        <li>No timer. Your first answer is the one that counts, and every answer comes with its reason.</li>
+        <li>Each module ends with one habit to try. Plan when, add a reminder if you like, and we ask how it went next time.</li>
+        <li>Your character plays the main part in every scene. Finish a course to unlock something new for them to wear.</li>
         <li>No account needed. Your progress is saved on this device.</li>
       </ul>
     </section>
@@ -100,7 +97,8 @@ const values = [
       <h2 id="points-title">About points</h2>
       <p>
         You collect points as you learn: {POINTS.best} for a good call, {POINTS.okay} for one that could be better,{' '}
-        {POINTS.risky} for trying, and {POINTS.courseComplete} for finishing a course.
+        {POINTS.risky} for trying, {POINTS.courseComplete} for finishing a course, and {POINTS.followThrough} each time you
+        try a habit you planned.
       </p>
       <p>
         We are working on turning the points you collect into real donations to charities connected to each course.
@@ -123,27 +121,7 @@ const values = [
       <p class="fine" id="donate-note">Donations are opening soon.</p>
     </section>
 
-    {
-      credits.length > 0 && (
-        <details class="credits-fold">
-          <summary>Photo credits</summary>
-          <p>
-            Photos are from <a href="https://unsplash.com/">Unsplash</a>, used under the{' '}
-            <a href="https://unsplash.com/license">Unsplash Licence</a>. Thank you to:
-          </p>
-          <ul class="credits">
-            {credits.map((photo) => (
-              <li>
-                <a href={photo.page} target="_blank" rel="noopener">
-                  {photo.by}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p class="fine">Book covers and characters are drawn for Good Call.</p>
-        </details>
-      )
-    }
+    <p class="fine">Illustrations, book covers and characters are drawn for Good Call.</p>
 
     <p class="fine">
       Please read the <a href={href('/disclaimer/')}>disclaimer</a> and the{' '}

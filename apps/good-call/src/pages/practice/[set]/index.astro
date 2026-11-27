@@ -1,23 +1,29 @@
 ---
-// The reader: a course as one continuous deck of cards, every question in it,
-// topic after topic, one card at a time, like the pages of a story. It opens on
-// the first unanswered card. The bar across the top has one segment per topic.
-// After the last card, a summary shows the results, the points earned and the
-// item unlocked, and leads on to the next book.
-// src/scripts/deck.ts runs the deck, src/scripts/scenario.ts each question on it,
-// src/scripts/listen.ts the Listen button and src/scripts/cast.ts puts the
-// visitor's character into each scenario.
-// Without JavaScript every card is shown in order, as a worked example.
+// The reader: a course as a run of short steps, one screen at a time.
+// Each module (a topic of the course) goes:
+//   intro -> its lesson as tap-through cards, if it has one -> its questions -> wrap-up,
+// and after the last module comes a summary with the results, the points earned
+// and the item unlocked.
+// Short steps, active choices and feedback straight away are deliberate: see
+// docs/learning-science.md.
+//
+// src/scripts/deck.ts runs the steps, src/scripts/scenario.ts each question,
+// src/scripts/scene.ts the illustrations, src/scripts/habits.ts the habit plans,
+// src/scripts/listen.ts the Listen button and src/scripts/cast.ts the visitor's
+// name in each question.
+// Without JavaScript every step is shown in order, as one long worked example.
 import Base from '../../../layouts/Base.astro';
 import Support from '../../../components/Support.astro';
 import Footer from '../../../components/Footer.astro';
 import QuizCard from '../../../components/QuizCard.astro';
-import Lesson from '../../../components/Lesson.astro';
-import { getLiveSets, sectionsOf, type Scenario, type Section } from '../../../lib/scenarios';
+import StepIntro from '../../../components/StepIntro.astro';
+import StepLearn from '../../../components/StepLearn.astro';
+import StepWrap from '../../../components/StepWrap.astro';
+import { getLiveSets, sectionsOf, slugOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets, type SetId } from '../../../lib/site';
 import { courses, accessories } from '../../../lib/courses';
-import { photoOf } from '../../../lib/photos';
-import { lessonOf } from '../../../lib/lessons';
+import { moduleOf, cuesFor } from '../../../lib/modules';
+import { sceneForTopic } from '../../../lib/scene-map';
 import { href } from '../../../lib/paths';
 
 export async function getStaticPaths() {
@@ -37,54 +43,106 @@ const isWork = set.group === 'work';
 const sectioned = sectionsOf(id, scenarios);
 // A course without topics is treated as one topic named after the course.
 const topics: Section[] = sectioned.length > 0 ? sectioned : [{ id: id, name: set.name, blurb: set.blurb, scenarios }];
-// The deck runs through the topics in order.
-const cards = topics.flatMap((topic) => topic.scenarios.map((entry) => ({ entry, topic })));
-const indexOf = (entry: Scenario) => cards.findIndex((card) => card.entry === entry);
-const count = (n: number) => `${n} ${n === 1 ? 'question' : 'questions'}`;
 const bookPath = href(`/courses/${id}/`);
 const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/`) } : undefined;
+const cues = cuesFor(id);
+// Courses that can bring something up get a quiet link to the help list on each module's intro.
+const sensitive = set.group !== 'work';
+
+type Step =
+  | { kind: 'intro'; key: string; topic: Section; first: boolean }
+  | { kind: 'learn'; key: string; topic: Section; index: number }
+  | { kind: 'question'; key: string; topic: Section; entry: Scenario }
+  | { kind: 'wrap'; key: string; topic: Section };
+
+const steps: Step[] = topics.flatMap((topic, t) => {
+  const module = moduleOf(id, topic.id);
+  return [
+    { kind: 'intro', key: `intro-${topic.id}`, topic, first: t === 0 } as Step,
+    ...(module?.sections ?? []).map((_, index) => ({ kind: 'learn', key: `learn-${topic.id}-${index + 1}`, topic, index }) as Step),
+    ...topic.scenarios.map((entry) => ({ kind: 'question', key: slugOf(entry), topic, entry }) as Step),
+    ...(module ? [{ kind: 'wrap', key: `wrap-${topic.id}`, topic } as Step] : []),
+  ];
+});
+const keyOfQuestion = (entry: Scenario) => slugOf(entry);
 ---
 
 <Base title={`Reading: ${set.name}`} description={set.intro} path={`/practice/${id}/`} chrome="bare">
-  <div class="reader">
+  <div class="reader" style={`--tint: ${course.cover.from}`}>
     <div class="deck" data-deck data-set={id}>
       <header class="reader-top">
         <div class="reader-bar">
           <a class="iconbtn round" href={bookPath} aria-label={`Close, and go back to ${set.name}`}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
           </a>
-          <h1>{set.name}</h1>
+          <ol class="deck-segs" aria-hidden="true">
+            {
+              topics.map((topic) => (
+                <li data-seg data-topic={topic.id} data-ids={topic.scenarios.map((s) => s.id).join(',')}>
+                  <i data-seg-fill />
+                </li>
+              ))
+            }
+          </ol>
+          <span class="chip chip-points reader-points" data-reader-points>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="8"></circle>
+              <path d="M12 8v8M9.5 10.2c0-1.2 1.1-2 2.5-2s2.5.8 2.5 1.9c0 2.6-5 1.5-5 4 0 1.1 1.1 1.9 2.5 1.9s2.5-.8 2.5-2"></path>
+            </svg>
+            <span data-points>0</span>
+            <span class="visually-hidden">&nbsp;points</span>
+          </span>
           <button type="button" class="iconbtn round" data-open-settings aria-haspopup="dialog" aria-label="Reading settings">Aa</button>
         </div>
-        <ol class="deck-segs" aria-hidden="true">
-          {
-            topics.map((topic) => (
-              <li data-seg data-ids={topic.scenarios.map((s) => s.id).join(',')} title={topic.name}>
-                <i data-seg-fill />
-              </li>
-            ))
-          }
-        </ol>
-        <p class="deck-count" data-deck-count aria-live="polite">{count(scenarios.length)}</p>
+        <h1 class="visually-hidden">{set.name}</h1>
+        <p class="deck-where" aria-live="polite">
+          <b data-where-topic>{topics[0].name}</b>
+          <span data-where-step></span>
+        </p>
       </header>
 
       <div class="deck-stage" data-deck-stage>
         {
-          cards.map(({ entry, topic }, index) => (
-            <section
-              class="deck-card"
-              id={`card-${index + 1}`}
-              data-slide
-              data-topic={topic.id}
-              aria-label={`${topic.name}. Card ${index + 1} of ${cards.length}`}
-            >
-              {topic.scenarios[0] === entry && lessonOf(id, topic.id) && <Lesson lesson={lessonOf(id, topic.id)!} name={topic.name} />}
-              <QuizCard entry={entry} label={topic.name} photo={photoOf(id, topic.id)} />
-            </section>
-          ))
+          steps.map((step) => {
+            const module = moduleOf(id, step.topic.id);
+            return (
+              <section
+                class:list={['deck-card', `step-${step.kind}`]}
+                id={step.kind === 'question' ? `card-${keyOfQuestion(step.entry)}` : step.key}
+                data-slide
+                data-kind={step.kind}
+                data-key={step.key}
+                data-topic={step.topic.id}
+                aria-label={step.topic.name}
+              >
+                {step.kind === 'intro' && (
+                  <StepIntro
+                    name={step.topic.name}
+                    lead={module?.lead ?? [step.topic.blurb]}
+                    questions={step.topic.scenarios.length}
+                    scene={sceneForTopic(id, step.topic.id)}
+                    seed={`${id}/${step.topic.id}`}
+                    first={step.first}
+                    help={sensitive}
+                  />
+                )}
+                {step.kind === 'learn' && module && <StepLearn section={module.sections[step.index]} />}
+                {step.kind === 'question' && <QuizCard entry={step.entry} label={step.entry.data.topic} />}
+                {step.kind === 'wrap' && module && (
+                  <StepWrap
+                    moduleKey={`${id}/${step.topic.id}`}
+                    name={step.topic.name}
+                    habit={module.habit}
+                    cues={cues}
+                    ids={step.topic.scenarios.map((s) => s.id)}
+                  />
+                )}
+              </section>
+            );
+          })
         }
 
-        <section class="deck-card deck-done" id="done" data-slide data-summary aria-labelledby="done-title">
+        <section class="deck-card deck-done" id="done" data-slide data-kind="done" data-key="done" data-summary aria-labelledby="done-title">
           <div class="done-badge" data-done-badge aria-hidden="true" hidden>
             <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
           </div>
@@ -96,59 +154,63 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
             {course.unlock && <span data-reward-item hidden>Unlocked: {accessories[course.unlock].name}</span>}
           </div>
 
-          {
-            topics.map((topic) => (
-              <section class="done-group" aria-label={topic.name}>
-                <h3>{topic.name}</h3>
-                <ol class="done-list">
-                  {topic.scenarios.map((entry) => (
-                    <li>
-                      <a href={`#card-${indexOf(entry) + 1}`} data-goto={indexOf(entry)}>
-                        <span class="done-mark" data-done-mark data-id={entry.id} aria-hidden="true" />
-                        <span>
-                          <b>{entry.data.title}</b>
-                          <small data-done-verdict data-id={entry.id}>
-                            Not answered yet
-                          </small>
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-            ))
-          }
-
-          <section class="done-rules" aria-labelledby="rules-title">
-            <h3 id="rules-title">{isWork ? 'What employers look for' : 'Key principles'}</h3>
-            <ul class="ticks">
-              {set.rules.map((rule) => <li>{rule}</li>)}
-            </ul>
-          </section>
-
-          <button type="button" class="btn block" data-resume hidden>Continue where you left off</button>
+          <button type="button" class="btn block" data-resume hidden>Pick up where you left off</button>
           {
             next && (
               <a class="btn block" href={next.path} data-next-module>
-                Next book: {next.name}
+                Next course: {next.name}
               </a>
             )
           }
+
+          <details class="done-fold">
+            <summary>Your answers</summary>
+            {
+              topics.map((topic) => (
+                <section class="done-group" aria-label={topic.name}>
+                  <h3>{topic.name}</h3>
+                  <ul class="done-list">
+                    {topic.scenarios.map((entry) => (
+                      <li>
+                        <a href={`#step=${keyOfQuestion(entry)}`} data-goto={keyOfQuestion(entry)}>
+                          <span class="done-mark" data-done-mark data-id={entry.id} aria-hidden="true" />
+                          <span>
+                            <b>{entry.data.title}</b>
+                            <small data-done-verdict data-id={entry.id}>
+                              Not answered yet
+                            </small>
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))
+            }
+          </details>
+
+          <details class="done-fold">
+            <summary>{isWork ? 'What employers look for' : 'Key principles'}</summary>
+            <ul class="ticks course-text">
+              {set.rules.map((rule) => <li>{rule}</li>)}
+            </ul>
+          </details>
+
           <a class="btn ghost block" href={bookPath}>Back to the course</a>
           <button type="button" class="textbtn done-reset" data-deck-reset>Clear my answers and start again</button>
         </section>
       </div>
 
-      <nav class="deck-nav" data-deck-nav aria-label="Cards" hidden>
+      <nav class="deck-nav" data-deck-nav aria-label="Steps" hidden>
         <div class="deck-nav-inner">
-          <button type="button" class="round-btn" data-prev aria-label="Previous card">
+          <button type="button" class="round-btn" data-prev aria-label="Back">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
           </button>
-          <button type="button" class="round-btn" data-next aria-label="Next card">
+          <button type="button" class="go-btn" data-next>
+            <span data-next-label>Continue</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
           </button>
-          <span class="next-label" data-next-label aria-hidden="true"></span>
-          <button type="button" class="round-btn listen" data-listen aria-pressed="false" aria-label="Listen to this card" hidden>
+          <button type="button" class="round-btn listen" data-listen aria-pressed="false" aria-label="Listen to this step" hidden>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path class="play" d="M8 5.5v13l10.5-6.5z"></path>
               <path class="stop" d="M8 6v12M16 6v12"></path>
@@ -156,6 +218,22 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
           </button>
         </div>
       </nav>
+
+      <dialog class="brain-break" data-break aria-labelledby="break-title">
+        <div class="break-ring" data-break-ring aria-hidden="true">
+          <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"></circle><circle class="fill" cx="22" cy="22" r="18" pathLength="100"></circle></svg>
+          <b data-break-count>5</b>
+        </div>
+        <h2 id="break-title" data-break-title>Five calls made</h2>
+        <p data-break-text>Short bursts with breaks help it stick. Keep going, or come back later.</p>
+        <button type="button" class="btn block" data-break-go>Keep going</button>
+        <details class="break-plan">
+          <summary>Plan my next five minutes</summary>
+          <div class="break-times" data-break-times></div>
+          <p class="fine" data-break-done hidden>Added. Your calendar will remind you.</p>
+        </details>
+        <a class="btn ghost block" href={bookPath}>Stop here for now</a>
+      </dialog>
     </div>
 
     <Support set={id} />
@@ -167,8 +245,9 @@ const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/
     import '../../../scripts/deck.ts';
     import '../../../scripts/cast.ts';
     import '../../../scripts/listen.ts';
+    import '../../../scripts/habits.ts';
 
-    // "See where to get help" in a module's notes opens the help list and scrolls to it.
+    // "Find support" on a module's intro opens the help list and scrolls to it.
     document.querySelectorAll('[data-open-help]').forEach((link) =>
       link.addEventListener('click', (event) => {
         const help = document.getElementById('help') as HTMLDetailsElement | null;

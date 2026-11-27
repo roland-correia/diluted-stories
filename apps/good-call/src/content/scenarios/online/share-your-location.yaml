@@ -1,0 +1,20 @@
+set: online
+category: snap
+order: 5
+title: "Share your location"
+topic: "Control"
+draft: false
+scene: living:1
+situation: "Your boyfriend, Kai, wants you both to share live locations all the time, \"so I know you're safe\". When you switched it off last weekend, he messaged you twenty times."
+question: "What is the best call?"
+options:
+  - text: "Keep sharing, to avoid another row."
+    call: risky
+    why: "Sharing to stop someone getting angry is not really a choice. Needing to know where a partner is at all times is a form of control, not care."
+  - text: "Tell him you'll share when it's useful, like walking home late, but not all the time, and notice how he reacts."
+    call: best
+    why: "It sets a fair boundary and gives him the chance to respect it. If he keeps checking, guilt-tripping or getting angry, that is a pattern worth talking to someone about."
+  - text: "Turn it off without telling him."
+    call: okay
+    why: "Your location is yours to control, but doing it quietly may trigger more anger. Saying it clearly, ideally somewhere you feel safe, puts it on the table."
+principle: "Location sharing is a choice you can change. Someone who demands to know where you are all the time is controlling, not caring."
