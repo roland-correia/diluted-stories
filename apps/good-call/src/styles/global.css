@@ -145,6 +145,8 @@ html[data-space='roomy'] { --lh: 2; --ls: 0.05em; --ws: 0.14em; }
    ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
+/* The reset above would pin every pop-up to the top left; dialogs centre themselves. */
+dialog { margin: auto; }
 [hidden] { display: none !important; }
 
 html { font-size: var(--fs); -webkit-text-size-adjust: 100%; }
@@ -677,10 +679,15 @@ html[data-size='lg'] .appbar .wm > span { position: absolute; width: 1px; height
 .round-btn:active:not(:disabled) { transform: scale(0.93); }
 .round-btn svg { width: 1.45rem; height: 1.45rem; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .round-btn:disabled { opacity: 0.35; cursor: default; }
-.round-btn.listen[aria-pressed='true'] { background: var(--blue); border-color: var(--blue); color: #fff; }
-.round-btn.listen svg path.play { fill: currentColor; }
-.round-btn.listen svg path.stop, .round-btn.listen[aria-pressed='true'] svg path.play { display: none; }
-.round-btn.listen[aria-pressed='true'] svg path.stop { display: inline; }
+/* Listen: a play triangle; while reading, a blue stop sign; while the first clips
+   load, a gentle pulse. */
+.listen { position: relative; }
+.listen[aria-pressed='true'] { background: var(--blue); border-color: var(--blue); color: #fff; }
+.listen svg path.play { fill: currentColor; }
+.listen svg path.stop, .listen[aria-pressed='true'] svg path.play { display: none; }
+.listen[aria-pressed='true'] svg path.stop { display: inline; }
+.listen.preparing { animation: listen-pulse 1.1s ease-in-out infinite; }
+@keyframes listen-pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--blue) 25%, transparent); } }
 .go-btn {
   flex: 1; min-width: 0; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
   min-height: 3.4rem; padding: 0 1.1rem; border-radius: 999px; border: 0;
@@ -1106,6 +1113,12 @@ mark.hl {
 .checkin-ask { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 0.3rem; }
 .checkin-ask .btn { flex: 1 1 8rem; }
 .checkin-thanks { font-weight: 700; }
+
+/* ==========================================================================
+   VOICE: the read-aloud voice in the Aa settings
+   ========================================================================== */
+.voice-setting { display: flex; flex-direction: column; gap: 0.6rem; }
+.voice-setting legend { margin-bottom: 0; }
 
 /* Profile: the habits planned at the end of modules. */
 .habit-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }

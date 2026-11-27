@@ -73,6 +73,16 @@ a plain sans-serif font, because justification makes word spacing uneven
 Cream backgrounds reduce glare for some readers. We make no stronger claim than that: evidence that
 any particular colour improves attention is weak.
 
+## Listen as well as read
+
+**What we do.** Every step can be read aloud in a natural recorded voice, warm and upbeat, like a
+friend talking you through it. It is never on unless you tap Listen.
+
+**Why.** Hearing text while reading it supports people with dyslexia and other reading difficulties,
+and lets anyone learn while their eyes are busy. The evidence is mixed for everyone else: Mayer's
+"redundancy principle" finds that narration plus identical on-screen text can slightly reduce
+learning for some, because attention is split. So Listen is a choice, never on by default.
+
 ## Calm, not compulsive
 
 **What we do.** No timers, no leaderboards, no countdowns, no loss-framed streak warnings. Motion

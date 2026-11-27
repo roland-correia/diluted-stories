@@ -19,12 +19,14 @@ import QuizCard from '../../../components/QuizCard.astro';
 import StepIntro from '../../../components/StepIntro.astro';
 import StepLearn from '../../../components/StepLearn.astro';
 import StepWrap from '../../../components/StepWrap.astro';
-import { getLiveSets, sectionsOf, slugOf, type Scenario, type Section } from '../../../lib/scenarios';
+import { getLiveSets, slugOf, type Scenario, type Section } from '../../../lib/scenarios';
 import { sets, type SetId } from '../../../lib/site';
 import { courses, accessories } from '../../../lib/courses';
 import { moduleOf, cuesFor } from '../../../lib/modules';
 import { sceneForTopic } from '../../../lib/scene-map';
 import { href } from '../../../lib/paths';
+import { courseNarration, topicsOf } from '../../../lib/course-narration';
+import { say } from '../../../lib/voice-clips';
 
 export async function getStaticPaths() {
   const liveSets = await getLiveSets();
@@ -40,9 +42,9 @@ const { id, scenarios, nextId } = Astro.props as { id: SetId; scenarios: Scenari
 const set = sets[id] as Extract<(typeof sets)[SetId], { live: true }>;
 const course = courses[id];
 const isWork = set.group === 'work';
-const sectioned = sectionsOf(id, scenarios);
-// A course without topics is treated as one topic named after the course.
-const topics: Section[] = sectioned.length > 0 ? sectioned : [{ id: id, name: set.name, blurb: set.blurb, scenarios }];
+const topics: Section[] = topicsOf(id, scenarios);
+// What Listen says on each step, as ids of the clips made in advance (src/lib/voice-clips.ts).
+const narration = courseNarration(id, scenarios);
 const bookPath = href(`/courses/${id}/`);
 const next = nextId ? { name: sets[nextId].name, path: href(`/courses/${nextId}/`) } : undefined;
 const cues = cuesFor(id);
@@ -114,6 +116,11 @@ const keyOfQuestion = (entry: Scenario) => slugOf(entry);
                 data-key={step.key}
                 data-topic={step.topic.id}
                 aria-label={step.topic.name}
+                data-say={narration.steps.get(step.key)?.say ? say(narration.steps.get(step.key)!.say!) || undefined : undefined}
+                data-say-done={step.kind === 'wrap' ? say(narration.steps.get(step.key)!.wrap!.complete) || undefined : undefined}
+                data-say-wrap={step.kind === 'wrap' ? say(narration.steps.get(step.key)!.wrap!.partial) || undefined : undefined}
+                data-say-planned={step.kind === 'wrap' ? say(narration.steps.get(step.key)!.wrap!.planned) || undefined : undefined}
+                data-say-plan={step.kind === 'wrap' ? say(narration.steps.get(step.key)!.wrap!.plan) || undefined : undefined}
               >
                 {step.kind === 'intro' && (
                   <StepIntro
@@ -142,7 +149,17 @@ const keyOfQuestion = (entry: Scenario) => slugOf(entry);
           })
         }
 
-        <section class="deck-card deck-done" id="done" data-slide data-kind="done" data-key="done" data-summary aria-labelledby="done-title">
+        <section
+          class="deck-card deck-done"
+          id="done"
+          data-slide
+          data-kind="done"
+          data-key="done"
+          data-summary
+          aria-labelledby="done-title"
+          data-say-complete={say(narration.done.complete) || undefined}
+          data-say-progress={say(narration.done.progress) || undefined}
+        >
           <div class="done-badge" data-done-badge aria-hidden="true" hidden>
             <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
           </div>

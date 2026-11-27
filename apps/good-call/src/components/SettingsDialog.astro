@@ -1,4 +1,6 @@
 ---
+import { SAMPLE } from '../lib/narration';
+import { say } from '../lib/voice-clips';
 // Reading settings, opened by the "Aa" button. It uses the browser's own
 // <dialog>, which traps keyboard focus and closes on Escape without extra code.
 // The choices are saved in this browser only (see src/scripts/settings.ts).
@@ -41,6 +43,18 @@
         <label><input type="radio" name="bg" value="cream" /><span>Cream</span></label>
         <label><input type="radio" name="bg" value="dark" /><span>Dark</span></label>
       </div>
+    </fieldset>
+
+    <fieldset class="voice-setting" data-voice-setting>
+      <legend>Read-aloud voice</legend>
+      <div class="seg">
+        <label><input type="radio" name="voice" value="natural" checked /><span>Natural</span></label>
+        <label><input type="radio" name="voice" value="device" /><span>Device</span></label>
+      </div>
+      <p class="fine">Natural is a recorded voice, bright and friendly. Device uses your phone's own voice.</p>
+      <button type="button" class="btn ghost block" data-voice-preview data-say={say([SAMPLE]) || undefined}>
+        <span data-voice-preview-label>Hear it</span>
+      </button>
     </fieldset>
 
     <button class="btn block" value="done">Done</button>

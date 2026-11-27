@@ -11,9 +11,9 @@ chat:
   messages:
     - from: "system"
       text: "14 new message requests"
-    - from: "them"
+    - from: "A stranger"
       text: "nobody asked for your opinion"
-    - from: "them"
+    - from: "Another stranger"
       text: "delete your account"
 situation: "Your post went viral overnight, and strangers are sending you abuse."
 question: "What is the best call?"

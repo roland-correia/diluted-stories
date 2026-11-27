@@ -1,0 +1,14 @@
+{
+  "name": "good-call-voice-tools",
+  "private": true,
+  "type": "module",
+  "description": "Makes Good Call's read-aloud clips with the Kokoro voice. Run locally, not in CI: see README.md.",
+  "scripts": {
+    "generate": "node generate.mjs",
+    "verify": "node verify.mjs"
+  },
+  "dependencies": {
+    "@breezystack/lamejs": "1.2.7",
+    "kokoro-js": "1.2.1"
+  }
+}
